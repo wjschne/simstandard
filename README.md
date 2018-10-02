@@ -35,4 +35,4 @@ data <- sim_standardized(m = model, n = 500)
 ```
 
 See more in the [tutorial for this
-package](https://wjschne.github.io/simstandard/).
+package](https://wjschne.github.io/simstandard/articles/simstandard_tutorial.html).
