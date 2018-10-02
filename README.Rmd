@@ -35,7 +35,7 @@ model <- "
 A =~ 0.5 * A1 + 0.8 * A2
 B =~ 0.6 * B1 + 0.7 * B2
 B ~ 0.8 * A
-C ~ 0.4 * A1
+C ~ 0.5 * A1
 "
 data <- sim_standardized(m = model, n = 500)
 ```
