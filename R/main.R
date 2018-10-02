@@ -10,7 +10,7 @@
 #' m = "Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"
 #'
 #' sim_standardized_matrices(m)
-sim_standardized_matrices <- function(m, max_iterations = 100){
+sim_standardized_matrices <- function(m, max_iterations = 100) {
 
   # Parameter Table
   pt <- lavParTable(m, fixed.x = F)
@@ -21,59 +21,71 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
   if (any(pt$op == "<~")) stop("Formative variables (defined with <~) are not allowed for this function.")
 
   # Check for user-set variances
-  if (any((pt$user != 0) & (pt$lhs == pt$rhs) & (pt$op == "~~") )) {
+  if (any((pt$user != 0) & (pt$lhs == pt$rhs) & (pt$op == "~~"))) {
     pt_manual_var <- pt[(pt$user != 0) & (pt$lhs == pt$rhs) & (pt$op == "~~"), ]
     pt_manual_rows <- paste0(pt_manual_var$lhs,
-                             " ", pt_manual_var$op,
-                             " ", ifelse(is.na(pt_manual_var$ustart),
-                                         "",
-                                         paste0(pt_manual_var$ustart, " * ")),
-                             pt_manual_var$rhs,
-                             collapse = "\n")
-    stop(paste0("All variances are set automatically to create standardized data.",
-                " You may not set variances manually. ",
-                ifelse(nrow(pt_manual_var) > 1,
-                       "Remove the following parameters:\n",
-                       "Remove the following parameter:\n"),
-                pt_manual_rows))
+      " ", pt_manual_var$op,
+      " ", ifelse(is.na(pt_manual_var$ustart),
+        "",
+        paste0(pt_manual_var$ustart, " * ")
+      ),
+      pt_manual_var$rhs,
+      collapse = "\n"
+    )
+    stop(paste0(
+      "All variances are set automatically to create standardized data.",
+      " You may not set variances manually. ",
+      ifelse(nrow(pt_manual_var) > 1,
+        "Remove the following parameters:\n",
+        "Remove the following parameter:\n"
+      ),
+      pt_manual_rows
+    ))
   }
 
 
   # Check for unset paths and covariances
   # if (any(((pt$op == "~") | (pt$op == "=~")) & (pt$free == 1),na.rm = T)) {
-  if (any(pt$free == 1,na.rm = T)) {
+  if (any(pt$free == 1, na.rm = T)) {
     pt_unset <- pt[pt$free == 1, ]
     pt_unset_rows <- paste0(pt_unset$lhs,
-                            " ", pt_unset$op,
-                            " ", pt_unset$rhs,
-                            collapse = "\n")
-    warning(paste0(ifelse(nrow(pt_unset) > 1,
-                          "Because the following relations were not set, they are assumed to be 0:\n",
-                          "Because the following relationship was not set, it is assumed to be 0:\n"),
-                   pt_unset_rows))
+      " ", pt_unset$op,
+      " ", pt_unset$rhs,
+      collapse = "\n"
+    )
+    warning(paste0(
+      ifelse(nrow(pt_unset) > 1,
+        "Because the following relations were not set, they are assumed to be 0:\n",
+        "Because the following relationship was not set, it is assumed to be 0:\n"
+      ),
+      pt_unset_rows
+    ))
   }
 
   # Check for paths greater than 1
   if (any(abs(pt$ustart) > 1, na.rm = T)) {
     pt_greater <- pt[abs(pt$ustart) > 1, ]
     pt_greater_rows <- paste0(pt_greater$lhs,
-                              " ", pt_greater$op,
-                              " ", pt_greater$ustart,
-                              " * ", pt_greater$rhs,
-                              collapse = "\n")
-    warningmessage <- paste0("Although it is sometimes possible to set standardized parameters greater than 1 or less than -1, it is rare to do so. More often than not, it causes model convergence problems. Check to make sure you set such a value on purpose. ",
-                             ifelse(nrow(pt_greater) > 1,
-                                    "The following paths were set to values outside the range of -1 to 1:\n",
-                                    "The following path was set to a value outside the range of -1 to 1:\n"
-                             ),
-                             pt_greater_rows)
+      " ", pt_greater$op,
+      " ", pt_greater$ustart,
+      " * ", pt_greater$rhs,
+      collapse = "\n"
+    )
+    warningmessage <- paste0(
+      "Although it is sometimes possible to set standardized parameters greater than 1 or less than -1, it is rare to do so. More often than not, it causes model convergence problems. Check to make sure you set such a value on purpose. ",
+      ifelse(nrow(pt_greater) > 1,
+        "The following paths were set to values outside the range of -1 to 1:\n",
+        "The following path was set to a value outside the range of -1 to 1:\n"
+      ),
+      pt_greater_rows
+    )
 
     warning(warningmessage)
   }
 
 
   # Variable Names----
-  v_all <- unique(c(pt$lhs,pt$rhs))
+  v_all <- unique(c(pt$lhs, pt$rhs))
   v_latent <- unique(pt$lhs[pt$op == "=~"])
   v_observed <- v_all[!(v_all %in% v_latent)]
   v_indicator <- unique(pt$rhs[pt$op == "=~"])
@@ -114,7 +126,7 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
   v_factor_score <- v_ellipse[!(v_ellipse %in% v_error_y)]
 
   # Set unspecified parameters to 0
-  pt[is.na(pt[,"ustart"]), "ustart"] <- 0
+  pt[is.na(pt[, "ustart"]), "ustart"] <- 0
 
   # Make RAM matrices----
 
@@ -130,7 +142,7 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
 
 
   # Assign loadings to A
-  for (i in pt[pt[, "op"] == "=~", "id"] ) {
+  for (i in pt[pt[, "op"] == "=~", "id"]) {
     A[pt$rhs[i], pt$lhs[i]] <- pt$ustart[i]
   }
 
@@ -146,36 +158,38 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
     exo_cor[pt$rhs[i], pt$lhs[i]] <- pt$ustart[i]
   }
 
-  #Solving for error variances and correlation matrix----
+  # Solving for error variances and correlation matrix----
 
-  #Column of k ones
+  # Column of k ones
   v1 <- matrix(1, k)
 
-  #Initial estimate of error variances
+  # Initial estimate of error variances
   varS <- as.vector(v1 - (A * A) %*% v1)
   S <- diag(varS) %*% exo_cor %*% diag(varS)
 
-  #Initial estimate of the correlation matrix
+  # Initial estimate of the correlation matrix
   iA <- solve(diag(k) - A)
-  R <- iA %*%  S  %*%  t(iA)
+  R <- iA %*% S %*% t(iA)
 
   # Set interaction count at 0
   iterations <- 0
 
   # Find values for S matrix
-  while ((round(sum(diag(R)), 10) !=  k) * (iterations < max_iterations) ) {
+  while ((round(sum(diag(R)), 10) != k) * (iterations < max_iterations)) {
     iA <- solve(diag(k) - A)
-    R <- iA  %*%  S  %*% t(iA)
-    sdS <- diag(diag(S) ^ 0.5)
+    R <- iA %*% S %*% t(iA)
+    sdS <- diag(diag(S)^0.5)
     S <- diag(diag(diag(k) - R)) + (sdS %*% exo_cor %*% sdS)
     diag(S)[diag(S) < 0] <- 0.00000001
     iterations <- iterations + 1
   }
-  if (iterations  ==  max_iterations) {
-    stop(paste0("Model did not converge after ",
-                max_iterations,
-                " iterations because at least one variable had a negative variance: ",
-                paste0(colnames(A)[(diag(S) == 0.00000001)], collapse = ", ")))
+  if (iterations == max_iterations) {
+    stop(paste0(
+      "Model did not converge after ",
+      max_iterations,
+      " iterations because at least one variable had a negative variance: ",
+      paste0(colnames(A)[(diag(S) == 0.00000001)], collapse = ", ")
+    ))
   }
 
   dimnames(S) <- dimnames(A)
@@ -197,25 +211,33 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
     }
   }
 
-  A_big <- rbind(cbind(A[v_endogenous, , drop = F], A_residual),
-                 matrix(0, nrow = nrow(A), ncol = nrow(A) + length(v_residual)))
+  A_big <- rbind(
+    cbind(A[v_endogenous, , drop = F], A_residual),
+    matrix(0, nrow = nrow(A), ncol = nrow(A) + length(v_residual))
+  )
   v_big <- c(vA, v_residual)
   dimnames(A_big) <- list(v_big, v_big)
 
   # Initialise S_big
   S_big <- matrix(0,
-                  nrow = length(v_big),
-                  ncol = length(v_big),
-                  dimnames = dimnames(A_big))
+    nrow = length(v_big),
+    ncol = length(v_big),
+    dimnames = dimnames(A_big)
+  )
 
   # Insert off-diagonal values of S into S_big
-  S_big[v_source,
-        v_source] <- exo_cor[c(v_exogenous,v_endogenous),
-                             c(v_exogenous,v_endogenous),
-                             drop = F]
+  S_big[
+    v_source,
+    v_source
+  ] <- exo_cor[c(v_exogenous, v_endogenous),
+    c(v_exogenous, v_endogenous),
+    drop = F
+  ]
   # Insert diagonal values of S_big
-  diag(S_big) <- c(rep(0,length(v_endogenous)),
-                   rep(1,length(v_exogenous) + length(v_residual)))
+  diag(S_big) <- c(
+    rep(0, length(v_endogenous)),
+    rep(1, length(v_exogenous) + length(v_residual))
+  )
 
 
   # Compute big correlation matrix of all variables
@@ -233,8 +255,8 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
 
     A_factor_score <- i_Rxx %*% R_xy
 
-    if (length(v_factor_score) > 0 ) {
-      v_FS <- paste0(v_factor_score,"_FS")
+    if (length(v_factor_score) > 0) {
+      v_FS <- paste0(v_factor_score, "_FS")
     } else {
       v_FS <- character(0)
     }
@@ -254,11 +276,13 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
 
 
     CM_composite <- t(A_composite) %*% R[v_observed_indicator,
-                                         v_observed_indicator,
-                                         drop = F] %*% A_composite
+      v_observed_indicator,
+      drop = F
+    ] %*% A_composite
 
-    A_composite_w <- A_composite %*% diag(diag(CM_composite) ^ -0.5,
-                                          nrow = nrow(CM_composite))
+    A_composite_w <- A_composite %*% diag(diag(CM_composite)^-0.5,
+      nrow = nrow(CM_composite)
+    )
     colnames(A_composite_w) <- v_composite_score
 
     colnames(A_factor_score) <- v_FS
@@ -266,23 +290,25 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
     # Factor weights
     fw <- cbind(A_factor_score, A_composite_w)
     W <- matrix(0,
-                nrow = nrow(A_big),
-                ncol = nrow(A_big) + ncol(fw),
-                dimnames = list(rownames(A_big),
-                                c(rownames(A_big), colnames(fw))))
+      nrow = nrow(A_big),
+      ncol = nrow(A_big) + ncol(fw),
+      dimnames = list(
+        rownames(A_big),
+        c(rownames(A_big), colnames(fw))
+      )
+    )
 
     diag(W) <- 1
 
     W[rownames(fw), colnames(fw)] <- fw
 
     # Grand correlation matrix of all variables
-    R_all <- cov2cor(t(W) %*% R_big %*% W)
+    R_all <- stats::cov2cor(t(W) %*% R_big %*% W)
 
 
     v_order_all <- c(v_order, v_residual, v_FS, v_composite_score)
 
     R_all <- R_all[v_order_all, v_order_all]
-
   } else {
     R_all <- R_big
     A_factor_score <- NULL
@@ -292,30 +318,39 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
   }
   # Return list ----
 
-  l_names <- list(v_observed = v_observed,
-                  v_latent = v_latent,
-                  v_latent_exogenous = v_latent_exogenous,
-                  v_latent_endogenous = v_latent_endogenous,
-                  v_observed_exogenous = v_observed_exogenous,
-                  v_observed_endogenous = v_observed_endogenous,
-                  v_observed_indicator = v_observed_indicator,
-                  v_disturbance = v_disturbance,
-                  v_error = v_error,
-                  v_residual = v_residual,
-                  v_factor_score = v_FS,
-                  v_composite_score = v_composite_score
+  l_names <- list(
+    v_observed = v_observed,
+    v_latent = v_latent,
+    v_latent_exogenous = v_latent_exogenous,
+    v_latent_endogenous = v_latent_endogenous,
+    v_observed_exogenous = v_observed_exogenous,
+    v_observed_endogenous = v_observed_endogenous,
+    v_observed_indicator = v_observed_indicator,
+    v_disturbance = v_disturbance,
+    v_error = v_error,
+    v_residual = v_residual,
+    v_factor_score = v_FS,
+    v_composite_score = v_composite_score
   )
 
-  list(RAM_matrices = list(A = A[v_order, v_order],
-                           S = S[v_order, v_order],
-                           filter_matrix = filter_matrix[v_order, v_order],
-                           iA = iA[v_order, v_order]),
-       Correlations = list(R = R[v_order, v_order],
-                           R_all = R_all),
-       Coefficients = list(factor_score = A_factor_score,
-                           composite_score = A_composite_w),
-       v_names = l_names,
-       iterations = iterations)
+  list(
+    RAM_matrices = list(
+      A = A[v_order, v_order],
+      S = S[v_order, v_order],
+      filter_matrix = filter_matrix[v_order, v_order],
+      iA = iA[v_order, v_order]
+    ),
+    Correlations = list(
+      R = R[v_order, v_order],
+      R_all = R_all
+    ),
+    Coefficients = list(
+      factor_score = A_factor_score,
+      composite_score = A_composite_w
+    ),
+    v_names = l_names,
+    iterations = iterations
+  )
 }
 
 
@@ -324,6 +359,13 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
 #' @export
 #' @param m Structural model represented by lavaan Syntax
 #' @param n Number of simulated cases
+#' @param observed Include observed variables
+#' @param latent Include latent variables
+#' @param errors Include observed error variables
+#' @param disturbances Include latent disturbances variables
+#' @param factor_scores Include factor score variables
+#' @param composites Include composite variables
+#' @param matrices Include matrices as attribute
 #' @return tibble with standardized data
 #' @importFrom mvtnorm rmvnorm
 #' @examples
@@ -332,31 +374,43 @@ sim_standardized_matrices <- function(m, max_iterations = 100){
 #'
 #' # simulate 10 cases
 #' sim_standardized(m, n = 10)
-sim_standardized <- function(m,
-                             n = 1000) {
+sim_standardized <- function(
+  m,
+  n = 1000,
+  observed = TRUE,
+  latent = TRUE,
+  errors = TRUE,
+  disturbances = TRUE,
+  factor_scores = FALSE,
+  composites = FALSE,
+  matrices = FALSE) {
 
   # Get main object
   o <- sim_standardized_matrices(m)
   # Simulate exogenous variables
-  S_names <- c(o$v_names$v_observed_exogenous,
-               o$v_names$v_observed_endogenous,
-               o$v_names$v_latent_exogenous,
-               o$v_names$v_latent_endogenous)
+  S_names <- c(
+    o$v_names$v_observed_exogenous,
+    o$v_names$v_observed_endogenous,
+    o$v_names$v_latent_exogenous,
+    o$v_names$v_latent_endogenous
+  )
 
-  u <- rmvnorm(n = n, sigma = o$RAM_matrices$S[S_names,S_names, drop = F])
-  colnames(u) <- c(o$v_names$v_observed_exogenous,
-                   o$v_names$v_error,
-                   o$v_names$v_latent_exogenous,
-                   o$v_names$v_disturbance)
-  v <- u %*% t(o$RAM_matrices$iA[S_names,S_names, drop = F])
+  u <- rmvnorm(n = n, sigma = o$RAM_matrices$S[S_names, S_names, drop = F])
+  colnames(u) <- c(
+    o$v_names$v_observed_exogenous,
+    o$v_names$v_error,
+    o$v_names$v_latent_exogenous,
+    o$v_names$v_disturbance
+  )
+  v <- u %*% t(o$RAM_matrices$iA[S_names, S_names, drop = F])
   d_blank <- matrix(nrow = n, ncol = 0)
   # d_observed <- v[ , o$v_names$v_observed, drop = F]
   # d_latent <- v[ , o$v_names$v_latent, drop = F]
   # d_disturbance <- u[ , o$v_names$v_disturbance, drop = F]
   # d_errors <- u[ , o$v_names$v_error, drop = F]
-  d_observed_indicators = v[, o$v_names$v_observed_indicator, drop = F]
+  d_observed_indicators <- v[, o$v_names$v_observed_indicator, drop = F]
 
-  if (length(o$v_names$v_observed_indicator) > 0 ) {
+  if (length(o$v_names$v_observed_indicator) > 0) {
     d_factor_scores <- d_observed_indicators %*% o$Coefficients$factor_score
   } else {
     d_factor_scores <- d_blank
@@ -369,15 +423,23 @@ sim_standardized <- function(m,
   }
   d <- tibble::as_tibble(
     cbind(
-      v[ , c(o$v_names$v_observed, o$v_names$v_latent), drop = F],
-      u[ , c(o$v_names$v_disturbance, o$v_names$v_error), drop = F],
+      v[, c(o$v_names$v_observed, o$v_names$v_latent), drop = F],
+      u[, c(o$v_names$v_disturbance, o$v_names$v_error), drop = F],
       d_factor_scores,
       d_composite_scores
     )
   )
 
-  attr(d,"model") <- o
+  if (matrices) attr(d, "matrices") <- o
 
-  return(d)
+  v_include <- character(0)
+  if (observed) v_include <- c(v_include, o$v_names$v_observed)
+  if (latent) v_include <- c(v_include, o$v_names$v_latent)
+  if (errors) v_include <- c(v_include, o$v_names$v_error)
+  if (disturbances) v_include <- c(v_include, o$v_names$v_disturbance)
+  if (factor_scores) v_include <- c(v_include, o$v_names$v_factor_score)
+  if (composites) v_include <- c(v_include, o$v_names$v_composite_score)
+
+
+  return(d[,v_include])
 }
-

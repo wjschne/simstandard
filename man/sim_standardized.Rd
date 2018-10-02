@@ -4,12 +4,28 @@
 \alias{sim_standardized}
 \title{Function that takes a lavaan model with standardized parameters and simulates latent scores, errors, disturbances, and observed scores}
 \usage{
-sim_standardized(m, n = 1000)
+sim_standardized(m, n = 1000, observed = TRUE, latent = TRUE,
+  errors = TRUE, disturbances = TRUE, factor_scores = FALSE,
+  composites = FALSE, matrices = FALSE)
 }
 \arguments{
 \item{m}{Structural model represented by lavaan Syntax}
 
 \item{n}{Number of simulated cases}
+
+\item{observed}{Include observed variables}
+
+\item{latent}{Include latent variables}
+
+\item{errors}{Include observed error variables}
+
+\item{disturbances}{Include latent disturbances variables}
+
+\item{factor_scores}{Include factor score variables}
+
+\item{composites}{Include composite variables}
+
+\item{matrices}{Include matrices as attribute}
 }
 \value{
 tibble with standardized data
