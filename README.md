@@ -33,3 +33,6 @@ C ~ 0.5 * A1
 "
 data <- sim_standardized(m = model, n = 500)
 ```
+
+See more in the [tutorial for this
+package](https://wjschne.github.io/simstandard/).
