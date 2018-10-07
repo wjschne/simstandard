@@ -12,9 +12,24 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
-)
+  comment = "#>",
+  dev = "svg",
+  out.height = "100%",
+  out.width = "100%",
+  fig.width = 7,
+  fig.height = 7
+  )
+library(lavaan)
+library(magrittr)
+library(simstandard)
+library(knitr)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
 ```
+
+# Purpose of `simstandard`
 
 In the figure below, you can see a hypothetical structural model with its standardized loadings, path coefficients, and covariances (i.e., standardized covariances = correlations). 
 
@@ -23,12 +38,21 @@ In the figure below, you can see a hypothetical structural model with its standa
 knitr::include_graphics("ModelFigure.svg")
 ```
 
-You need simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically and instead must be found iteratively.
+You need to simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically and instead must be found iteratively.
+
+Although lavaan::simulateData can simulate standardized data when the `standardized=TRUE` option is set, as of the time of this writing [it is often inaccurate](https://github.com/yrosseel/lavaan/issues/46).
 
 The `simstandard` package creates multivariate normal data using lavaan syntax.
 
+# Example
+
 ```{r}
 library(simstandard)
+library(magrittr)
+library(lavaan)
+library(knitr)
+options(digits = 2)
+
 # lavaan syntax for model
 m <- "
 A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1
@@ -40,23 +64,54 @@ B ~ 0.6 * A
 d <- sim_standardized(m, n = 100000)
 
 # Display First 6 rows
-knitr::kable(head(d), digits = 2)
+d %>% 
+  head %>% 
+  kable()
+
 ```
 
-```{r, eval = FALSE}
-cor(d)
+Because the data are standardized, the covariance matrix of the observed and latent variables should be nearly identical to a correlation matrix. The error and disturbance terms are not standardized.
+
+Let's make a function to display correlations and covariance matrices:
+
+```{r}
+ggcor <- function(d) {
+  require(ggplot2)
+  require(tibble)
+  require(tidyr)
+  require(dplyr)
+  as.data.frame(d) %>%
+    rownames_to_column("rowname") %>%
+    gather(colname, r, -rowname) %>%
+    mutate(rowname = forcats::fct_rev(rowname)) %>% 
+    ggplot(aes(colname, rowname, fill = r)) +
+    geom_tile(color = "gray90") +
+    geom_text(aes(label = formatC(
+      r, digits = 2, format = "f"
+    )), 
+    color = "white", fontface = "bold") +
+    scale_fill_gradient2(NULL,
+      na.value = "gray20",
+      limits = c(-1.01, 1.01),
+      high = "#924552",
+      low = "#293999"
+    ) +
+    coord_equal() +
+    scale_x_discrete(NULL,position = "top") +
+    scale_y_discrete(NULL) +
+    theme_light(base_family = "serif") 
+}
+
 ```
 
 
-```{r, echo = FALSE}
-# Create correlation matrix
-R <- cor(d)
-
-# Display correlation matrix
-knitr::kable(R, digits = 2)
+```{r}
+cov(d) %>% 
+  ggcor
 ```
 
 To return only the observed variables
+
 ```{r}
 d <- sim_standardized(m,
                       n = 100000,
@@ -64,9 +119,28 @@ d <- sim_standardized(m,
                       errors = FALSE,
                       disturbances = FALSE)
 # Display First 6 rows
-knitr::kable(head(d), digits = 2)
+d %>% 
+  head %>% 
+  kable() 
 ```
 
+# Comparison with `lavaan::simulateData`
+
+I love the `lavaan` package. However, one aspect of one function in `lavaan` is not quite right yet. `lavaan`'s `simulateData` function [is known to generate non-standardized data](https://github.com/yrosseel/lavaan/issues/46), even when the `standardized` parameter is set to `TRUE`. See how it creates variables B1, B2, and B3 with variances much higher than 1.
+
+
+
+```{r lavaan}
+library(lavaan)
+d_lavaan <- simulateData(
+  model = m, 
+  sample.nobs = 100000, 
+  standardized = TRUE)
+cov(d_lavaan) %>% 
+  ggcor
+```
+
+# Inspecting model matrices
 
 You can inspect the matrices that simstandard uses to create the data by calling `simstandardized_matrices`.
 
@@ -76,23 +150,41 @@ matrices <- sim_standardized_matrices(m)
 
 The A matrix contains all the asymmetric path coefficients (i.e., the loadings and the structural coefficients). These coefficients are specified in the lavaan model syntax.
 
-```{r, eval=FALSE}
-matrices$RAM_matrices$A
+```{r}
+matrices$RAM_matrices$A %>% 
+  ggcor()
 ```
-
-```{r, echo=FALSE}
-knitr::kable(matrices$RAM_matrices$A)
-```
-
 
 The S matrix contains all the symmetric path coefficients (i.e., the variances and correlations of the observed and latent variables). For endogenous variables, the variances and correlations refer to the variance and correlations of the variable's associated error or disturbance term. In this case, A is the only endogenous variable, and this its variance on the diagonal of the S matrix is 1.
 
-```{r, eval=FALSE}
-matrices$RAM_matrices$S, digits = 2
+```{r}
+matrices$RAM_matrices$S %>% 
+  ggcor()
 ```
 
-```{r, echo=F}
-knitr::kable(matrices$RAM_matrices$S, digits = 2)
-```
+# Factor scores
 
+If you want to estimate factor scores using the regression method (i.e., Thurstone's method), set the `factor_scores = TRUE'
+
+```{r}
+library(dplyr)
+library(tibble)
+library(kableExtra)
+library(corrr)
+library(ggplot2)
+m <- "
+A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3
+"
+sim_standardized(
+  m, 
+  n = 100000, 
+  observed = FALSE,
+  factor_scores = TRUE
+  ) %>% 
+  head() %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = c("striped","responsive"))
+  
+  
+```
 

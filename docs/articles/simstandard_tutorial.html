@@ -9,7 +9,8 @@
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Using the &lt;code&gt;simstandard&lt;/code&gt; package">
+<script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Using the &lt;code&gt;simstandard&lt;/code&gt; package">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -66,13 +67,13 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+      </header><script src="simstandard_tutorial_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Using the <code>simstandard</code> package</h1>
                         <h4 class="author">W. Joel Schneider</h4>
             
-            <h4 class="date">2018-10-02</h4>
+            <h4 class="date">2018-10-07</h4>
       
       
       <div class="hidden name"><code>simstandard_tutorial.Rmd</code></div>
@@ -81,23 +82,39 @@
 
     
     
+<div id="purpose-of-simstandard" class="section level1">
+<h1 class="hasAnchor">
+<a href="#purpose-of-simstandard" class="anchor"></a>Purpose of <code>simstandard</code>
+</h1>
 <p>In the figure below, you can see a hypothetical structural model with its standardized loadings, path coefficients, and covariances (i.e., standardized covariances = correlations).</p>
-<p><img src="ModelFigure.svg" width="650" style="display: block; margin: auto;"></p>
-<p>You need simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically and instead must be found iteratively.</p>
+<p><img src="ModelFigure.svg" width="650" height="100%" style="display: block; margin: auto;"></p>
+<p>You need to simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically and instead must be found iteratively.</p>
+<p>Although lavaan::simulateData can simulate standardized data when the <code>standardized=TRUE</code> option is set, as of the time of this writing <a href="https://github.com/yrosseel/lavaan/issues/46">it is often inaccurate</a>.</p>
 <p>The <code>simstandard</code> package creates multivariate normal data using lavaan syntax.</p>
+</div>
+<div id="example" class="section level1">
+<h1 class="hasAnchor">
+<a href="#example" class="anchor"></a>Example</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(simstandard)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># lavaan syntax for model</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">m &lt;-<span class="st"> "</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">B ~ 0.6 * A</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">"</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co"># Simulate data</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m, <span class="dt">n =</span> <span class="dv">100000</span>)</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co"># Display First 6 rows</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="kw">head</span>(d), <span class="dt">digits =</span> <span class="dv">2</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(lavaan)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(knitr)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># lavaan syntax for model</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">m &lt;-<span class="st"> "</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="st">B ~ 0.6 * A</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="st">"</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co"># Simulate data</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m, <span class="dt">n =</span> <span class="dv">100000</span>)</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"># Display First 6 rows</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">d <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="st">  </span>head <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">A1</th>
@@ -117,686 +134,462 @@
 <th align="right">d_B</th>
 </tr></thead>
 <tbody>
+<tr class="odd">
+<td align="right">-1.97</td>
+<td align="right">-0.65</td>
+<td align="right">-1.86</td>
+<td align="right">-2.15</td>
+<td align="right">-1.30</td>
+<td align="right">-2.07</td>
+<td align="right">-1.38</td>
+<td align="right">-1.77</td>
+<td align="right">-1.01</td>
+<td align="right">0.45</td>
+<td align="right">-0.61</td>
+<td align="right">-0.50</td>
+<td align="right">0.11</td>
+<td align="right">-0.48</td>
+<td align="right">-0.94</td>
+</tr>
+<tr class="even">
+<td align="right">0.65</td>
+<td align="right">-0.46</td>
+<td align="right">1.17</td>
+<td align="right">0.55</td>
+<td align="right">0.56</td>
+<td align="right">0.98</td>
+<td align="right">1.02</td>
+<td align="right">0.54</td>
+<td align="right">-0.07</td>
+<td align="right">-1.28</td>
+<td align="right">0.25</td>
+<td align="right">-0.13</td>
+<td align="right">0.13</td>
+<td align="right">0.49</td>
+<td align="right">-0.07</td>
+</tr>
 <tr class="odd">
 <td align="right">-1.09</td>
-<td align="right">-0.90</td>
-<td align="right">-1.80</td>
-<td align="right">-1.68</td>
-<td align="right">-0.25</td>
-<td align="right">-1.23</td>
-<td align="right">-1.68</td>
 <td align="right">-0.71</td>
-<td align="right">0.08</td>
-<td align="right">0.44</td>
-<td align="right">-0.28</td>
-<td align="right">-0.68</td>
-<td align="right">0.31</td>
-<td align="right">-0.59</td>
-<td align="right">0.30</td>
-</tr>
-<tr class="even">
-<td align="right">0.12</td>
-<td align="right">0.89</td>
-<td align="right">1.49</td>
-<td align="right">0.34</td>
-<td align="right">0.14</td>
-<td align="right">0.67</td>
-<td align="right">1.05</td>
-<td align="right">0.77</td>
-<td align="right">-0.62</td>
-<td align="right">0.05</td>
-<td align="right">0.55</td>
-<td align="right">-0.51</td>
-<td align="right">-0.48</td>
-<td align="right">-0.02</td>
-<td align="right">0.15</td>
-</tr>
-<tr class="odd">
-<td align="right">-0.39</td>
-<td align="right">-0.91</td>
-<td align="right">0.34</td>
-<td align="right">-0.04</td>
-<td align="right">0.63</td>
+<td align="right">-0.61</td>
 <td align="right">-0.53</td>
-<td align="right">-0.58</td>
+<td align="right">-0.78</td>
+<td align="right">-0.27</td>
+<td align="right">-0.91</td>
+<td align="right">-0.83</td>
 <td align="right">-0.45</td>
 <td align="right">0.02</td>
-<td align="right">-0.45</td>
-<td align="right">0.86</td>
-<td align="right">0.46</td>
-<td align="right">1.00</td>
-<td align="right">-0.12</td>
-<td align="right">-0.10</td>
+<td align="right">0.21</td>
+<td align="right">0.33</td>
+<td align="right">-0.11</td>
+<td align="right">0.48</td>
+<td align="right">-0.29</td>
 </tr>
 <tr class="even">
-<td align="right">-1.01</td>
-<td align="right">-0.41</td>
+<td align="right">-2.05</td>
 <td align="right">-0.51</td>
-<td align="right">-0.82</td>
-<td align="right">0.68</td>
-<td align="right">-0.99</td>
-<td align="right">-0.98</td>
-<td align="right">-0.30</td>
-<td align="right">-0.32</td>
+<td align="right">-1.42</td>
+<td align="right">-1.08</td>
+<td align="right">0.19</td>
+<td align="right">0.21</td>
+<td align="right">-1.38</td>
+<td align="right">-0.23</td>
+<td align="right">-1.09</td>
+<td align="right">0.60</td>
+<td align="right">-0.17</td>
+<td align="right">-0.51</td>
 <td align="right">0.38</td>
-<td align="right">0.37</td>
-<td align="right">-0.31</td>
-<td align="right">0.92</td>
-<td align="right">-0.71</td>
-<td align="right">0.29</td>
+<td align="right">0.41</td>
+<td align="right">0.60</td>
 </tr>
 <tr class="odd">
-<td align="right">0.06</td>
-<td align="right">-0.30</td>
-<td align="right">0.78</td>
-<td align="right">0.37</td>
+<td align="right">-1.35</td>
+<td align="right">-1.11</td>
+<td align="right">-1.04</td>
+<td align="right">-1.55</td>
 <td align="right">-0.83</td>
-<td align="right">-1.06</td>
-<td align="right">0.48</td>
-<td align="right">-0.72</td>
-<td align="right">-0.27</td>
-<td align="right">-0.68</td>
-<td align="right">0.35</td>
-<td align="right">0.73</td>
-<td align="right">-0.26</td>
-<td align="right">-0.42</td>
-<td align="right">-1.00</td>
-</tr>
-<tr class="even">
-<td align="right">1.60</td>
-<td align="right">1.19</td>
-<td align="right">0.73</td>
-<td align="right">1.18</td>
-<td align="right">1.03</td>
-<td align="right">1.78</td>
-<td align="right">1.10</td>
-<td align="right">1.83</td>
-<td align="right">0.83</td>
-<td align="right">0.31</td>
-<td align="right">-0.26</td>
-<td align="right">-0.43</td>
-<td align="right">-0.43</td>
-<td align="right">0.13</td>
-<td align="right">1.17</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">cor</span>(d)</a></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th></th>
-<th align="right">A1</th>
-<th align="right">A2</th>
-<th align="right">A3</th>
-<th align="right">B1</th>
-<th align="right">B2</th>
-<th align="right">B3</th>
-<th align="right">A</th>
-<th align="right">B</th>
-<th align="right">e_A1</th>
-<th align="right">e_A2</th>
-<th align="right">e_A3</th>
-<th align="right">e_B1</th>
-<th align="right">e_B2</th>
-<th align="right">e_B3</th>
-<th align="right">d_B</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>A1</td>
-<td align="right">1.00</td>
-<td align="right">0.56</td>
-<td align="right">0.63</td>
-<td align="right">0.51</td>
-<td align="right">0.34</td>
-<td align="right">0.38</td>
-<td align="right">0.70</td>
-<td align="right">0.42</td>
-<td align="right">0.72</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td>A2</td>
-<td align="right">0.56</td>
-<td align="right">1.00</td>
-<td align="right">0.72</td>
-<td align="right">0.57</td>
-<td align="right">0.38</td>
-<td align="right">0.43</td>
-<td align="right">0.80</td>
-<td align="right">0.48</td>
-<td align="right">0.00</td>
-<td align="right">0.60</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">-0.01</td>
-</tr>
-<tr class="odd">
-<td>A3</td>
-<td align="right">0.63</td>
-<td align="right">0.72</td>
-<td align="right">1.00</td>
-<td align="right">0.65</td>
-<td align="right">0.43</td>
-<td align="right">0.48</td>
-<td align="right">0.90</td>
-<td align="right">0.54</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.44</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td>B1</td>
-<td align="right">0.51</td>
-<td align="right">0.57</td>
-<td align="right">0.65</td>
-<td align="right">1.00</td>
-<td align="right">0.70</td>
-<td align="right">0.79</td>
-<td align="right">0.72</td>
-<td align="right">0.88</td>
-<td align="right">0.01</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.41</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">0.56</td>
-</tr>
-<tr class="odd">
-<td>B2</td>
-<td align="right">0.34</td>
-<td align="right">0.38</td>
-<td align="right">0.43</td>
-<td align="right">0.70</td>
-<td align="right">1.00</td>
-<td align="right">0.72</td>
-<td align="right">0.48</td>
-<td align="right">0.80</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.6</td>
-<td align="right">0.00</td>
-<td align="right">0.64</td>
-</tr>
-<tr class="even">
-<td>B3</td>
-<td align="right">0.38</td>
-<td align="right">0.43</td>
-<td align="right">0.48</td>
-<td align="right">0.79</td>
-<td align="right">0.72</td>
-<td align="right">1.00</td>
-<td align="right">0.54</td>
-<td align="right">0.90</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">-0.01</td>
-<td align="right">0.0</td>
-<td align="right">0.44</td>
-<td align="right">0.72</td>
-</tr>
-<tr class="odd">
-<td>A</td>
-<td align="right">0.70</td>
-<td align="right">0.80</td>
-<td align="right">0.90</td>
-<td align="right">0.72</td>
-<td align="right">0.48</td>
-<td align="right">0.54</td>
-<td align="right">1.00</td>
-<td align="right">0.60</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">-0.01</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td align="right">0.42</td>
-<td align="right">0.48</td>
-<td align="right">0.54</td>
-<td align="right">0.88</td>
-<td align="right">0.80</td>
-<td align="right">0.90</td>
-<td align="right">0.60</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">0.80</td>
-</tr>
-<tr class="odd">
-<td>e_A1</td>
-<td align="right">0.72</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.01</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.01</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td>e_A2</td>
-<td align="right">0.00</td>
-<td align="right">0.60</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">-0.01</td>
-</tr>
-<tr class="odd">
-<td>e_A3</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.44</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td>e_B1</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.41</td>
-<td align="right">0.00</td>
-<td align="right">-0.01</td>
-<td align="right">-0.01</td>
-<td align="right">0.00</td>
-<td align="right">0.01</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="odd">
-<td>e_B2</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.60</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">1.0</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td>e_B3</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.44</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="odd">
-<td>d_B</td>
-<td align="right">0.00</td>
-<td align="right">-0.01</td>
-<td align="right">0.00</td>
-<td align="right">0.56</td>
-<td align="right">0.64</td>
-<td align="right">0.72</td>
-<td align="right">0.00</td>
-<td align="right">0.80</td>
-<td align="right">0.00</td>
-<td align="right">-0.01</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-</tr>
-</tbody>
-</table>
-<p>To return only the observed variables</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m,</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">                      <span class="dt">n =</span> <span class="dv">100000</span>,</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">                      <span class="dt">latent =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">                      <span class="dt">errors =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">                      <span class="dt">disturbances =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># Display First 6 rows</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="kw">head</span>(d), <span class="dt">digits =</span> <span class="dv">2</span>)</a></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th align="right">A1</th>
-<th align="right">A2</th>
-<th align="right">A3</th>
-<th align="right">B1</th>
-<th align="right">B2</th>
-<th align="right">B3</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="right">0.76</td>
-<td align="right">0.93</td>
-<td align="right">0.23</td>
-<td align="right">0.67</td>
+<td align="right">-0.61</td>
+<td align="right">-1.27</td>
+<td align="right">-0.66</td>
+<td align="right">-0.46</td>
+<td align="right">-0.09</td>
 <td align="right">0.10</td>
-<td align="right">-0.21</td>
-</tr>
-<tr class="even">
-<td align="right">-0.50</td>
-<td align="right">0.49</td>
-<td align="right">-0.35</td>
-<td align="right">0.46</td>
-<td align="right">1.00</td>
+<td align="right">-0.71</td>
+<td align="right">-0.30</td>
 <td align="right">-0.01</td>
-</tr>
-<tr class="odd">
-<td align="right">-0.42</td>
-<td align="right">0.44</td>
-<td align="right">-0.50</td>
-<td align="right">-1.06</td>
-<td align="right">-1.53</td>
-<td align="right">-0.98</td>
+<td align="right">0.10</td>
 </tr>
 <tr class="even">
-<td align="right">-0.43</td>
-<td align="right">-0.70</td>
-<td align="right">0.05</td>
-<td align="right">-0.47</td>
-<td align="right">-1.51</td>
-<td align="right">-1.52</td>
-</tr>
-<tr class="odd">
-<td align="right">0.25</td>
-<td align="right">0.75</td>
-<td align="right">1.75</td>
-<td align="right">1.34</td>
-<td align="right">0.39</td>
-<td align="right">0.65</td>
-</tr>
-<tr class="even">
-<td align="right">-0.97</td>
-<td align="right">-0.18</td>
-<td align="right">0.52</td>
-<td align="right">-0.97</td>
-<td align="right">-1.06</td>
-<td align="right">-1.16</td>
-</tr>
-</tbody>
-</table>
-<p>You can inspect the matrices that simstandard uses to create the data by calling <code>simstandardized_matrices</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">matrices &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized_matrices.html">sim_standardized_matrices</a></span>(m)</a></code></pre></div>
-<p>The A matrix contains all the asymmetric path coefficients (i.e., the loadings and the structural coefficients). These coefficients are specified in the lavaan model syntax.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>A</a></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th></th>
-<th align="right">A1</th>
-<th align="right">A2</th>
-<th align="right">A3</th>
-<th align="right">B1</th>
-<th align="right">B2</th>
-<th align="right">B3</th>
-<th align="right">A</th>
-<th align="right">B</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>A1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0.7</td>
-<td align="right">0.0</td>
-</tr>
-<tr class="even">
-<td>A2</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0.8</td>
-<td align="right">0.0</td>
-</tr>
-<tr class="odd">
-<td>A3</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0.9</td>
-<td align="right">0.0</td>
-</tr>
-<tr class="even">
-<td>B1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0.3</td>
-<td align="right">0.7</td>
-</tr>
-<tr class="odd">
-<td>B2</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0.0</td>
-<td align="right">0.8</td>
-</tr>
-<tr class="even">
-<td>B3</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0.0</td>
-<td align="right">0.9</td>
-</tr>
-<tr class="odd">
-<td>A</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0.6</td>
-<td align="right">0.0</td>
-</tr>
-</tbody>
-</table>
-<p>The S matrix contains all the symmetric path coefficients (i.e., the variances and correlations of the observed and latent variables). For endogenous variables, the variances and correlations refer to the variance and correlations of the variable’s associated error or disturbance term. In this case, A is the only endogenous variable, and this its variance on the diagonal of the S matrix is 1.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>S, digits =<span class="st"> </span><span class="dv">2</span></a></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th></th>
-<th align="right">A1</th>
-<th align="right">A2</th>
-<th align="right">A3</th>
-<th align="right">B1</th>
-<th align="right">B2</th>
-<th align="right">B3</th>
-<th align="right">A</th>
-<th align="right">B</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>A1</td>
+<td align="right">1.36</td>
+<td align="right">0.69</td>
+<td align="right">-0.29</td>
+<td align="right">1.43</td>
+<td align="right">1.81</td>
+<td align="right">0.94</td>
+<td align="right">0.68</td>
+<td align="right">1.63</td>
+<td align="right">0.89</td>
+<td align="right">0.15</td>
+<td align="right">-0.90</td>
+<td align="right">0.09</td>
 <td align="right">0.51</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0</td>
-<td align="right">0.00</td>
+<td align="right">-0.53</td>
+<td align="right">1.23</td>
 </tr>
-<tr class="even">
-<td>A2</td>
-<td align="right">0.00</td>
-<td align="right">0.36</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0</td>
-<td align="right">0.00</td>
-</tr>
+</tbody>
+</table>
+<p>Because the data are standardized, the covariance matrix of the observed and latent variables should be nearly identical to a correlation matrix. The error and disturbance terms are not standardized.</p>
+<p>Let’s make a function to display correlations and covariance matrices:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">ggcor &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw">require</span>(ggplot2)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="kw">require</span>(tibble)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="kw">require</span>(tidyr)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="kw">require</span>(dplyr)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="kw">as.data.frame</span>(d) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">    </span><span class="kw">rownames_to_column</span>(<span class="st">"rowname"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">    </span><span class="kw">gather</span>(colname, r, <span class="op">-</span>rowname) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">rowname =</span> forcats<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/forcats/topics/fct_rev">fct_rev</a></span>(rowname)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(colname, rowname, <span class="dt">fill =</span> r)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">    </span><span class="kw">geom_tile</span>(<span class="dt">color =</span> <span class="st">"gray90"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">formatC</span>(</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">      r, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">format =</span> <span class="st">"f"</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">    )), </a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    <span class="dt">color =</span> <span class="st">"white"</span>, <span class="dt">fontface =</span> <span class="st">"bold"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="st">    </span><span class="kw">scale_fill_gradient2</span>(<span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">      <span class="dt">na.value =</span> <span class="st">"gray20"</span>,</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">      <span class="dt">limits =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.01</span>, <span class="fl">1.01</span>),</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">      <span class="dt">high =</span> <span class="st">"#924552"</span>,</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">      <span class="dt">low =</span> <span class="st">"#293999"</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">    ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="st">    </span><span class="kw">scale_x_discrete</span>(<span class="ot">NULL</span>,<span class="dt">position =</span> <span class="st">"top"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="st">    </span><span class="kw">theme_light</span>(<span class="dt">base_family =</span> <span class="st">"serif"</span>) </a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">cov</span>(d) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span>ggcor</a></code></pre></div>
+<p><img src="simstandard_tutorial_files/figure-html/unnamed-chunk-4-1.svg" width="100%" height="100%"></p>
+<p>To return only the observed variables</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m,</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">                      <span class="dt">n =</span> <span class="dv">100000</span>,</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">                      <span class="dt">latent =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">                      <span class="dt">errors =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">                      <span class="dt">disturbances =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># Display First 6 rows</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">d <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span>head <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="st">  </span><span class="kw">kable</span>() </a></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">A1</th>
+<th align="right">A2</th>
+<th align="right">A3</th>
+<th align="right">B1</th>
+<th align="right">B2</th>
+<th align="right">B3</th>
+</tr></thead>
+<tbody>
 <tr class="odd">
-<td>A3</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.19</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0</td>
-<td align="right">0.00</td>
+<td align="right">2.0</td>
+<td align="right">0.96</td>
+<td align="right">1.28</td>
+<td align="right">1.03</td>
+<td align="right">0.93</td>
+<td align="right">0.26</td>
 </tr>
 <tr class="even">
-<td>B1</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.17</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="odd">
-<td>B2</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.36</td>
-<td align="right">0.00</td>
-<td align="right">0</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td>B3</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.19</td>
-<td align="right">0</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="odd">
-<td>A</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">1</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0</td>
+<td align="right">1.3</td>
+<td align="right">1.26</td>
 <td align="right">0.64</td>
+<td align="right">0.42</td>
+<td align="right">-0.35</td>
+<td align="right">0.26</td>
+</tr>
+<tr class="odd">
+<td align="right">1.3</td>
+<td align="right">1.16</td>
+<td align="right">0.61</td>
+<td align="right">0.19</td>
+<td align="right">-0.11</td>
+<td align="right">-0.18</td>
+</tr>
+<tr class="even">
+<td align="right">-1.2</td>
+<td align="right">0.16</td>
+<td align="right">-0.39</td>
+<td align="right">0.53</td>
+<td align="right">0.29</td>
+<td align="right">1.37</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.1</td>
+<td align="right">-1.16</td>
+<td align="right">-0.79</td>
+<td align="right">-1.95</td>
+<td align="right">-1.53</td>
+<td align="right">-1.62</td>
+</tr>
+<tr class="even">
+<td align="right">1.5</td>
+<td align="right">0.24</td>
+<td align="right">1.56</td>
+<td align="right">0.68</td>
+<td align="right">-1.04</td>
+<td align="right">-1.33</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div id="comparison-with-lavaansimulatedata" class="section level1">
+<h1 class="hasAnchor">
+<a href="#comparison-with-lavaansimulatedata" class="anchor"></a>Comparison with <code><a href="http://www.rdocumentation.org/packages/lavaan/topics/simulateData">lavaan::simulateData</a></code>
+</h1>
+<p>I love the <code>lavaan</code> package. However, one aspect of one function in <code>lavaan</code> is not quite right yet. <code>lavaan</code>’s <code>simulateData</code> function <a href="https://github.com/yrosseel/lavaan/issues/46">is known to generate non-standardized data</a>, even when the <code>standardized</code> parameter is set to <code>TRUE</code>. See how it creates variables B1, B2, and B3 with variances much higher than 1.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(lavaan)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">d_lavaan &lt;-<span class="st"> </span><span class="kw">simulateData</span>(</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">  <span class="dt">model =</span> m, </a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="dt">sample.nobs =</span> <span class="dv">100000</span>, </a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">  <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="kw">cov</span>(d_lavaan) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">  </span>ggcor</a></code></pre></div>
+<p><img src="simstandard_tutorial_files/figure-html/lavaan-1.svg" width="100%" height="100%"></p>
+</div>
+<div id="inspecting-model-matrices" class="section level1">
+<h1 class="hasAnchor">
+<a href="#inspecting-model-matrices" class="anchor"></a>Inspecting model matrices</h1>
+<p>You can inspect the matrices that simstandard uses to create the data by calling <code>simstandardized_matrices</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">matrices &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized_matrices.html">sim_standardized_matrices</a></span>(m)</a></code></pre></div>
+<p>The A matrix contains all the asymmetric path coefficients (i.e., the loadings and the structural coefficients). These coefficients are specified in the lavaan model syntax.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>A <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">ggcor</span>()</a></code></pre></div>
+<p><img src="simstandard_tutorial_files/figure-html/unnamed-chunk-7-1.svg" width="100%" height="100%"></p>
+<p>The S matrix contains all the symmetric path coefficients (i.e., the variances and correlations of the observed and latent variables). For endogenous variables, the variances and correlations refer to the variance and correlations of the variable’s associated error or disturbance term. In this case, A is the only endogenous variable, and this its variance on the diagonal of the S matrix is 1.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>S <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">ggcor</span>()</a></code></pre></div>
+<p><img src="simstandard_tutorial_files/figure-html/unnamed-chunk-8-1.svg" width="100%" height="100%"></p>
+</div>
+<div id="factor-scores" class="section level1">
+<h1 class="hasAnchor">
+<a href="#factor-scores" class="anchor"></a>Factor scores</h1>
+<p>If you want to estimate factor scores using the regression method (i.e., Thurstone’s method), set the `factor_scores = TRUE’</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">library</span>(tibble)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">library</span>(kableExtra)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw">library</span>(corrr)</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">m &lt;-<span class="st"> "</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="st">A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="st">"</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">  m, </a>
+<a class="sourceLine" id="cb9-11" data-line-number="11">  <span class="dt">n =</span> <span class="dv">100000</span>, </a>
+<a class="sourceLine" id="cb9-12" data-line-number="12">  <span class="dt">observed =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb9-13" data-line-number="13">  <span class="dt">factor_scores =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">"striped"</span>,<span class="st">"responsive"</span>))</a></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:right;">
+A
+</th>
+<th style="text-align:right;">
+e_A1
+</th>
+<th style="text-align:right;">
+e_A2
+</th>
+<th style="text-align:right;">
+e_A3
+</th>
+<th style="text-align:right;">
+A_FS
+</th>
+<th style="text-align:right;">
+e_A1_FS
+</th>
+<th style="text-align:right;">
+e_A2_FS
+</th>
+<th style="text-align:right;">
+e_A3_FS
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:right;">
+-0.73
+</td>
+<td style="text-align:right;">
+-0.29
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+1.21
+</td>
+<td style="text-align:right;">
+-1.36
+</td>
+<td style="text-align:right;">
+-0.50
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-3.04
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+-0.23
+</td>
+<td style="text-align:right;">
+-2.49
+</td>
+<td style="text-align:right;">
+-0.89
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+-0.87
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-1.18
+</td>
+<td style="text-align:right;">
+-0.59
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+-1.29
+</td>
+<td style="text-align:right;">
+-1.14
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0.61
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-1.27
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+-0.31
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+-1.07
+</td>
+<td style="text-align:right;">
+-0.08
+</td>
+<td style="text-align:right;">
+-0.78
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-0.06
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+<td style="text-align:right;">
+-0.20
+</td>
+<td style="text-align:right;">
+-1.11
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+-0.43
+</td>
+<td style="text-align:right;">
+-1.63
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.07
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+-0.94
+</td>
+<td style="text-align:right;">
+1.09
+</td>
+<td style="text-align:right;">
+1.14
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+-1.34
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+  </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#purpose-of-simstandard">Purpose of <code>simstandard</code></a></li>
+      <li><a href="#example">Example</a></li>
+      <li><a href="#comparison-with-lavaansimulatedata">Comparison with <code><a href="http://www-rdocumentation-org/packages/lavaan/topics/simulateData">lavaan::simulateData</a></code></a></li>
+      <li><a href="#inspecting-model-matrices">Inspecting model matrices</a></li>
+      <li><a href="#factor-scores">Factor scores</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
