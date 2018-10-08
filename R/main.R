@@ -361,11 +361,10 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
 #' @param n Number of simulated cases
 #' @param observed Include observed variables
 #' @param latent Include latent variables
-#' @param errors Include observed error variables
-#' @param disturbances Include latent disturbances variables
+#' @param errors Include observed error and latent disturbances variables
 #' @param factor_scores Include factor score variables
 #' @param composites Include composite variables
-#' @param matrices Include matrices as attribute
+#' @param matrices Include matrices as attribute of tibble
 #' @return tibble with standardized data
 #' @importFrom mvtnorm rmvnorm
 #' @examples
@@ -380,7 +379,6 @@ sim_standardized <- function(
   observed = TRUE,
   latent = TRUE,
   errors = TRUE,
-  disturbances = TRUE,
   factor_scores = FALSE,
   composites = FALSE,
   matrices = FALSE) {
@@ -436,7 +434,7 @@ sim_standardized <- function(
   if (observed) v_include <- c(v_include, o$v_names$v_observed)
   if (latent) v_include <- c(v_include, o$v_names$v_latent)
   if (errors) v_include <- c(v_include, o$v_names$v_error)
-  if (disturbances) v_include <- c(v_include, o$v_names$v_disturbance)
+  if (errors) v_include <- c(v_include, o$v_names$v_disturbance)
   if (factor_scores) v_include <- c(v_include, o$v_names$v_factor_score)
   if (composites) v_include <- c(v_include, o$v_names$v_composite_score)
 

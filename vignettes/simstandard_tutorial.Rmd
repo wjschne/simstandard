@@ -2,7 +2,9 @@
 title: "Using the `simstandard` package"
 author: "W. Joel Schneider"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    df_print: kable
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -20,13 +22,14 @@ knitr::opts_chunk$set(
   fig.height = 7
   )
 library(lavaan)
-library(magrittr)
 library(simstandard)
 library(knitr)
 library(ggplot2)
 library(tibble)
 library(tidyr)
 library(dplyr)
+
+options(digits = 2)
 ```
 
 # Purpose of `simstandard`
@@ -48,10 +51,8 @@ The `simstandard` package creates multivariate normal data using lavaan syntax.
 
 ```{r}
 library(simstandard)
-library(magrittr)
 library(lavaan)
 library(knitr)
-options(digits = 2)
 
 # lavaan syntax for model
 m <- "
@@ -64,26 +65,18 @@ B ~ 0.6 * A
 d <- sim_standardized(m, n = 100000)
 
 # Display First 6 rows
-d %>% 
-  head %>% 
-  kable()
-
+head(d)
 ```
-
-Because the data are standardized, the covariance matrix of the observed and latent variables should be nearly identical to a correlation matrix. The error and disturbance terms are not standardized.
 
 Let's make a function to display correlations and covariance matrices:
 
 ```{r}
 ggcor <- function(d) {
   require(ggplot2)
-  require(tibble)
-  require(tidyr)
-  require(dplyr)
   as.data.frame(d) %>%
-    rownames_to_column("rowname") %>%
-    gather(colname, r, -rowname) %>%
-    mutate(rowname = forcats::fct_rev(rowname)) %>% 
+    tibble::rownames_to_column("rowname") %>%
+    tidyr::gather(colname, r, -rowname) %>%
+    dplyr::mutate(rowname = forcats::fct_rev(rowname)) %>% 
     ggplot(aes(colname, rowname, fill = r)) +
     geom_tile(color = "gray90") +
     geom_text(aes(label = formatC(
@@ -104,8 +97,9 @@ ggcor <- function(d) {
 
 ```
 
+Because the data are standardized, the covariance matrix of the observed and latent variables should be nearly identical to a correlation matrix. The error and disturbance terms are not standardized.
 
-```{r}
+```{r modelcov}
 cov(d) %>% 
   ggcor
 ```
@@ -116,12 +110,9 @@ To return only the observed variables
 d <- sim_standardized(m,
                       n = 100000,
                       latent = FALSE,
-                      errors = FALSE,
-                      disturbances = FALSE)
+                      errors = FALSE)
 # Display First 6 rows
-d %>% 
-  head %>% 
-  kable() 
+head(d)
 ```
 
 # Comparison with `lavaan::simulateData`
@@ -150,41 +141,51 @@ matrices <- sim_standardized_matrices(m)
 
 The A matrix contains all the asymmetric path coefficients (i.e., the loadings and the structural coefficients). These coefficients are specified in the lavaan model syntax.
 
-```{r}
+```{r Amatrix}
 matrices$RAM_matrices$A %>% 
   ggcor()
 ```
 
 The S matrix contains all the symmetric path coefficients (i.e., the variances and correlations of the observed and latent variables). For endogenous variables, the variances and correlations refer to the variance and correlations of the variable's associated error or disturbance term. In this case, A is the only endogenous variable, and this its variance on the diagonal of the S matrix is 1.
 
-```{r}
+```{r Smatrix}
 matrices$RAM_matrices$S %>% 
   ggcor()
 ```
 
-# Factor scores
+# Estimated Factor Scores
 
-If you want to estimate factor scores using the regression method (i.e., Thurstone's method), set the `factor_scores = TRUE'
+If you want to estimate factor scores using the regression method (i.e., Thurstone's method), set `factor_scores = TRUE'. All scores ending in "_FS" are factor score estimates.
 
 ```{r}
-library(dplyr)
-library(tibble)
-library(kableExtra)
-library(corrr)
-library(ggplot2)
 m <- "
 A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3
 "
 sim_standardized(
   m, 
   n = 100000, 
-  observed = FALSE,
   factor_scores = TRUE
   ) %>% 
-  head() %>% 
-  kable() %>% 
-  kable_styling(bootstrap_options = c("striped","responsive"))
+  head()
   
   
 ```
+
+# Composite Scores
+
+If you want to calculate equally-weighted composite scores based on the indicators of each latent variable, set `factor_scores = TRUE'. All scores ending in "_FS" are factor score estimates.
+
+```{r}
+m <- "
+A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3
+"
+sim_standardized(
+  m, 
+  n = 100000, 
+  composites = TRUE
+  ) %>% 
+  head() 
+  
+```
+
 

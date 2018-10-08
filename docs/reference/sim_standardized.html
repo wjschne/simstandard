@@ -93,7 +93,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/wjschne/simstandard">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -107,7 +112,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Function that takes a lavaan model with standardized parameters and simulates latent scores, errors, disturbances, and observed scores</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/wjschne/simstandard/blob/master/R/main.R'><code>R/main.R</code></a></small>
     <div class="hidden name"><code>sim_standardized.Rd</code></div>
     </div>
 
@@ -118,8 +123,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>sim_standardized</span>(<span class='no'>m</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>observed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>latent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>disturbances</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>factor_scores</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>composites</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>matrices</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>factor_scores</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>composites</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>matrices</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,11 +147,7 @@
     </tr>
     <tr>
       <th>errors</th>
-      <td><p>Include observed error variables</p></td>
-    </tr>
-    <tr>
-      <th>disturbances</th>
-      <td><p>Include latent disturbances variables</p></td>
+      <td><p>Include observed error and latent disturbances variables</p></td>
     </tr>
     <tr>
       <th>factor_scores</th>
@@ -158,7 +159,7 @@
     </tr>
     <tr>
       <th>matrices</th>
-      <td><p>Include matrices as attribute</p></td>
+      <td><p>Include matrices as attribute of tibble</p></td>
     </tr>
     </table>
     
