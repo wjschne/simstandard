@@ -173,7 +173,7 @@ sim_standardized(
 
 # Composite Scores
 
-If you want to calculate equally-weighted composite scores based on the indicators of each latent variable, set `factor_scores = TRUE'. All scores ending in "_FS" are factor score estimates.
+If you want to calculate equally-weighted composite scores based on the indicators of each latent variable, set `composites = TRUE'. 
 
 ```{r}
 m <- "
