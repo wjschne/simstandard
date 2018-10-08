@@ -119,14 +119,14 @@
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co"># Display First 6 rows</span></a>
 <a class="sourceLine" id="cb1-16" data-line-number="16"><span class="kw">head</span>(d)</a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; # A tibble: 6 x 15</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;       A1     A2     A3      B1     B2      B3      A       B    e_A1</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt; 1 -2.30  -2.70  -2.77  -1.36   -0.167 -1.04   -2.76  -0.414  -0.372 </span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt; 2 -0.129  0.350  0.799  0.0963 -0.980  0.0822  0.891 -0.597  -0.753 </span></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt; 3  1.06   0.589  1.68   1.52    0.770  1.12    1.35   1.30    0.114 </span></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt; 4 -1.41  -0.550 -0.360 -1.01    0.540 -0.116  -0.774  0.0515 -0.871 </span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt; 5  0.157  0.337  0.104  0.239  -0.335  0.325   0.280  0.356  -0.0384</span></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt; 6 -0.233 -0.403 -0.288 -0.154   0.264  1.51   -0.296  0.421  -0.0257</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;       A1      A2     A3      B1     B2      B3      A       B    e_A1</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt; 1  0.426  0.977   1.25   0.577   1.87   1.69    1.28   0.950  -0.468 </span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt; 2  1.48   0.0598  1.00   0.706  -0.784 -0.0511  0.570  0.0583  1.08  </span></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt; 3  0.331  0.584   0.337  1.25    1.15   0.969   0.552  0.716  -0.0553</span></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt; 4  0.557  0.314   0.792  0.0336 -0.729  0.226   0.821 -0.166  -0.0181</span></a>
+<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt; 5  0.262 -1.34   -0.238 -0.535  -0.741  0.639  -0.769  0.184   0.801 </span></a>
+<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt; 6 -1.64  -0.532   1.33   0.0349 -0.175 -0.790   0.621 -1.05   -2.07  </span></a>
 <a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co">#&gt; # ... with 6 more variables: e_A2 &lt;dbl&gt;, e_A3 &lt;dbl&gt;, e_B1 &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb1-27" data-line-number="27"><span class="co">#&gt; #   e_B2 &lt;dbl&gt;, e_B3 &lt;dbl&gt;, d_B &lt;dbl&gt;</span></a></code></pre></div>
 <p>Let’s make a function to display correlations and covariance matrices:</p>
@@ -165,14 +165,14 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># Display First 6 rows</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">head</span>(d)</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # A tibble: 6 x 6</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;       A1     A2     A3       B1      B2       B3</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 1  2.14   2.50   1.79   1.47     1.08    1.70   </span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 2  0.237 -1.81  -0.352  0.00680  0.542  -0.00289</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 3  1.31   1.24   0.731  1.76     0.766   0.986  </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 4 -0.673 -1.05   0.429  0.186   -0.297  -0.238  </span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 5 -1.28  -1.54  -0.994 -0.0604   0.0276  0.420  </span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 6  0.954  0.377 -0.992  0.342    0.340   0.638</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;        A1      A2     A3      B1      B2       B3</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 1 -0.0738  1.01    1.04  -0.262   0.767  -0.783  </span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 2  0.856  -0.559  -0.233 -1.02   -1.25   -0.704  </span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 3 -0.644  -0.0933 -0.136  0.308   0.0552  0.00755</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 4  0.526   1.13    1.05   0.247  -0.590   0.577  </span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 5  0.996   0.431   1.38  -0.0270  0.0861 -0.919  </span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 6 -0.284   0.796  -0.251 -0.261  -0.821  -1.13</span></a></code></pre></div>
 </div>
 <div id="comparison-with-lavaansimulatedata" class="section level1">
 <h1 class="hasAnchor">
@@ -216,14 +216,14 @@
 <a class="sourceLine" id="cb9-8" data-line-number="8">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; # A tibble: 6 x 11</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;      A1     A2      A3     A    e_A1     e_A2   e_A3    A_FS e_A1_FS</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 1 0.161 -0.243 -0.361  0.584 -0.365  -0.710   -0.770 -0.0343  0.439 </span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 2 1.52   1.14   1.75   1.82  -0.115  -0.318    0.475  1.52    0.361 </span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; 3 0.425 -0.334  0.0660 0.551 -0.0717 -0.775   -0.320  0.170   0.623 </span></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; 4 1.91   2.67   2.77   2.37  -0.222   0.777    1.11   2.35   -0.465 </span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; 5 1.12   0.791  0.170  1.29  -0.0343 -0.238   -0.731  0.914   0.691 </span></a>
-<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; 6 0.276  0.111  0.421  0.151  0.140  -0.00957  0.315  0.267   0.0834</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;        A1      A2     A3      A    e_A1    e_A2   e_A3     A_FS e_A1_FS</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 1 -0.0796 -1.25   -0.458 -0.183  0.0853 -1.10   -0.329 -0.473     0.794</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 2  0.131  -0.447   0.696 -0.479  0.562  -0.0632  1.03   0.0729    0.150</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; 3  2.13    0.319   1.66   1.68   0.611  -1.03    0.480  1.63      1.51 </span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; 4 -1.18   -0.557  -1.24  -1.47   0.145   0.617  -0.214 -1.06     -0.501</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; 5 -0.142   0.0508  0.425  0.218 -0.339  -0.124   0.272  0.00279  -0.332</span></a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; 6 -1.18   -0.975  -2.75  -1.53   0.194   0.250  -1.68  -1.44      0.264</span></a>
 <a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&gt; # ... with 2 more variables: e_A2_FS &lt;dbl&gt;, e_A3_FS &lt;dbl&gt;</span></a></code></pre></div>
 </div>
 <div id="composite-scores" class="section level1">
@@ -240,14 +240,14 @@
 <a class="sourceLine" id="cb10-8" data-line-number="8">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-9" data-line-number="9"><span class="st">  </span><span class="kw">head</span>() </a>
 <a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; # A tibble: 6 x 8</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;       A1      A2      A3       A   e_A1    e_A2   e_A3 A_Composite</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; 1 -0.713  0.931  -0.418  -0.106  -0.618  1.02   -0.344     -0.0771</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 2  1.53   2.54    1.71    1.95   -0.229  0.976   0.346      2.21  </span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; 3 -0.202 -0.0871  0.182  -0.0352 -0.170 -0.0590  0.207     -0.0407</span></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; 4  1.26   0.353   1.12    1.19    0.190 -0.602   0.286      1.05  </span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; 5  0.228  0.618  -0.0998  0.658  -0.364  0.0913 -0.560      0.285 </span></a>
-<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; 6  0.748  2.63    1.34    1.68   -0.762  1.29    0.162      1.80</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;       A1      A2     A3      A     e_A1      e_A2    e_A3 A_Composite</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; 1  1.66   0.766   1.36   1.84   0.00753 -0.703     0.0709       1.45 </span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 2 -0.942 -1.27   -0.906 -1.59   0.487    0.000972  0.206       -1.19 </span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; 3 -0.739 -0.826  -1.11  -0.779 -0.0373  -0.203    -0.562       -1.02 </span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; 4  0.495 -0.855   0.827  0.118  0.389   -0.950     0.744        0.179</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; 5 -0.554  0.0933 -1.03  -0.246 -0.333    0.290    -0.856       -0.570</span></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; 6 -2.11  -1.95   -0.186 -2.20  -0.127   -0.193     1.35        -1.63</span></a></code></pre></div>
 </div>
   </div>
 
