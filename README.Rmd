@@ -35,9 +35,11 @@ model <- "
 A =~ 0.5 * A1 + 0.8 * A2
 B =~ 0.6 * B1 + 0.7 * B2
 B ~ 0.8 * A
-C ~ 0.5 * A1
+C ~~ 0.5 * A
 "
 data <- sim_standardized(m = model, n = 500)
+
+knitr::kable(head(data), digits = 2)
 ```
 
 See more in the [tutorial for this package](https://wjschne.github.io/simstandard/articles/simstandard_tutorial.html).

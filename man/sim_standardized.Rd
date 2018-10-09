@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{sim_standardized}
 \alias{sim_standardized}
-\title{Function that takes a lavaan model with standardized parameters and simulates latent scores, errors, disturbances, and observed scores}
+\title{Generates simulated data with standardized parameters.}
 \usage{
 sim_standardized(m, n = 1000, observed = TRUE, latent = TRUE,
   errors = TRUE, factor_scores = FALSE, composites = FALSE,
@@ -29,7 +29,10 @@ sim_standardized(m, n = 1000, observed = TRUE, latent = TRUE,
 tibble with standardized data
 }
 \description{
-Function that takes a lavaan model with standardized parameters and simulates latent scores, errors, disturbances, and observed scores
+This function takes a lavaan model with standardized parameters and simulates latent scores, errors, disturbances, and observed scores.
+}
+\details{
+This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
 }
 \examples{
 # Lavaan model

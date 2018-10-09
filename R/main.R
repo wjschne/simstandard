@@ -1,5 +1,8 @@
+#' Return model characteristics
+#'
 #' Function that takes a lavaan model with standardized parameters returns a list with model caracteristics
 #'
+#'This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
 #' @export
 #' @param m Structural model represented by lavaan Syntax
 #' @param max_iterations Maximum number of iterations before the algorithm fails
@@ -354,7 +357,11 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
 }
 
 
-#' Function that takes a lavaan model with standardized parameters and simulates latent scores, errors, disturbances, and observed scores
+#' Generates simulated data with standardized parameters.
+#'
+#' This function takes a lavaan model with standardized parameters and simulates latent scores, errors, disturbances, and observed scores.
+#'
+#' This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
 #'
 #' @export
 #' @param m Structural model represented by lavaan Syntax

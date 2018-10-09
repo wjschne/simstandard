@@ -101,9 +101,113 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">A =~ 0.5 * A1 + 0.8 * A2</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">B =~ 0.6 * B1 + 0.7 * B2</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">B ~ 0.8 * A</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">C ~ 0.5 * A1</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">C ~~ 0.5 * A</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">"</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">data &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_standardized.html">sim_standardized</a></span>(<span class="dt">m =</span> model, <span class="dt">n =</span> <span class="dv">500</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-8" data-line-number="8">data &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_standardized.html">sim_standardized</a></span>(<span class="dt">m =</span> model, <span class="dt">n =</span> <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="kw">head</span>(data), <span class="dt">digits =</span> <span class="dv">2</span>)</a></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">A1</th>
+<th align="right">A2</th>
+<th align="right">B1</th>
+<th align="right">B2</th>
+<th align="right">C</th>
+<th align="right">A</th>
+<th align="right">B</th>
+<th align="right">e_A1</th>
+<th align="right">e_A2</th>
+<th align="right">e_B1</th>
+<th align="right">e_B2</th>
+<th align="right">d_B</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.39</td>
+<td align="right">0.86</td>
+<td align="right">1.36</td>
+<td align="right">2.22</td>
+<td align="right">0.58</td>
+<td align="right">1.99</td>
+<td align="right">2.31</td>
+<td align="right">1.40</td>
+<td align="right">-0.73</td>
+<td align="right">-0.03</td>
+<td align="right">0.61</td>
+<td align="right">0.72</td>
+</tr>
+<tr class="even">
+<td align="right">-1.27</td>
+<td align="right">-2.29</td>
+<td align="right">-2.24</td>
+<td align="right">-1.01</td>
+<td align="right">-1.31</td>
+<td align="right">-1.88</td>
+<td align="right">-2.57</td>
+<td align="right">-0.33</td>
+<td align="right">-0.78</td>
+<td align="right">-0.69</td>
+<td align="right">0.79</td>
+<td align="right">-1.07</td>
+</tr>
+<tr class="odd">
+<td align="right">0.07</td>
+<td align="right">0.51</td>
+<td align="right">0.21</td>
+<td align="right">0.48</td>
+<td align="right">0.87</td>
+<td align="right">1.09</td>
+<td align="right">0.56</td>
+<td align="right">-0.47</td>
+<td align="right">-0.36</td>
+<td align="right">-0.13</td>
+<td align="right">0.09</td>
+<td align="right">-0.31</td>
+</tr>
+<tr class="even">
+<td align="right">1.25</td>
+<td align="right">2.21</td>
+<td align="right">0.15</td>
+<td align="right">1.73</td>
+<td align="right">1.94</td>
+<td align="right">0.91</td>
+<td align="right">1.09</td>
+<td align="right">0.79</td>
+<td align="right">1.48</td>
+<td align="right">-0.50</td>
+<td align="right">0.97</td>
+<td align="right">0.36</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.27</td>
+<td align="right">0.21</td>
+<td align="right">0.29</td>
+<td align="right">-1.32</td>
+<td align="right">-0.77</td>
+<td align="right">-0.15</td>
+<td align="right">-0.97</td>
+<td align="right">-0.19</td>
+<td align="right">0.33</td>
+<td align="right">0.87</td>
+<td align="right">-0.64</td>
+<td align="right">-0.85</td>
+</tr>
+<tr class="even">
+<td align="right">-0.23</td>
+<td align="right">-0.15</td>
+<td align="right">-0.61</td>
+<td align="right">0.34</td>
+<td align="right">0.32</td>
+<td align="right">0.42</td>
+<td align="right">-0.29</td>
+<td align="right">-0.44</td>
+<td align="right">-0.49</td>
+<td align="right">-0.44</td>
+<td align="right">0.54</td>
+<td align="right">-0.62</td>
+</tr>
+</tbody>
+</table>
 <p>See more in the <a href="https://wjschne.github.io/simstandard/articles/simstandard_tutorial.html">tutorial for this package</a>.</p>
 </div>
 </div>

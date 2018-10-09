@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{sim_standardized_matrices}
 \alias{sim_standardized_matrices}
-\title{Function that takes a lavaan model with standardized parameters returns a list with model caracteristics}
+\title{Return model characteristics}
 \usage{
 sim_standardized_matrices(m, max_iterations = 100)
 }
@@ -16,6 +16,9 @@ list of path and covariance coefficients
 }
 \description{
 Function that takes a lavaan model with standardized parameters returns a list with model caracteristics
+}
+\details{
+This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
 }
 \examples{
 # lavaan model

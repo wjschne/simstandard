@@ -28,31 +28,35 @@ library(ggplot2)
 library(tibble)
 library(tidyr)
 library(dplyr)
+library(kableExtra)
 
 options(digits = 2)
 ```
 
 # Purpose of `simstandard`
 
-In the figure below, you can see a hypothetical structural model with its standardized loadings, path coefficients, and covariances (i.e., standardized covariances = correlations). 
+In the figure below, you can see a hypothetical structural model with its standardized loadings and path coefficients. 
 
 
-```{r, out.width=650, fig.align='center', echo = FALSE}
+```{r, out.width=700, fig.align='center', echo = FALSE}
 knitr::include_graphics("ModelFigure.svg")
 ```
 
-You need to simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically and instead must be found iteratively.
+Suppose you need to simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically and instead they must be found iteratively.
 
-Although lavaan::simulateData can simulate standardized data when the `standardized=TRUE` option is set, as of the time of this writing [it is often inaccurate](https://github.com/yrosseel/lavaan/issues/46).
+The `simstandard` package creates multivariate normal data using lavaan syntax. It can also create latent variable scores, error terms, disturbance terms, estimated factor scores, and equally weighted composite scores for each latent variable.
 
-The `simstandard` package creates multivariate normal data using lavaan syntax.
-
-# Example
+# Generate Model-Based Multivariate Data
 
 ```{r}
 library(simstandard)
 library(lavaan)
 library(knitr)
+library(kableExtra)
+library(dplyr)
+library(ggplot2)
+library(tibble)
+library(tidyr)
 
 # lavaan syntax for model
 m <- "
@@ -65,7 +69,9 @@ B ~ 0.6 * A
 d <- sim_standardized(m, n = 100000)
 
 # Display First 6 rows
-head(d)
+head(d) %>% 
+  kable() %>% 
+  kable_styling()
 ```
 
 Let's make a function to display correlations and covariance matrices:
@@ -79,10 +85,16 @@ ggcor <- function(d) {
     dplyr::mutate(rowname = forcats::fct_rev(rowname)) %>% 
     ggplot(aes(colname, rowname, fill = r)) +
     geom_tile(color = "gray90") +
-    geom_text(aes(label = formatC(
-      r, digits = 2, format = "f"
-    )), 
-    color = "white", fontface = "bold") +
+    geom_text(aes(
+      label = formatC(
+      r, 
+      digits = 2, 
+      format = "f") %>% 
+        stringr::str_replace_all("0\\.",".") %>% 
+        stringr::str_replace_all("1.00","1")), 
+    color = "white", 
+    fontface = "bold",
+    family = "serif") +
     scale_fill_gradient2(NULL,
       na.value = "gray20",
       limits = c(-1.01, 1.01),
@@ -92,7 +104,7 @@ ggcor <- function(d) {
     coord_equal() +
     scale_x_discrete(NULL,position = "top") +
     scale_y_discrete(NULL) +
-    theme_light(base_family = "serif") 
+    theme_light(base_family = "serif", base_size = 14) 
 }
 
 ```
@@ -117,9 +129,7 @@ head(d)
 
 # Comparison with `lavaan::simulateData`
 
-I love the `lavaan` package. However, one aspect of one function in `lavaan` is not quite right yet. `lavaan`'s `simulateData` function [is known to generate non-standardized data](https://github.com/yrosseel/lavaan/issues/46), even when the `standardized` parameter is set to `TRUE`. See how it creates variables B1, B2, and B3 with variances much higher than 1.
-
-
+I love the `lavaan` package. However, one aspect of one function in `lavaan` is not quite right yet. `lavaan`'s `simulateData` function [is known to generate non-standardized data](https://github.com/yrosseel/lavaan/issues/46), even when the `standardized` parameter is set to `TRUE`. See how it creates variables B1, B2, and B3 with variances much higher than 1. Furthermore, it only produces observed variables.
 
 ```{r lavaan}
 library(lavaan)
@@ -151,6 +161,12 @@ The S matrix contains all the symmetric path coefficients (i.e., the variances a
 ```{r Smatrix}
 matrices$RAM_matrices$S %>% 
   ggcor()
+```
+
+Thus, we can use these results to insert the missing values from the path diagram at the beginning of this tutorial
+
+```{r, out.width=700, fig.align='center', echo = FALSE}
+knitr::include_graphics("ModelFigureComplete.svg")
 ```
 
 # Estimated Factor Scores

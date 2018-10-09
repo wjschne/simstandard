@@ -74,13 +74,13 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+      </header><script src="simstandard_tutorial_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Using the <code>simstandard</code> package</h1>
                         <h4 class="author">W. Joel Schneider</h4>
             
-            <h4 class="date">2018-10-08</h4>
+            <h4 class="date">2018-10-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/wjschne/simstandard/blob/master/vignettes/simstandard_tutorial.Rmd"><code>vignettes/simstandard_tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>simstandard_tutorial.Rmd</code></div>
@@ -93,42 +93,370 @@
 <h1 class="hasAnchor">
 <a href="#purpose-of-simstandard" class="anchor"></a>Purpose of <code>simstandard</code>
 </h1>
-<p>In the figure below, you can see a hypothetical structural model with its standardized loadings, path coefficients, and covariances (i.e., standardized covariances = correlations).</p>
-<p><img src="ModelFigure.svg" width="650" height="100%" style="display: block; margin: auto;"></p>
-<p>You need to simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically and instead must be found iteratively.</p>
-<p>Although lavaan::simulateData can simulate standardized data when the <code>standardized=TRUE</code> option is set, as of the time of this writing <a href="https://github.com/yrosseel/lavaan/issues/46">it is often inaccurate</a>.</p>
-<p>The <code>simstandard</code> package creates multivariate normal data using lavaan syntax.</p>
+<p>In the figure below, you can see a hypothetical structural model with its standardized loadings and path coefficients.</p>
+<p><img src="ModelFigure.svg" width="700" height="100%" style="display: block; margin: auto;"></p>
+<p>Suppose you need to simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically and instead they must be found iteratively.</p>
+<p>The <code>simstandard</code> package creates multivariate normal data using lavaan syntax. It can also create latent variable scores, error terms, disturbance terms, estimated factor scores, and equally weighted composite scores for each latent variable.</p>
 </div>
-<div id="example" class="section level1">
+<div id="generate-model-based-multivariate-data" class="section level1">
 <h1 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h1>
+<a href="#generate-model-based-multivariate-data" class="anchor"></a>Generate Model-Based Multivariate Data</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(simstandard)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(lavaan)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(knitr)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># lavaan syntax for model</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">m &lt;-<span class="st"> "</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">B ~ 0.6 * A</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="st">"</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co"># Simulate data</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m, <span class="dt">n =</span> <span class="dv">100000</span>)</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co"># Display First 6 rows</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="kw">head</span>(d)</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; # A tibble: 6 x 15</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;       A1      A2     A3      B1     B2      B3      A       B    e_A1</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt; 1  0.426  0.977   1.25   0.577   1.87   1.69    1.28   0.950  -0.468 </span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt; 2  1.48   0.0598  1.00   0.706  -0.784 -0.0511  0.570  0.0583  1.08  </span></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt; 3  0.331  0.584   0.337  1.25    1.15   0.969   0.552  0.716  -0.0553</span></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt; 4  0.557  0.314   0.792  0.0336 -0.729  0.226   0.821 -0.166  -0.0181</span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt; 5  0.262 -1.34   -0.238 -0.535  -0.741  0.639  -0.769  0.184   0.801 </span></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt; 6 -1.64  -0.532   1.33   0.0349 -0.175 -0.790   0.621 -1.05   -2.07  </span></a>
-<a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co">#&gt; # ... with 6 more variables: e_A2 &lt;dbl&gt;, e_A3 &lt;dbl&gt;, e_B1 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb1-27" data-line-number="27"><span class="co">#&gt; #   e_B2 &lt;dbl&gt;, e_B3 &lt;dbl&gt;, d_B &lt;dbl&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(kableExtra)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(tibble)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(tidyr)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co"># lavaan syntax for model</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">m &lt;-<span class="st"> "</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">B ~ 0.6 * A</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">"</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"># Simulate data</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m, <span class="dt">n =</span> <span class="dv">100000</span>)</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co"># Display First 6 rows</span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="kw">head</span>(d) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="st">  </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:right;">
+A1
+</th>
+<th style="text-align:right;">
+A2
+</th>
+<th style="text-align:right;">
+A3
+</th>
+<th style="text-align:right;">
+B1
+</th>
+<th style="text-align:right;">
+B2
+</th>
+<th style="text-align:right;">
+B3
+</th>
+<th style="text-align:right;">
+A
+</th>
+<th style="text-align:right;">
+B
+</th>
+<th style="text-align:right;">
+e_A1
+</th>
+<th style="text-align:right;">
+e_A2
+</th>
+<th style="text-align:right;">
+e_A3
+</th>
+<th style="text-align:right;">
+e_B1
+</th>
+<th style="text-align:right;">
+e_B2
+</th>
+<th style="text-align:right;">
+e_B3
+</th>
+<th style="text-align:right;">
+d_B
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2.23
+</td>
+<td style="text-align:right;">
+1.17
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+0.63
+</td>
+<td style="text-align:right;">
+-0.45
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+1.28
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+1.33
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+-0.09
+</td>
+<td style="text-align:right;">
+-0.83
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+-0.29
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.85
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+-0.42
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+2.06
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+-0.15
+</td>
+<td style="text-align:right;">
+-0.09
+</td>
+<td style="text-align:right;">
+-0.34
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+0.89
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-0.73
+</td>
+<td style="text-align:right;">
+-1.12
+</td>
+<td style="text-align:right;">
+-1.57
+</td>
+<td style="text-align:right;">
+-1.94
+</td>
+<td style="text-align:right;">
+-1.88
+</td>
+<td style="text-align:right;">
+-1.53
+</td>
+<td style="text-align:right;">
+-1.70
+</td>
+<td style="text-align:right;">
+-1.57
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+-0.33
+</td>
+<td style="text-align:right;">
+-0.63
+</td>
+<td style="text-align:right;">
+-0.12
+</td>
+<td style="text-align:right;">
+-0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-0.36
+</td>
+<td style="text-align:right;">
+-0.94
+</td>
+<td style="text-align:right;">
+-1.34
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+-0.13
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+-1.18
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+-0.28
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+-0.48
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+1.14
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+-0.33
+</td>
+<td style="text-align:right;">
+0.70
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+-1.05
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+-0.77
+</td>
+<td style="text-align:right;">
+-0.36
+</td>
+<td style="text-align:right;">
+-0.40
+</td>
+<td style="text-align:right;">
+0.63
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+-0.35
+</td>
+<td style="text-align:right;">
+-0.82
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.63
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.31
+</td>
+<td style="text-align:right;">
+1.65
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:right;">
+2.08
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+1.42
+</td>
+<td style="text-align:right;">
+-0.20
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+-0.52
+</td>
+<td style="text-align:right;">
+0.81
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+</tr>
+</tbody>
+</table>
 <p>Let’s make a function to display correlations and covariance matrices:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">ggcor &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw">require</span>(ggplot2)</a>
@@ -138,21 +466,27 @@
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">rowname =</span> forcats<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/forcats/topics/fct_rev">fct_rev</a></span>(rowname)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(colname, rowname, <span class="dt">fill =</span> r)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">    </span><span class="kw">geom_tile</span>(<span class="dt">color =</span> <span class="st">"gray90"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">formatC</span>(</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">      r, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">format =</span> <span class="st">"f"</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">    )), </a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">    <span class="dt">color =</span> <span class="st">"white"</span>, <span class="dt">fontface =</span> <span class="st">"bold"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">    </span><span class="kw">scale_fill_gradient2</span>(<span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">      <span class="dt">na.value =</span> <span class="st">"gray20"</span>,</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">      <span class="dt">limits =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.01</span>, <span class="fl">1.01</span>),</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">      <span class="dt">high =</span> <span class="st">"#924552"</span>,</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">      <span class="dt">low =</span> <span class="st">"#293999"</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">    ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="st">    </span><span class="kw">scale_x_discrete</span>(<span class="ot">NULL</span>,<span class="dt">position =</span> <span class="st">"top"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="st">    </span><span class="kw">theme_light</span>(<span class="dt">base_family =</span> <span class="st">"serif"</span>) </a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">}</a></code></pre></div>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">      <span class="dt">label =</span> <span class="kw">formatC</span>(</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">      r, </a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">      <span class="dt">digits =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">      <span class="dt">format =</span> <span class="st">"f"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/stringr/topics/str_replace">str_replace_all</a></span>(<span class="st">"0</span><span class="ch">\\</span><span class="st">."</span>,<span class="st">"."</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/stringr/topics/str_replace">str_replace_all</a></span>(<span class="st">"1.00"</span>,<span class="st">"1"</span>)), </a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">    <span class="dt">color =</span> <span class="st">"white"</span>, </a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">    <span class="dt">fontface =</span> <span class="st">"bold"</span>,</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">    <span class="dt">family =</span> <span class="st">"serif"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="st">    </span><span class="kw">scale_fill_gradient2</span>(<span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">      <span class="dt">na.value =</span> <span class="st">"gray20"</span>,</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">      <span class="dt">limits =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.01</span>, <span class="fl">1.01</span>),</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">      <span class="dt">high =</span> <span class="st">"#924552"</span>,</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">      <span class="dt">low =</span> <span class="st">"#293999"</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">    ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="st">    </span><span class="kw">scale_x_discrete</span>(<span class="ot">NULL</span>,<span class="dt">position =</span> <span class="st">"top"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="st">    </span><span class="kw">theme_light</span>(<span class="dt">base_family =</span> <span class="st">"serif"</span>, <span class="dt">base_size =</span> <span class="dv">14</span>) </a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">}</a></code></pre></div>
 <p>Because the data are standardized, the covariance matrix of the observed and latent variables should be nearly identical to a correlation matrix. The error and disturbance terms are not standardized.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">cov</span>(d) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span>ggcor</a></code></pre></div>
@@ -165,20 +499,20 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># Display First 6 rows</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">head</span>(d)</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # A tibble: 6 x 6</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;        A1      A2     A3      B1      B2       B3</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 1 -0.0738  1.01    1.04  -0.262   0.767  -0.783  </span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 2  0.856  -0.559  -0.233 -1.02   -1.25   -0.704  </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 3 -0.644  -0.0933 -0.136  0.308   0.0552  0.00755</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 4  0.526   1.13    1.05   0.247  -0.590   0.577  </span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 5  0.996   0.431   1.38  -0.0270  0.0861 -0.919  </span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 6 -0.284   0.796  -0.251 -0.261  -0.821  -1.13</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;       A1     A2     A3     B1     B2      B3</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 1 -1.71  -1.91  -2.03  -0.878 -0.557 -1.34  </span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 2  0.333  0.247  0.432  2.05   2.20   2.27  </span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 3 -0.475  1.81   0.116 -0.534  1.03   0.0563</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 4 -1.17  -1.66  -0.375 -0.626 -0.414 -0.582 </span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 5 -0.233 -0.702 -0.107 -1.57  -1.09  -1.70  </span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 6 -1.58  -0.219 -0.295 -1.69  -1.47  -1.55</span></a></code></pre></div>
 </div>
 <div id="comparison-with-lavaansimulatedata" class="section level1">
 <h1 class="hasAnchor">
 <a href="#comparison-with-lavaansimulatedata" class="anchor"></a>Comparison with <code><a href="http://www.rdocumentation.org/packages/lavaan/topics/simulateData">lavaan::simulateData</a></code>
 </h1>
-<p>I love the <code>lavaan</code> package. However, one aspect of one function in <code>lavaan</code> is not quite right yet. <code>lavaan</code>’s <code>simulateData</code> function <a href="https://github.com/yrosseel/lavaan/issues/46">is known to generate non-standardized data</a>, even when the <code>standardized</code> parameter is set to <code>TRUE</code>. See how it creates variables B1, B2, and B3 with variances much higher than 1.</p>
+<p>I love the <code>lavaan</code> package. However, one aspect of one function in <code>lavaan</code> is not quite right yet. <code>lavaan</code>’s <code>simulateData</code> function <a href="https://github.com/yrosseel/lavaan/issues/46">is known to generate non-standardized data</a>, even when the <code>standardized</code> parameter is set to <code>TRUE</code>. See how it creates variables B1, B2, and B3 with variances much higher than 1. Furthermore, it only produces observed variables.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(lavaan)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">d_lavaan &lt;-<span class="st"> </span><span class="kw">simulateData</span>(</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">  <span class="dt">model =</span> m, </a>
@@ -201,6 +535,8 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>S <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">ggcor</span>()</a></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/Smatrix-1.svg" width="100%" height="100%"></p>
+<p>Thus, we can use these results to insert the missing values from the path diagram at the beginning of this tutorial</p>
+<p><img src="ModelFigureComplete.svg" width="700" height="100%" style="display: block; margin: auto;"></p>
 </div>
 <div id="estimated-factor-scores" class="section level1">
 <h1 class="hasAnchor">
@@ -216,14 +552,14 @@
 <a class="sourceLine" id="cb9-8" data-line-number="8">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; # A tibble: 6 x 11</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;        A1      A2     A3      A    e_A1    e_A2   e_A3     A_FS e_A1_FS</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 1 -0.0796 -1.25   -0.458 -0.183  0.0853 -1.10   -0.329 -0.473     0.794</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 2  0.131  -0.447   0.696 -0.479  0.562  -0.0632  1.03   0.0729    0.150</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; 3  2.13    0.319   1.66   1.68   0.611  -1.03    0.480  1.63      1.51 </span></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; 4 -1.18   -0.557  -1.24  -1.47   0.145   0.617  -0.214 -1.06     -0.501</span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; 5 -0.142   0.0508  0.425  0.218 -0.339  -0.124   0.272  0.00279  -0.332</span></a>
-<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; 6 -1.18   -0.975  -2.75  -1.53   0.194   0.250  -1.68  -1.44      0.264</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;       A1      A2      A3       A    e_A1    e_A2    e_A3    A_FS  e_A1_FS</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 1  0.721 -0.317  -1.04    0.627   0.156  -0.819  -1.48    0.160   1.32   </span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 2 -0.690 -0.240  -1.33   -0.790   0.0207  0.391  -0.778  -0.704  -0.130  </span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; 3 -1.32  -0.557  -0.295  -0.858  -0.549   0.130   0.306  -0.987  -0.993  </span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; 4  0.169 -0.281   0.952   0.175   0.0119 -0.421   0.830   0.186   0.00541</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; 5 -0.481  0.725  -0.825  -0.0531 -0.433   0.767  -0.788  -0.225  -0.639  </span></a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; 6 -0.187  0.0345  0.0265  0.140  -0.313  -0.0778 -0.0717 -0.0967 -0.230  </span></a>
 <a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&gt; # ... with 2 more variables: e_A2_FS &lt;dbl&gt;, e_A3_FS &lt;dbl&gt;</span></a></code></pre></div>
 </div>
 <div id="composite-scores" class="section level1">
@@ -240,14 +576,14 @@
 <a class="sourceLine" id="cb10-8" data-line-number="8">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-9" data-line-number="9"><span class="st">  </span><span class="kw">head</span>() </a>
 <a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; # A tibble: 6 x 8</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;       A1      A2     A3      A     e_A1      e_A2    e_A3 A_Composite</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; 1  1.66   0.766   1.36   1.84   0.00753 -0.703     0.0709       1.45 </span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 2 -0.942 -1.27   -0.906 -1.59   0.487    0.000972  0.206       -1.19 </span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; 3 -0.739 -0.826  -1.11  -0.779 -0.0373  -0.203    -0.562       -1.02 </span></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; 4  0.495 -0.855   0.827  0.118  0.389   -0.950     0.744        0.179</span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; 5 -0.554  0.0933 -1.03  -0.246 -0.333    0.290    -0.856       -0.570</span></a>
-<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; 6 -2.11  -1.95   -0.186 -2.20  -0.127   -0.193     1.35        -1.63</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;       A1     A2     A3       A   e_A1     e_A2   e_A3 A_Composite</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; 1  0.604  1.42   0.427  0.441   0.208  1.07     0.119      0.939 </span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 2  0.305  0.352 -0.472 -0.0288  0.331  0.375   -0.452      0.0709</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; 3 -0.965 -0.573 -0.805 -0.714  -0.323 -0.00222 -0.305     -0.897 </span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; 4 -1.16  -2.99  -0.728 -2.05    0.691 -1.35     0.709     -1.87  </span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; 5 -0.907 -0.952 -0.427 -0.891  -0.105 -0.239    0.196     -0.875 </span></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; 6  0.519 -0.631 -0.359  0.0369  0.486 -0.661   -0.384     -0.180</span></a></code></pre></div>
 </div>
   </div>
 
@@ -257,7 +593,7 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#purpose-of-simstandard">Purpose of <code>simstandard</code></a></li>
-      <li><a href="#example">Example</a></li>
+      <li><a href="#generate-model-based-multivariate-data">Generate Model-Based Multivariate Data</a></li>
       <li><a href="#comparison-with-lavaansimulatedata">Comparison with <code><a href="http://www-rdocumentation-org/packages/lavaan/topics/simulateData">lavaan::simulateData</a></code></a></li>
       <li><a href="#inspecting-model-matrices">Inspecting model matrices</a></li>
       <li><a href="#estimated-factor-scores">Estimated Factor Scores</a></li>

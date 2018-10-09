@@ -58,11 +58,17 @@ B/.style = {cB}]
 \foreach \i in {1,2,3} {
 	\node[error, below = 0.75cm of A\i, fill = cA] (eA\i) {$e_{A_\i}$};
 	\node[error, below = 0.75cm of B\i, fill = cB] (eB\i) {$e_{B_\i}$};
-	\path[variance, cA] (eA\i.250) to node[label]{?} (eA\i.290);
-	\path[variance, cB] (eB\i.250) to node[label]{?} (eB\i.290);
 	\path[post, cA] (eA\i) to (A\i);
 	\path[post, cB] (eB\i) to (B\i);
 }
+
+\path[variance, cA] (eA1.250) to node[label]{.51} (eA1.290);
+\path[variance, cB] (eB1.250) to node[label]{.17} (eB1.290);
+\path[variance, cA] (eA2.250) to node[label]{.36} (eA2.290);
+\path[variance, cB] (eB2.250) to node[label]{.36} (eB2.290);
+\path[variance, cA] (eA3.250) to node[label]{.19} (eA3.290);
+\path[variance, cB] (eB3.250) to node[label]{.19} (eB3.290);
+
 
 \path[variance, cA] (A.80) to node[label]{1} (A.100);
 
@@ -71,7 +77,7 @@ B/.style = {cB}]
 \node[error, right = 0.75cm of B, fill = cB] (dB) {$d_{B}$};
 
 \path[post, cB] (dB) to (B);
-\path[variance, cB] (dB.70) to node[label]{?} (dB.110);
+\path[variance, cB] (dB.70) to node[label]{.64} (dB.110);
 
 %\node (s) [below = of Gt]{};
 %\node (n) [above = of Motor]{};
