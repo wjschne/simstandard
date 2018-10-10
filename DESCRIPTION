@@ -1,5 +1,5 @@
 Package: simstandard
-Title: Generate Standardized Data with Lavaan Syntax
+Title: Generate Standardized Data
 Version: 0.1.0
 Authors@R: person("W. Joel", "Schneider", email = "w.joel.schneider@gmail.com", role = c("aut", "cre"))
 Description: Creates simulated data from structural equation models with standardized loading.
