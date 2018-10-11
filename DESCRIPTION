@@ -1,6 +1,6 @@
 Package: simstandard
 Title: Generate Standardized Data
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person("W. Joel", "Schneider", email = "w.joel.schneider@gmail.com", role = c("aut", "cre"))
 Description: Creates simulated data from structural equation models with standardized loading.
 Depends: R (>= 3.5.0)
@@ -12,7 +12,9 @@ Imports:
     lavaan,
     mvtnorm,
     tibble,
-    stats
+    stats,
+    magrittr,
+    rlang
 Suggests: knitr,
     rmarkdown,
     ggplot2,

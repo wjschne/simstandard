@@ -2,13 +2,14 @@
 #'
 #' Function that takes a lavaan model with standardized parameters returns a list with model caracteristics
 #'
-#'This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
+#' This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
 #' @export
-#' @param m Structural model represented by lavaan Syntax
+#' @param m Structural model represented by lavaan syntax
 #' @param max_iterations Maximum number of iterations before the algorithm fails
 #' @importFrom lavaan lavParTable
 #' @return list of path and covariance coefficients
 #' @examples
+#' library(simstandard)
 #' # lavaan model
 #' m = "Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"
 #'
@@ -364,7 +365,7 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
 #' This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
 #'
 #' @export
-#' @param m Structural model represented by lavaan Syntax
+#' @param m Structural model represented by lavaan syntax
 #' @param n Number of simulated cases
 #' @param observed Include observed variables
 #' @param latent Include latent variables
@@ -375,6 +376,7 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
 #' @return tibble with standardized data
 #' @importFrom mvtnorm rmvnorm
 #' @examples
+#' library(simstandard)
 #' # Lavaan model
 #' m = "Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"
 #'
@@ -447,4 +449,32 @@ sim_standardized <- function(
 
 
   return(d[,v_include])
+}
+
+#' Remove fixed parameters from a lavaan model
+#'
+#' @export
+#' @param m Structural model represented by lavaan syntax
+#' @return character string representing lavaan model
+#' @importFrom rlang .data
+#' @examples
+#' library(simstandard)
+#' # lavaan model with fixed parameters
+#' m = "
+#' Latent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13
+#' Latent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23
+#' "
+#' # Same model, but with fixed parameters removed.
+#' fixed2free(m)
+fixed2free <- function(m){
+  m %>%
+    lavaan::lavaanify(fixed.x = FALSE) %>%
+    dplyr::filter(.data$lhs != .data$rhs) %>%
+    dplyr::group_by(.data$lhs, .data$op) %>%
+    dplyr::summarise(rhs = paste(.data$rhs, collapse = " + ")) %>%
+    dplyr::arrange(dplyr::desc(.data$op)) %>%
+    tidyr::unite("l", .data$lhs, .data$op, .data$rhs, sep = " ") %>%
+    dplyr::pull(.data$l) %>%
+    paste(collapse = "\n")
+
 }

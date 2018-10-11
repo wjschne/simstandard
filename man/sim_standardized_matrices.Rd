@@ -7,7 +7,7 @@
 sim_standardized_matrices(m, max_iterations = 100)
 }
 \arguments{
-\item{m}{Structural model represented by lavaan Syntax}
+\item{m}{Structural model represented by lavaan syntax}
 
 \item{max_iterations}{Maximum number of iterations before the algorithm fails}
 }
@@ -21,6 +21,7 @@ Function that takes a lavaan model with standardized parameters returns a list w
 This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
 }
 \examples{
+library(simstandard)
 # lavaan model
 m = "Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"
 

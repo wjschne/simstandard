@@ -9,7 +9,7 @@ sim_standardized(m, n = 1000, observed = TRUE, latent = TRUE,
   matrices = FALSE)
 }
 \arguments{
-\item{m}{Structural model represented by lavaan Syntax}
+\item{m}{Structural model represented by lavaan syntax}
 
 \item{n}{Number of simulated cases}
 
@@ -35,6 +35,7 @@ This function takes a lavaan model with standardized parameters and simulates la
 This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
 }
 \examples{
+library(simstandard)
 # Lavaan model
 m = "Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"
 
