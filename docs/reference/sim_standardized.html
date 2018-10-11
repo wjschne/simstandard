@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simstandard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -89,6 +89,9 @@
       <a href="../articles/simstandard_tutorial.html">Using the `simstandard` package</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -131,7 +134,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>m</th>
-      <td><p>Structural model represented by lavaan Syntax</p></td>
+      <td><p>Structural model represented by lavaan syntax</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -173,7 +176,8 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Lavaan model</span>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>simstandard</span>)
+<span class='co'># Lavaan model</span>
 <span class='no'>m</span> <span class='kw'>=</span> <span class='st'>"Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"</span>
 
 <span class='co'># simulate 10 cases</span>
