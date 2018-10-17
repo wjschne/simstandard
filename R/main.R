@@ -1,6 +1,6 @@
 #' Return model characteristics
 #'
-#' Function that takes a lavaan model with standardized parameters returns a list with model caracteristics
+#' Function that takes a lavaan model with standardized parameters and returns a list with model characteristics
 #'
 #' This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
 #' @export
@@ -11,7 +11,7 @@
 #' @examples
 #' library(simstandard)
 #' # lavaan model
-#' m = "Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"
+#' m = "Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"
 #'
 #' sim_standardized_matrices(m)
 sim_standardized_matrices <- function(m, max_iterations = 100) {
@@ -320,6 +320,16 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
     v_FS <- character(0)
     v_composite_score <- character(0)
   }
+
+  # Make complete lavaan model syntax
+  lavaan_variances <- paste0(
+    v_order,
+    " ~~ ",
+    diag(S[v_order, v_order]),
+    " * ",
+    v_order,
+    collapse = "\n")
+
   # Return list ----
 
   l_names <- list(
@@ -352,6 +362,11 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
       factor_score = A_factor_score,
       composite_score = A_composite_w
     ),
+    lavaan_models = list(
+      model_without_variances = m,
+      model_with_variances = paste0(m,"\n# Variances\n",lavaan_variances),
+      model_free = fixed2free(m)
+    ),
     v_names = l_names,
     iterations = iterations
   )
@@ -378,7 +393,7 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
 #' @examples
 #' library(simstandard)
 #' # Lavaan model
-#' m = "Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"
+#' m = "Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"
 #'
 #' # simulate 10 cases
 #' sim_standardized(m, n = 10)
@@ -392,9 +407,11 @@ sim_standardized <- function(
   composites = FALSE,
   matrices = FALSE) {
 
-  # Get main object
+  # Get main object from sim_standardized_matrices
   o <- sim_standardized_matrices(m)
-  # Simulate exogenous variables
+
+  # Names of variables in S (Symmetric) matrix
+
   S_names <- c(
     o$v_names$v_observed_exogenous,
     o$v_names$v_observed_endogenous,
@@ -402,6 +419,7 @@ sim_standardized <- function(
     o$v_names$v_latent_endogenous
   )
 
+  # Simulate exogenous variables in S matricx
   u <- rmvnorm(n = n, sigma = o$RAM_matrices$S[S_names, S_names, drop = F])
   colnames(u) <- c(
     o$v_names$v_observed_exogenous,
@@ -409,25 +427,31 @@ sim_standardized <- function(
     o$v_names$v_latent_exogenous,
     o$v_names$v_disturbance
   )
+
+  # Create all variables from exogenous variables
   v <- u %*% t(o$RAM_matrices$iA[S_names, S_names, drop = F])
+
+  # Make blank matrix with n rows
   d_blank <- matrix(nrow = n, ncol = 0)
-  # d_observed <- v[ , o$v_names$v_observed, drop = F]
-  # d_latent <- v[ , o$v_names$v_latent, drop = F]
-  # d_disturbance <- u[ , o$v_names$v_disturbance, drop = F]
-  # d_errors <- u[ , o$v_names$v_error, drop = F]
+
+  # Extract observed indicators of latent varibles
   d_observed_indicators <- v[, o$v_names$v_observed_indicator, drop = F]
 
+  # Calculate estimated factor scores
   if (length(o$v_names$v_observed_indicator) > 0) {
     d_factor_scores <- d_observed_indicators %*% o$Coefficients$factor_score
   } else {
     d_factor_scores <- d_blank
   }
 
+  # Calculate composite scores
   if (length(o$v_names$v_observed_indicator) > 0) {
     d_composite_scores <- d_observed_indicators %*% o$Coefficients$composite_score
   } else {
     d_composite_scores <- d_blank
   }
+
+  # Make data to be returned
   d <- tibble::as_tibble(
     cbind(
       v[, c(o$v_names$v_observed, o$v_names$v_latent), drop = F],
@@ -437,8 +461,10 @@ sim_standardized <- function(
     )
   )
 
+  # Attach metadata as attribute
   if (matrices) attr(d, "matrices") <- o
 
+  # Decide which variables to return
   v_include <- character(0)
   if (observed) v_include <- c(v_include, o$v_names$v_observed)
   if (latent) v_include <- c(v_include, o$v_names$v_latent)
@@ -447,7 +473,7 @@ sim_standardized <- function(
   if (factor_scores) v_include <- c(v_include, o$v_names$v_factor_score)
   if (composites) v_include <- c(v_include, o$v_names$v_composite_score)
 
-
+  # Return tibble
   return(d[,v_include])
 }
 
@@ -478,3 +504,25 @@ fixed2free <- function(m){
     paste(collapse = "\n")
 
 }
+
+
+#' Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances
+#'
+#' @export
+#' @param m Structural model represented by lavaan syntax
+#' @return character string representing lavaan model
+#' @examples
+#'
+#' library(simstandard)
+#' # lavaan model
+#' m = "
+#' Latent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13
+#' Latent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23
+#' "
+#' # Same lavaan syntax, but with standarcized variances
+#' model_complete(m)
+model_complete <- function(m){
+  sim_standardized_matrices(m)$lavaan_models$model_with_variances
+}
+
+

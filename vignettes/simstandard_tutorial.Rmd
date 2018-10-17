@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette:
     df_print: kable
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Using the `simstandard` package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -124,7 +124,9 @@ d <- sim_standardized(m,
                       latent = FALSE,
                       errors = FALSE)
 # Display First 6 rows
-head(d)
+head(d) %>% 
+  kable() %>% 
+  kable_styling()
 ```
 
 
@@ -184,9 +186,9 @@ sim_standardized(
   n = 100000, 
   factor_scores = TRUE
   ) %>% 
-  head()
-  
-  
+  head() %>% 
+  kable() %>% 
+  kable_styling()
 ```
 
 # Composite Scores
@@ -202,7 +204,9 @@ sim_standardized(
   n = 100000, 
   composites = TRUE
   ) %>% 
-  head() 
+  head() %>% 
+  kable() %>% 
+  kable_styling()
   
 ```
 
@@ -246,6 +250,57 @@ summary(
   lav_results, 
   standardized = TRUE, 
   fit.measures = TRUE)
+
+# Extract RAM paths
+RAM <- semPlot::modelMatrices(lav_results)
+# Display asymmetric paths (i.e., single-headed arrows for 
+# loadings and structure coefficients)
+RAM$A[[1]]$std %>% ggcor()
+# Display symmetric paths (i.e., curved double-headed arrows
+# exogenous variances, error variances, disturbance variances, 
+# and any covariances among these)
+RAM$S[[1]]$std %>% ggcor()
+
 ```
 
 As can be seen, all the fit measures indicate a near-perfect fit, and the parameter estimates are within rounding error of the fixed parameters in model `m`.
+
+
+# Using the `model_complete` function to return `lavaan` syntax for a full model with standardized variances specified
+
+If you want to use the excellent [`simsem` package ](https://cran.r-project.org/package=simsem) to conduct a power analysis or to perform methodological investigations, `simstandard` can output the `lavaan` syntax for a standardized model with all variances specified.
+
+```{r}
+# Specify model
+m <- "
+A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1
+B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3
+B ~ 0.6 * A
+"
+m_complete <- model_complete(m)
+# Display complete model
+cat(m_complete)
+
+# Make a model with all parameters set free
+m_free <- fixed2free(m)
+# Display free model
+cat(m_free)
+
+# Use simsem to make 20 samples of 150 each (real analyses would be larger)
+library(simsem)
+simsem_output <- simsem::sim(
+  nRep = 20, 
+  model = m_free, 
+  generate = m_complete,
+  n = 150, 
+  lavaanfun = "cfa", 
+  silent = TRUE
+  )
+# Summary of output
+summary(simsem_output)
+# View summary with standardized parameters
+summaryParam(simsem_output, std = TRUE) %>% 
+  kable(digits = 2)
+
+```
+

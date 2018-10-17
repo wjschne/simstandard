@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • simstandard</title>
+<title>Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances — model_complete • simstandard</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,7 +32,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances — model_complete" />
+
+<meta property="og:description" content="Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -48,7 +51,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -109,60 +112,56 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances</h1>
+    <small class="dont-index">Source: <a href='https://github.com/wjschne/simstandard/blob/master/R/main.R'><code>R/main.R</code></a></small>
+    <div class="hidden name"><code>model_complete.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="fixed2free.html">fixed2free()</a></code> </p>
-        </td>
-        <td><p>Remove fixed parameters from a lavaan model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="model_complete.html">model_complete()</a></code> </p>
-        </td>
-        <td><p>Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sim_standardized.html">sim_standardized()</a></code> </p>
-        </td>
-        <td><p>Generates simulated data with standardized parameters.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sim_standardized_matrices.html">sim_standardized_matrices()</a></code> </p>
-        </td>
-        <td><p>Return model characteristics</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>model_complete</span>(<span class='no'>m</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>m</th>
+      <td><p>Structural model represented by lavaan syntax</p></td>
+    </tr>
     </table>
-  </div>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>character string representing lavaan model</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='fu'>library</span>(<span class='no'>simstandard</span>)
+<span class='co'># lavaan model</span>
+<span class='no'>m</span> <span class='kw'>=</span> <span class='st'>"
+Latent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13
+Latent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23
+"</span>
+<span class='co'># Same lavaan syntax, but with standarcized variances</span>
+<span class='fu'>model_complete</span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; [1] "\nLatent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13\nLatent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23\n\n# Variances\nOb_11 ~~ 0.19 * Ob_11\nOb_12 ~~ 0.36 * Ob_12\nOb_13 ~~ 0.51 * Ob_13\nOb_21 ~~ 0.19 * Ob_21\nOb_22 ~~ 0.64 * Ob_22\nOb_23 ~~ 0.84 * Ob_23\nLatent_1 ~~ 1 * Latent_1\nLatent_2 ~~ 1 * Latent_2"</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 

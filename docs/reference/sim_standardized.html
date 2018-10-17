@@ -178,22 +178,22 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>simstandard</span>)
 <span class='co'># Lavaan model</span>
-<span class='no'>m</span> <span class='kw'>=</span> <span class='st'>"Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"</span>
+<span class='no'>m</span> <span class='kw'>=</span> <span class='st'>"Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"</span>
 
 <span class='co'># simulate 10 cases</span>
-<span class='fu'>sim_standardized</span>(<span class='no'>m</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 5
-#&gt;      Ob_1   Ob_2 Latent_1   e_Ob_1  e_Ob_2
-#&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-#&gt;  1 -2.79  -1.80   -2.44   -0.840    0.153 
-#&gt;  2  0.915  1.29    1.15   -0.00334  0.373 
-#&gt;  3 -1.29  -0.344  -0.244  -1.09    -0.148 
-#&gt;  4  0.334  0.171   0.629  -0.170   -0.332 
-#&gt;  5  1.65  -0.569   0.512   1.24    -0.979 
-#&gt;  6 -1.16  -0.355  -0.0526 -1.12    -0.313 
-#&gt;  7  0.700 -0.174   0.468   0.326   -0.548 
-#&gt;  8  0.808 -0.193   0.738   0.218   -0.783 
-#&gt;  9  0.384 -0.807  -0.936   1.13    -0.0585
-#&gt; 10 -1.22  -1.71   -1.51   -0.00957 -0.496 </div></pre>
+<span class='fu'>sim_standardized</span>(<span class='no'>m</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 7
+#&gt;       Ob_1    Ob_2    Ob_3 Latent_1 e_Ob_1  e_Ob_2 e_Ob_3
+#&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 -0.844   0.178  -2.24   -0.00557 -0.840  0.182  -2.23 
+#&gt;  2  0.175   0.647  -1.77   -0.247    0.373  0.820  -1.67 
+#&gt;  3  0.357   0.238  -0.256   0.629   -0.147 -0.202  -0.507
+#&gt;  4 -0.251  -2.47   -0.276  -1.86     1.24  -1.16    0.470
+#&gt;  5 -1.04   -0.677   0.132  -0.914   -0.313 -0.0376  0.498
+#&gt;  6  0.871   0.776  -0.901   0.738    0.281  0.259  -1.20 
+#&gt;  7  1.12   -0.0808 -0.864  -0.0160   1.13  -0.0696 -0.858
+#&gt;  8 -0.355  -0.957   0.928   0.176   -0.496 -1.08    0.857
+#&gt;  9  0.0390  1.07    0.0491 -0.134    0.146  1.16    0.103
+#&gt; 10 -0.292   0.548   0.140   1.07    -1.15  -0.199  -0.287</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

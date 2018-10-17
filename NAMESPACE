@@ -2,6 +2,7 @@
 
 export("%>%")
 export(fixed2free)
+export(model_complete)
 export(sim_standardized)
 export(sim_standardized_matrices)
 importFrom(lavaan,lavParTable)

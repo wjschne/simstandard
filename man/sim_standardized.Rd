@@ -37,7 +37,7 @@ This function supports the `~` operator for regressions, the `~~` for covariance
 \examples{
 library(simstandard)
 # Lavaan model
-m = "Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"
+m = "Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"
 
 # simulate 10 cases
 sim_standardized(m, n = 10)

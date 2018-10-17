@@ -22,7 +22,9 @@ Suggests: knitr,
     tidyr,
     forcats,
     kableExtra,
-    stringr
+    stringr,
+    semPlot,
+    simsem
 VignetteBuilder: knitr
 URL: https://github.com/wjschne/simstandard
 BugReports: https://github.com/wjschne/simstandard/issues

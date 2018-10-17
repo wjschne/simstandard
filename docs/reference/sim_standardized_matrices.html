@@ -34,7 +34,7 @@
   
 <meta property="og:title" content="Return model characteristics — sim_standardized_matrices" />
 
-<meta property="og:description" content="Function that takes a lavaan model with standardized parameters returns a list with model caracteristics" />
+<meta property="og:description" content="Function that takes a lavaan model with standardized parameters and returns a list with model characteristics" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,7 +121,7 @@
 
     <div class="ref-description">
     
-    <p>Function that takes a lavaan model with standardized parameters returns a list with model caracteristics</p>
+    <p>Function that takes a lavaan model with standardized parameters and returns a list with model characteristics</p>
     
     </div>
 
@@ -152,79 +152,116 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>simstandard</span>)
 <span class='co'># lavaan model</span>
-<span class='no'>m</span> <span class='kw'>=</span> <span class='st'>"Latent_1 =~ 0.8 * Ob_1 + 0.8 * Ob_2"</span>
+<span class='no'>m</span> <span class='kw'>=</span> <span class='st'>"Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"</span>
 
 <span class='fu'>sim_standardized_matrices</span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; $RAM_matrices
 #&gt; $RAM_matrices$A
-#&gt;          Ob_1 Ob_2 Latent_1
-#&gt; Ob_1        0    0      0.8
-#&gt; Ob_2        0    0      0.8
-#&gt; Latent_1    0    0      0.0
+#&gt;          Ob_1 Ob_2 Ob_3 Latent_1
+#&gt; Ob_1        0    0    0      0.8
+#&gt; Ob_2        0    0    0      0.7
+#&gt; Ob_3        0    0    0      0.4
+#&gt; Latent_1    0    0    0      0.0
 #&gt; 
 #&gt; $RAM_matrices$S
-#&gt;          Ob_1 Ob_2 Latent_1
-#&gt; Ob_1     0.36 0.00        0
-#&gt; Ob_2     0.00 0.36        0
-#&gt; Latent_1 0.00 0.00        1
+#&gt;          Ob_1 Ob_2 Ob_3 Latent_1
+#&gt; Ob_1     0.36 0.00 0.00        0
+#&gt; Ob_2     0.00 0.51 0.00        0
+#&gt; Ob_3     0.00 0.00 0.84        0
+#&gt; Latent_1 0.00 0.00 0.00        1
 #&gt; 
 #&gt; $RAM_matrices$filter_matrix
-#&gt;          Ob_1 Ob_2 Latent_1
-#&gt; Ob_1        1    0        0
-#&gt; Ob_2        0    1        0
-#&gt; Latent_1    0    0        0
+#&gt;          Ob_1 Ob_2 Ob_3 Latent_1
+#&gt; Ob_1        1    0    0        0
+#&gt; Ob_2        0    1    0        0
+#&gt; Ob_3        0    0    1        0
+#&gt; Latent_1    0    0    0        0
 #&gt; 
 #&gt; $RAM_matrices$iA
-#&gt;          Ob_1 Ob_2 Latent_1
-#&gt; Ob_1        1    0      0.8
-#&gt; Ob_2        0    1      0.8
-#&gt; Latent_1    0    0      1.0
+#&gt;          Ob_1 Ob_2 Ob_3 Latent_1
+#&gt; Ob_1        1    0    0      0.8
+#&gt; Ob_2        0    1    0      0.7
+#&gt; Ob_3        0    0    1      0.4
+#&gt; Latent_1    0    0    0      1.0
 #&gt; 
 #&gt; 
 #&gt; $Correlations
 #&gt; $Correlations$R
-#&gt;          Ob_1 Ob_2 Latent_1
-#&gt; Ob_1     1.00 0.64      0.8
-#&gt; Ob_2     0.64 1.00      0.8
-#&gt; Latent_1 0.80 0.80      1.0
+#&gt;          Ob_1 Ob_2 Ob_3 Latent_1
+#&gt; Ob_1     1.00 0.56 0.32      0.8
+#&gt; Ob_2     0.56 1.00 0.28      0.7
+#&gt; Ob_3     0.32 0.28 1.00      0.4
+#&gt; Latent_1 0.80 0.70 0.40      1.0
 #&gt; 
 #&gt; $Correlations$R_all
-#&gt;                         Ob_1      Ob_2  Latent_1     e_Ob_1     e_Ob_2
-#&gt; Ob_1               1.0000000 0.6400000 0.8000000  0.6000000  0.0000000
-#&gt; Ob_2               0.6400000 1.0000000 0.8000000  0.0000000  0.6000000
-#&gt; Latent_1           0.8000000 0.8000000 1.0000000  0.0000000  0.0000000
-#&gt; e_Ob_1             0.6000000 0.0000000 0.0000000  1.0000000  0.0000000
-#&gt; e_Ob_2             0.0000000 0.6000000 0.0000000  0.0000000  1.0000000
-#&gt; Latent_1_FS        0.9055385 0.9055385 0.8834522  0.3312946  0.3312946
-#&gt; e_Ob_1_FS          0.7683749 0.0000000 0.3748170  0.7808688 -0.4997560
-#&gt; e_Ob_2_FS          0.0000000 0.7683749 0.3748170 -0.4997560  0.7808688
-#&gt; Latent_1_Composite 0.9055385 0.9055385 0.8834522  0.3312946  0.3312946
-#&gt;                    Latent_1_FS  e_Ob_1_FS  e_Ob_2_FS Latent_1_Composite
-#&gt; Ob_1                 0.9055385  0.7683749  0.0000000          0.9055385
-#&gt; Ob_2                 0.9055385  0.0000000  0.7683749          0.9055385
-#&gt; Latent_1             0.8834522  0.3748170  0.3748170          0.8834522
-#&gt; e_Ob_1               0.3312946  0.7808688 -0.4997560          0.3312946
-#&gt; e_Ob_2               0.3312946 -0.4997560  0.7808688          0.3312946
-#&gt; Latent_1_FS          1.0000000  0.4242641  0.4242641          1.0000000
-#&gt; e_Ob_1_FS            0.4242641  1.0000000 -0.6400000          0.4242641
-#&gt; e_Ob_2_FS            0.4242641 -0.6400000  1.0000000          0.4242641
-#&gt; Latent_1_Composite   1.0000000  0.4242641  0.4242641          1.0000000
+#&gt;                            Ob_1         Ob_2          Ob_3  Latent_1     e_Ob_1
+#&gt; Ob_1               1.000000e+00 5.600000e-01  3.200000e-01 0.8000000  0.6000000
+#&gt; Ob_2               5.600000e-01 1.000000e+00  2.800000e-01 0.7000000  0.0000000
+#&gt; Ob_3               3.200000e-01 2.800000e-01  1.000000e+00 0.4000000  0.0000000
+#&gt; Latent_1           8.000000e-01 7.000000e-01  4.000000e-01 1.0000000  0.0000000
+#&gt; e_Ob_1             6.000000e-01 0.000000e+00  0.000000e+00 0.0000000  1.0000000
+#&gt; e_Ob_2             0.000000e+00 7.141428e-01  0.000000e+00 0.0000000  0.0000000
+#&gt; e_Ob_3             0.000000e+00 0.000000e+00  9.165151e-01 0.0000000  0.0000000
+#&gt; Latent_1_FS        9.265537e-01 8.107345e-01  4.632768e-01 0.8634146  0.3930367
+#&gt; e_Ob_1_FS          8.108637e-01 2.813249e-17 -3.750998e-17 0.4586159  0.7399517
+#&gt; e_Ob_2_FS          2.075660e-16 8.216327e-01  1.117663e-16 0.2870247 -0.3826996
+#&gt; e_Ob_3_FS          5.690770e-17 5.690770e-17  9.395729e-01 0.1138741 -0.1518321
+#&gt; Latent_1_Composite 8.150834e-01 7.977412e-01  6.936880e-01 0.8237545  0.2601330
+#&gt;                        e_Ob_2     e_Ob_3 Latent_1_FS     e_Ob_1_FS
+#&gt; Ob_1                0.0000000  0.0000000   0.9265537  8.108637e-01
+#&gt; Ob_2                0.7141428  0.0000000   0.8107345  2.813249e-17
+#&gt; Ob_3                0.0000000  0.9165151   0.4632768 -3.750998e-17
+#&gt; Latent_1            0.0000000  0.0000000   0.8634146  4.586159e-01
+#&gt; e_Ob_1              0.0000000  0.0000000   0.3930367  7.399517e-01
+#&gt; e_Ob_2              1.0000000  0.0000000   0.2889398 -4.495335e-01
+#&gt; e_Ob_3              0.0000000  1.0000000   0.1286515 -2.001564e-01
+#&gt; Latent_1_FS         0.2889398  0.1286515   1.0000000  5.311653e-01
+#&gt; e_Ob_1_FS          -0.4495335 -0.2001564   0.5311653  1.000000e+00
+#&gt; e_Ob_2_FS           0.8691753 -0.1252679   0.3324298 -5.171954e-01
+#&gt; e_Ob_3_FS          -0.1116189  0.9754593   0.1318881 -2.051919e-01
+#&gt; Latent_1_Composite  0.3096202  0.3973597   0.9540659  3.515540e-01
+#&gt;                        e_Ob_2_FS     e_Ob_3_FS Latent_1_Composite
+#&gt; Ob_1                2.075660e-16  5.690770e-17          0.8150834
+#&gt; Ob_2                8.216327e-01  5.690770e-17          0.7977412
+#&gt; Ob_3                1.117663e-16  9.395729e-01          0.6936880
+#&gt; Latent_1            2.870247e-01  1.138741e-01          0.8237545
+#&gt; e_Ob_1             -3.826996e-01 -1.518321e-01          0.2601330
+#&gt; e_Ob_2              8.691753e-01 -1.116189e-01          0.3096202
+#&gt; e_Ob_3             -1.252679e-01  9.754593e-01          0.3973597
+#&gt; Latent_1_FS         3.324298e-01  1.318881e-01          0.9540659
+#&gt; e_Ob_1_FS          -5.171954e-01 -2.051919e-01          0.3515540
+#&gt; e_Ob_2_FS           1.000000e+00 -1.284194e-01          0.3562229
+#&gt; e_Ob_3_FS          -1.284194e-01  1.000000e+00          0.4073565
+#&gt; Latent_1_Composite  3.562229e-01  4.073565e-01          1.0000000
 #&gt; 
 #&gt; 
 #&gt; $Coefficients
 #&gt; $Coefficients$factor_score
-#&gt;      Latent_1_FS  e_Ob_1_FS  e_Ob_2_FS
-#&gt; Ob_1   0.4878049  1.0162602 -0.6504065
-#&gt; Ob_2   0.4878049 -0.6504065  1.0162602
+#&gt;      Latent_1_FS  e_Ob_1_FS  e_Ob_2_FS  e_Ob_3_FS
+#&gt; Ob_1   0.5655894  0.9125475 -0.5543885 -0.2468434
+#&gt; Ob_2   0.3493346 -0.4657795  1.0578637 -0.1524621
+#&gt; Ob_3   0.1211977 -0.1615970 -0.1187975  1.0381944
 #&gt; 
 #&gt; $Coefficients$composite_score
 #&gt;      Latent_1_Composite
-#&gt; Ob_1          0.5521576
-#&gt; Ob_2          0.5521576
+#&gt; Ob_1           0.433555
+#&gt; Ob_2           0.433555
+#&gt; Ob_3           0.433555
+#&gt; 
+#&gt; 
+#&gt; $lavaan_models
+#&gt; $lavaan_models$model_without_variances
+#&gt; [1] "Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"
+#&gt; 
+#&gt; $lavaan_models$model_with_variances
+#&gt; [1] "Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3\n# Variances\nOb_1 ~~ 0.36 * Ob_1\nOb_2 ~~ 0.51 * Ob_2\nOb_3 ~~ 0.84 * Ob_3\nLatent_1 ~~ 1 * Latent_1"
+#&gt; 
+#&gt; $lavaan_models$model_free
+#&gt; [1] "Latent_1 =~ Ob_1 + Ob_2 + Ob_3"
 #&gt; 
 #&gt; 
 #&gt; $v_names
 #&gt; $v_names$v_observed
-#&gt; [1] "Ob_1" "Ob_2"
+#&gt; [1] "Ob_1" "Ob_2" "Ob_3"
 #&gt; 
 #&gt; $v_names$v_latent
 #&gt; [1] "Latent_1"
@@ -239,22 +276,22 @@
 #&gt; character(0)
 #&gt; 
 #&gt; $v_names$v_observed_endogenous
-#&gt; [1] "Ob_1" "Ob_2"
+#&gt; [1] "Ob_1" "Ob_2" "Ob_3"
 #&gt; 
 #&gt; $v_names$v_observed_indicator
-#&gt; [1] "Ob_1" "Ob_2"
+#&gt; [1] "Ob_1" "Ob_2" "Ob_3"
 #&gt; 
 #&gt; $v_names$v_disturbance
 #&gt; character(0)
 #&gt; 
 #&gt; $v_names$v_error
-#&gt; [1] "e_Ob_1" "e_Ob_2"
+#&gt; [1] "e_Ob_1" "e_Ob_2" "e_Ob_3"
 #&gt; 
 #&gt; $v_names$v_residual
-#&gt; [1] "e_Ob_1" "e_Ob_2"
+#&gt; [1] "e_Ob_1" "e_Ob_2" "e_Ob_3"
 #&gt; 
 #&gt; $v_names$v_factor_score
-#&gt; [1] "Latent_1_FS" "e_Ob_1_FS"   "e_Ob_2_FS"  
+#&gt; [1] "Latent_1_FS" "e_Ob_1_FS"   "e_Ob_2_FS"   "e_Ob_3_FS"  
 #&gt; 
 #&gt; $v_names$v_composite_score
 #&gt; [1] "Latent_1_Composite"
