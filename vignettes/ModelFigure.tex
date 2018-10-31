@@ -5,10 +5,11 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{tikz}
-\usetikzlibrary{positioning, fit}
 \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{decorations.text}
-\usetikzlibrary{arrows,shapes,backgrounds, shadows,fadings,trees}
+\usetikzlibrary{positioning, fit, arrows,shapes,backgrounds, shadows,fadings,trees}
+
+%\usetikzlibrary{intersections}
 \usetikzlibrary{calc}
 \usepackage{lmodern}
 
@@ -29,7 +30,7 @@ post/.style={->,draw,shorten >=2pt,shorten <=2pt,>=latex', very thick, font=\LAR
 cov/.style={<->,draw,shorten >=2pt,shorten <=2pt,>=latex', color = gray!70, looseness=1.3, very thick, font=\large, bend left=50},
 variance/.style={<->,  >=latex', draw, very thick, bend left=245, looseness=6,shorten >=2pt,shorten <=2pt, font=\Large, color = gray!70},
 upvariance/.style={<->,  >=latex', thick, shorten >=2pt,shorten <=2pt, font=\Large,bend left = 115,looseness=4},
-label/.style={fill=white,circle,inner sep = 0.1mm,pos=0.475, font = \Large},
+label/.style={fill=white,circle,inner sep = 0.1mm,font = \Large},
 A/.style = {cA},
 B/.style = {cB}]
 
@@ -45,15 +46,31 @@ B/.style = {cB}]
 \node[latent, above = 2.5cm of A2, fill = cA] (A) {$A$}; 
 \node[latent, above = 2.5cm of B2, fill = cB] (B) {$B$}; 
 
-\path[post, cA] (A)  to node[label]{.6} (B);
+\path[post, cA] (A)  to node[label, pos = 0.475]{.6} (B);
 
-\path[post, cA] (A)  to node[label]{.7} (A1);
-\path[post, cA] (A)  to node[label]{.8} (A2);
-\path[post, cA] (A)  to node[label]{.9} (A3);
 
-\path[post, cB] (B)  to node[label]{.7} (B1);
-\path[post, cB] (B)  to node[label]{.8} (B2);
-\path[post, cB] (B)  to node[label]{.9} (B3);
+\path (A) to coordinate[pos = .48](center)   (A2);
+
+\coordinate (l1) at (center -| A1); 
+\coordinate (l2) at (center -| B3);
+
+\path[post, cA] (A)  to (A1);
+\path[post, cA] (A)  to (A2);
+\path[post, cA] (A)  to (A3);
+\path[post, cA] (A) to  (B1);
+
+\path[post, cB] (B)  to (B1);
+\path[post, cB] (B)  to (B2);
+\path[post, cB] (B)  to (B3);
+\node[label, text = cA] at (intersection of l1--l2 and A--A1) {.7};
+\node[label, text = cA] at (intersection of l1--l2 and A--A2) {.8};
+\node[label, text = cA] at (intersection of l1--l2 and A--A3) {.9};
+\node[label, text = cA] at (intersection of l1--l2 and A--B1) {.3};
+\node[label, text = cB] at (intersection of l1--l2 and B--B1) {.7};
+\node[label, text = cB] at (intersection of l1--l2 and B--B2) {.8};
+\node[label, text = cB] at (intersection of l1--l2 and B--B3) {.9};
+
+
 
 \foreach \i in {1,2,3} {
 	\node[error, below = 0.75cm of A\i, fill = cA] (eA\i) {$e_{A_\i}$};
@@ -66,7 +83,7 @@ B/.style = {cB}]
 
 \path[variance, cA] (A.80) to node[label]{1} (A.100);
 
-\path[post, cA] (A) to  node[label]{.3} (B1);
+
 
 \node[error, right = 0.75cm of B, fill = cB] (dB) {$d_{B}$};
 

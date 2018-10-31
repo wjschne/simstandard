@@ -14,16 +14,43 @@ knitr::opts_chunk$set(
 
 # simstandard
 
+[![CRAN status](https://www.r-pkg.org/badges/version/simstandard)](https://cran.r-project.org/package=simstandard) [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Travis build status](https://travis-ci.org/wjschne/simstandard.svg?branch=master)](https://travis-ci.org/wjschne/simstandard)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/wjschne/simstandard?branch=master&svg=true)](https://ci.appveyor.com/project/wjschne/simstandard)
+
+
+
 Sometimes you have a structural model with standardized path coefficients, structural coefficients, and correlations, but you do not know the error and disturbance variances. The purpose of `simstandard` is to calculate these variances and then simulate multivariate normal data based on your model.
 
 ## Installation
 
-You can install `simstandard` from github with:
+You can either install simstandard from CRAN or install the
+development version of simstandard from github.
 
-```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
+### Option 1: Install the most recent stable release from CRAN
+
+You can install simstandard from CRAN by running this code:
+
+```{r, eval = FALSE}
+install.packages("simstandard")
+```
+
+### Option 2: Install the development version from GitHub
+
+To install the development version of simstandard, you need to check
+if devtools is installed. If not, run this:
+
+```{r, eval = FALSE}
+install.packages("devtools")
+```
+
+Once you are sure you have devtools installed, you can install the
+development version of simstandard from GitHub by running this code:
+
+```{r, eval = FALSE}
 devtools::install_github("wjschne/simstandard")
 ```
+
 
 ## Example
 

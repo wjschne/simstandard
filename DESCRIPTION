@@ -1,7 +1,12 @@
 Package: simstandard
 Title: Generate Standardized Data
 Version: 0.2.0
-Authors@R: person("W. Joel", "Schneider", email = "w.joel.schneider@gmail.com", role = c("aut", "cre"))
+Authors@R: 
+    person(given = "W. Joel",
+           family = "Schneider",
+           role = c("aut", "cre"),
+           email = "w.joel.schneider@gmail.com",
+           comment = c(ORCID = "0000-0002-8393-5316"))
 Description: Creates simulated data from structural equation models with standardized loading.
 Depends: R (>= 3.5.0)
 License: CC0

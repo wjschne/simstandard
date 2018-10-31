@@ -148,9 +148,10 @@
 <span class='no'>m</span> <span class='kw'>=</span> <span class='st'>"
 Latent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13
 Latent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23
+Latent_2 ~ 0.6 * Latent_1
 "</span>
-<span class='co'># Same lavaan syntax, but with standarcized variances</span>
-<span class='fu'>model_complete</span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; [1] "\nLatent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13\nLatent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23\n\n# Variances\nOb_11 ~~ 0.19 * Ob_11\nOb_12 ~~ 0.36 * Ob_12\nOb_13 ~~ 0.51 * Ob_13\nOb_21 ~~ 0.19 * Ob_21\nOb_22 ~~ 0.64 * Ob_22\nOb_23 ~~ 0.84 * Ob_23\nLatent_1 ~~ 1 * Latent_1\nLatent_2 ~~ 1 * Latent_2"</div></pre>
+<span class='co'># Same lavaan syntax, but with standardized variances</span>
+<span class='fu'>model_complete</span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; [1] "\nLatent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13\nLatent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23\nLatent_2 ~ 0.6 * Latent_1\n\n# Variances\nOb_11 ~~ 0.19 * Ob_11\nOb_12 ~~ 0.36 * Ob_12\nOb_13 ~~ 0.51 * Ob_13\nOb_21 ~~ 0.19 * Ob_21\nOb_22 ~~ 0.64 * Ob_22\nOb_23 ~~ 0.84 * Ob_23\nLatent_1 ~~ 1 * Latent_1\nLatent_2 ~~ 0.64 * Latent_2"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

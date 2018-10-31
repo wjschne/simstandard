@@ -461,8 +461,7 @@ sim_standardized <- function(
     )
   )
 
-  # Attach metadata as attribute
-  if (matrices) attr(d, "matrices") <- o
+
 
   # Decide which variables to return
   v_include <- character(0)
@@ -473,8 +472,13 @@ sim_standardized <- function(
   if (factor_scores) v_include <- c(v_include, o$v_names$v_factor_score)
   if (composites) v_include <- c(v_include, o$v_names$v_composite_score)
 
+  d <- d[,v_include]
+
+  # Attach metadata as attribute
+  if (matrices) attr(d, "matrices") <- o
+
   # Return tibble
-  return(d[,v_include])
+  return(d)
 }
 
 #' Remove fixed parameters from a lavaan model
@@ -518,8 +522,9 @@ fixed2free <- function(m){
 #' m = "
 #' Latent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13
 #' Latent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23
+#' Latent_2 ~ 0.6 * Latent_1
 #' "
-#' # Same lavaan syntax, but with standarcized variances
+#' # Same lavaan syntax, but with standardized variances
 #' model_complete(m)
 model_complete <- function(m){
   sim_standardized_matrices(m)$lavaan_models$model_with_variances
