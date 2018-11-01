@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/simstandard_tutorial.html">Using the `simstandard` package</a>
+      <a href="../articles/simstandard_tutorial.html">Using the simstandard package</a>
     </li>
   </ul>
 </li>
@@ -149,7 +149,9 @@ Latent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13
 Latent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23
 "</span>
 <span class='co'># Same model, but with fixed parameters removed.</span>
-<span class='fu'>fixed2free</span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; [1] "Latent_1 =~ Ob_11 + Ob_12 + Ob_13\nLatent_2 =~ Ob_21 + Ob_22 + Ob_23"</div></pre>
+<span class='no'>m_free</span> <span class='kw'>&lt;-</span> <span class='fu'>fixed2free</span>(<span class='no'>m</span>)
+<span class='fu'>cat</span>(<span class='no'>m_free</span>)</div><div class='output co'>#&gt; Latent_1 =~ Ob_11 + Ob_12 + Ob_13
+#&gt; Latent_2 =~ Ob_21 + Ob_22 + Ob_23</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

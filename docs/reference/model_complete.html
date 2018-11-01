@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/simstandard_tutorial.html">Using the `simstandard` package</a>
+      <a href="../articles/simstandard_tutorial.html">Using the simstandard package</a>
     </li>
   </ul>
 </li>
@@ -142,8 +142,7 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>library</span>(<span class='no'>simstandard</span>)
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>simstandard</span>)
 <span class='co'># lavaan model</span>
 <span class='no'>m</span> <span class='kw'>=</span> <span class='st'>"
 Latent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13
@@ -151,7 +150,21 @@ Latent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23
 Latent_2 ~ 0.6 * Latent_1
 "</span>
 <span class='co'># Same lavaan syntax, but with standardized variances</span>
-<span class='fu'>model_complete</span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; [1] "\nLatent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13\nLatent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23\nLatent_2 ~ 0.6 * Latent_1\n\n# Variances\nOb_11 ~~ 0.19 * Ob_11\nOb_12 ~~ 0.36 * Ob_12\nOb_13 ~~ 0.51 * Ob_13\nOb_21 ~~ 0.19 * Ob_21\nOb_22 ~~ 0.64 * Ob_22\nOb_23 ~~ 0.84 * Ob_23\nLatent_1 ~~ 1 * Latent_1\nLatent_2 ~~ 0.64 * Latent_2"</div></pre>
+<span class='no'>m_complete</span> <span class='kw'>&lt;-</span> <span class='fu'>model_complete</span>(<span class='no'>m</span>)
+<span class='fu'>cat</span>(<span class='no'>m_complete</span>)</div><div class='output co'>#&gt; 
+#&gt; Latent_1 =~ 0.9 * Ob_11 + 0.8 * Ob_12 + 0.7 * Ob_13
+#&gt; Latent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23
+#&gt; Latent_2 ~ 0.6 * Latent_1
+#&gt; 
+#&gt; # Variances
+#&gt; Ob_11 ~~ 0.19 * Ob_11
+#&gt; Ob_12 ~~ 0.36 * Ob_12
+#&gt; Ob_13 ~~ 0.51 * Ob_13
+#&gt; Ob_21 ~~ 0.19 * Ob_21
+#&gt; Ob_22 ~~ 0.64 * Ob_22
+#&gt; Ob_23 ~~ 0.84 * Ob_23
+#&gt; Latent_1 ~~ 1 * Latent_1
+#&gt; Latent_2 ~~ 0.64 * Latent_2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

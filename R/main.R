@@ -330,6 +330,13 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
     v_order,
     collapse = "\n")
 
+  # Factor Score Validity
+  factor_score_validity <- diag(R_all[v_FS,
+                                      v_factor_score])
+  names(factor_score_validity) <- v_FS
+  factor_score_se <- sqrt(1 - factor_score_validity ^ 2)
+
+
   # Return list ----
 
   l_names <- list(
@@ -360,6 +367,8 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
     ),
     Coefficients = list(
       factor_score = A_factor_score,
+      factor_score_validity = factor_score_validity,
+      factor_score_se = factor_score_se,
       composite_score = A_composite_w
     ),
     lavaan_models = list(
@@ -495,7 +504,8 @@ sim_standardized <- function(
 #' Latent_2 =~ 0.9 * Ob_21 + 0.6 * Ob_22 + 0.4 * Ob_23
 #' "
 #' # Same model, but with fixed parameters removed.
-#' fixed2free(m)
+#' m_free <- fixed2free(m)
+#' cat(m_free)
 fixed2free <- function(m){
   m %>%
     lavaan::lavaanify(fixed.x = FALSE) %>%
@@ -516,7 +526,6 @@ fixed2free <- function(m){
 #' @param m Structural model represented by lavaan syntax
 #' @return character string representing lavaan model
 #' @examples
-#'
 #' library(simstandard)
 #' # lavaan model
 #' m = "
@@ -525,9 +534,68 @@ fixed2free <- function(m){
 #' Latent_2 ~ 0.6 * Latent_1
 #' "
 #' # Same lavaan syntax, but with standardized variances
-#' model_complete(m)
+#' m_complete <- model_complete(m)
+#' cat(m_complete)
 model_complete <- function(m){
   sim_standardized_matrices(m)$lavaan_models$model_with_variances
 }
 
+#' Add factor scores to observed data
+#'
+#' @export
+#' @param d A data.frame with observed data in standardized form (i.e, z-scores)
+#' @param m A character string with lavaan model
+#' @param CI Add confidence intervals? Defaults to `FALSE`. If `TRUE`, For each factor score, a lower and upper bound of the confidence interval is created. For example, the lower bound of factor score `X` is `X_LB`, and the upper bound is `X_UB`.
+#' @param p confidence interval proportion. Defaults to 0.95
+#' @param ... parameters passed to simstandardized_matrices
+#' @return data.frame with observed data and estimated factor scores
+#' @examples
+#' library(simstandard)
+#' # lavaan model
+#' m = "
+#' X =~ 0.9 * X1 + 0.8 * X2 + 0.7 * X3
+#' "
+#'
+#' # Make data.frame for two cases
+#' d <- data.frame(
+#'   X1 = c(1.2, -1.2),
+#'   X2 = c(1.5, -1.8),
+#'   X3 = c(1.8, -1.1))
+#'
+#' # Compute factor scores for two cases
+#' add_factor_scores(d, m)
+add_factor_scores <- function(d, m, CI = FALSE, p = 0.95, ...) {
+  sm <- sim_standardized_matrices(m,...)
+
+  # Coefficients for estimated factor scores
+  v_FS <- paste0(sm$v_names$v_latent,"_FS")
+  latent_factor_score <- sm$Coefficients$factor_score[, v_FS, drop = FALSE]
+
+  # Remove _FS from factor score names
+  colnames(latent_factor_score) <- stringr::str_remove_all(colnames(latent_factor_score), "_FS")
+
+  # Get observed score names
+  v_observed <- rownames(sm$Coefficients$factor_score)
+
+  # Get observed data
+  d_observed <- as.matrix(d[,v_observed, drop = FALSE])
+
+  # Make factor scores
+  d_factor_score <- d_observed %*% latent_factor_score
+
+  # Bind factor scores to observed data
+  d_all <- cbind(as.data.frame(d), as.data.frame(d_factor_score))
+
+  if (CI) {
+    # Make CI
+    z <- -1 * stats::qnorm((1 - p) / 2)
+    FS_se <- sm$Coefficients$factor_score_se[v_FS]
+    d_lower_bound <- d_factor_score - z * FS_se
+    colnames(d_lower_bound) <- paste0(colnames(d_factor_score) , "_LB")
+    d_upper_bound <- d_factor_score + z * FS_se
+    colnames(d_upper_bound) <- paste0(colnames(d_factor_score) , "_UB")
+    d_all <- cbind(d_all, d_lower_bound, d_upper_bound)
+  }
+  d_all
+}
 

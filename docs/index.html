@@ -53,7 +53,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/simstandard_tutorial.html">Using the `simstandard` package</a>
+      <a href="articles/simstandard_tutorial.html">Using the simstandard package</a>
     </li>
   </ul>
 </li>
@@ -87,17 +87,26 @@
 <div id="simstandard" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#simstandard" class="anchor"></a>simstandard</h1></div>
+
 <p>Sometimes you have a structural model with standardized path coefficients, structural coefficients, and correlations, but you do not know the error and disturbance variances. The purpose of <code>simstandard</code> is to calculate these variances and then simulate multivariate normal data based on your model.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can either install <code>simstandard</code> from CRAN or install the development version of <code>simstandard</code> from github.</p>
-<p>You can install <code>simstandard</code> from CRAN by running this code:</p>
+<p>You can either install simstandard from CRAN or install the development version of simstandard from github.</p>
+<div id="option-1-install-the-most-recent-stable-release-from-cran" class="section level3">
+<h3 class="hasAnchor">
+<a href="#option-1-install-the-most-recent-stable-release-from-cran" class="anchor"></a>Option 1: Install the most recent stable release from CRAN</h3>
+<p>You can install simstandard from CRAN by running this code:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"simstandard"</span>)</a></code></pre></div>
-<p>To install the development version of <code>simstandard</code>, you need to check if <code>devtools</code> is installed. If not, run this:</p>
+</div>
+<div id="option-2-install-the-development-version-from-github" class="section level3">
+<h3 class="hasAnchor">
+<a href="#option-2-install-the-development-version-from-github" class="anchor"></a>Option 2: Install the development version from GitHub</h3>
+<p>To install the development version of simstandard, you need to check if devtools is installed. If not, run this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)</a></code></pre></div>
-<p>Once you are sure you have <code>devtools</code> installed, you can install the development version of <code>simstandard</code> from github by running this code:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"wjschne/simstandard"</span>)</a></code></pre></div>
+<p>Once you are sure you have devtools installed, you can install the development version of simstandard from GitHub by running this code:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"wjschne/simstandard"</span>)</a></code></pre></div>
+</div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
@@ -130,88 +139,88 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">-0.46</td>
-<td align="right">-0.15</td>
-<td align="right">0.56</td>
-<td align="right">0.63</td>
-<td align="right">0.47</td>
-<td align="right">-0.09</td>
-<td align="right">-0.38</td>
-<td align="right">-0.41</td>
-<td align="right">-0.07</td>
-<td align="right">0.78</td>
-<td align="right">0.90</td>
-<td align="right">-0.31</td>
+<td align="right">2.63</td>
+<td align="right">1.06</td>
+<td align="right">1.77</td>
+<td align="right">0.86</td>
+<td align="right">2.38</td>
+<td align="right">1.69</td>
+<td align="right">1.51</td>
+<td align="right">1.78</td>
+<td align="right">-0.29</td>
+<td align="right">0.87</td>
+<td align="right">-0.20</td>
+<td align="right">0.16</td>
 </tr>
 <tr class="even">
-<td align="right">-0.12</td>
-<td align="right">1.25</td>
-<td align="right">-0.29</td>
-<td align="right">-0.18</td>
-<td align="right">1.05</td>
-<td align="right">0.48</td>
-<td align="right">-0.05</td>
-<td align="right">-0.36</td>
-<td align="right">0.86</td>
-<td align="right">-0.26</td>
-<td align="right">-0.15</td>
-<td align="right">-0.43</td>
+<td align="right">1.12</td>
+<td align="right">1.78</td>
+<td align="right">0.51</td>
+<td align="right">2.41</td>
+<td align="right">1.42</td>
+<td align="right">1.72</td>
+<td align="right">2.33</td>
+<td align="right">0.26</td>
+<td align="right">0.40</td>
+<td align="right">-0.89</td>
+<td align="right">0.78</td>
+<td align="right">0.95</td>
 </tr>
 <tr class="odd">
 <td align="right">1.33</td>
-<td align="right">0.81</td>
-<td align="right">1.13</td>
-<td align="right">2.47</td>
-<td align="right">0.96</td>
-<td align="right">1.67</td>
-<td align="right">1.51</td>
-<td align="right">0.49</td>
-<td align="right">-0.53</td>
-<td align="right">0.23</td>
-<td align="right">1.41</td>
-<td align="right">0.17</td>
+<td align="right">1.48</td>
+<td align="right">0.62</td>
+<td align="right">-0.76</td>
+<td align="right">1.88</td>
+<td align="right">1.39</td>
+<td align="right">1.19</td>
+<td align="right">0.63</td>
+<td align="right">0.37</td>
+<td align="right">-0.10</td>
+<td align="right">-1.59</td>
+<td align="right">0.07</td>
 </tr>
 <tr class="even">
-<td align="right">-0.11</td>
-<td align="right">0.34</td>
-<td align="right">0.22</td>
-<td align="right">-1.27</td>
-<td align="right">-0.41</td>
-<td align="right">-0.27</td>
-<td align="right">-1.26</td>
-<td align="right">0.03</td>
-<td align="right">0.55</td>
-<td align="right">0.97</td>
-<td align="right">-0.39</td>
-<td align="right">-1.04</td>
+<td align="right">1.32</td>
+<td align="right">-0.31</td>
+<td align="right">-0.54</td>
+<td align="right">-0.92</td>
+<td align="right">1.59</td>
+<td align="right">0.17</td>
+<td align="right">0.05</td>
+<td align="right">1.23</td>
+<td align="right">-0.44</td>
+<td align="right">-0.57</td>
+<td align="right">-0.96</td>
+<td align="right">-0.08</td>
 </tr>
 <tr class="odd">
-<td align="right">1.17</td>
-<td align="right">1.00</td>
-<td align="right">-0.76</td>
-<td align="right">1.31</td>
-<td align="right">0.62</td>
 <td align="right">0.61</td>
-<td align="right">1.14</td>
-<td align="right">0.87</td>
-<td align="right">0.51</td>
-<td align="right">-1.44</td>
-<td align="right">0.51</td>
-<td align="right">0.66</td>
+<td align="right">1.95</td>
+<td align="right">1.30</td>
+<td align="right">0.47</td>
+<td align="right">0.39</td>
+<td align="right">2.00</td>
+<td align="right">1.91</td>
+<td align="right">-0.39</td>
+<td align="right">0.35</td>
+<td align="right">0.15</td>
+<td align="right">-0.87</td>
+<td align="right">0.31</td>
 </tr>
 <tr class="even">
-<td align="right">0.92</td>
-<td align="right">1.12</td>
-<td align="right">1.66</td>
-<td align="right">1.35</td>
-<td align="right">1.43</td>
-<td align="right">1.49</td>
-<td align="right">1.51</td>
-<td align="right">0.17</td>
-<td align="right">-0.07</td>
-<td align="right">0.76</td>
-<td align="right">0.30</td>
-<td align="right">0.32</td>
+<td align="right">-1.39</td>
+<td align="right">-1.61</td>
+<td align="right">0.34</td>
+<td align="right">-1.22</td>
+<td align="right">0.24</td>
+<td align="right">-1.10</td>
+<td align="right">-0.91</td>
+<td align="right">-0.84</td>
+<td align="right">-0.74</td>
+<td align="right">0.88</td>
+<td align="right">-0.58</td>
+<td align="right">-0.04</td>
 </tr>
 </tbody>
 </table>
@@ -242,11 +251,20 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>W. Joel Schneider <br><small class="roles"> Author, maintainer </small>  </li>
+<li>W. Joel Schneider <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8393-5316" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 </ul>
 </div>
 
-      </div>
+      <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=simstandard"><img src="https://www.r-pkg.org/badges/version/simstandard" alt="CRAN status"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
+<li><a href="https://travis-ci.org/wjschne/simstandard"><img src="https://travis-ci.org/wjschne/simstandard.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://ci.appveyor.com/project/wjschne/simstandard"><img src="https://ci.appveyor.com/api/projects/status/github/wjschne/simstandard?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
+</ul>
+</div>
+</div>
 
 </div>
 
