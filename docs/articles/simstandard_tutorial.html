@@ -84,7 +84,7 @@
       <h1>Using the simstandard package</h1>
                         <h4 class="author">W. Joel Schneider</h4>
             
-            <h4 class="date">2018-11-07</h4>
+            <h4 class="date">2018-11-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/wjschne/simstandard/blob/master/vignettes/simstandard_tutorial.Rmd"><code>vignettes/simstandard_tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>simstandard_tutorial.Rmd</code></div>
@@ -672,7 +672,7 @@ B3
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>A <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">ggcor</span>()</a></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/Amatrix-1.svg" width="100%" height="100%"></p>
-<p>The S matrix contains all the symmetric path coefficients (i.e., the variances and correlations of the observed and latent variables). For endogenous variables, the variances and correlations refer to the variance and correlations of the variable’s associated error or disturbance term. In this case, A is the only endogenous variable, and this its variance on the diagonal of the S matrix is 1.</p>
+<p>The S matrix contains all the symmetric path coefficients (i.e., the variances and correlations of the observed and latent variables). For endogenous variables, the variances and correlations refer to the variance and correlations of the variable’s associated error or disturbance term. In this case, A is the only endogenous variable, and thus its variance on the diagonal of the S matrix is 1.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>S <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">ggcor</span>()</a></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/Smatrix-1.svg" width="100%" height="100%"></p>
