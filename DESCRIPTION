@@ -8,7 +8,7 @@ Authors@R:
            email = "w.joel.schneider@gmail.com",
            comment = c(ORCID = "0000-0002-8393-5316"))
 Description: Creates simulated data from structural equation models with standardized loading.
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.4)
 License: CC0
 Encoding: UTF-8
 LazyData: true
