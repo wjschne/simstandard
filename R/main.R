@@ -22,7 +22,8 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
   # Checks----
 
   # Check for formative variables
-  if (any(pt$op == "<~")) stop("Formative variables (defined with <~) are not allowed for this function.")
+  if (any(pt$op == "<~")) stop(
+    "Formative variables (defined with <~) are not allowed for this function.")
 
   # Check for user-set variances
   if (any((pt$user != 0) & (pt$lhs == pt$rhs) & (pt$op == "~~"))) {
@@ -94,10 +95,12 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
   v_observed <- v_all[!(v_all %in% v_latent)]
   v_indicator <- unique(pt$rhs[pt$op == "=~"])
   v_y <- unique(pt$lhs[pt$op == "~"])
-  v_latent_endogenous <- v_latent[(v_latent %in% v_y) | (v_latent %in% v_indicator)]
+  v_latent_endogenous <- v_latent[
+    (v_latent %in% v_y) | (v_latent %in% v_indicator)]
   v_latent_exogenous <- v_latent[!(v_latent %in% v_latent_endogenous)]
 
-  v_observed_endogenous <- v_observed[v_observed %in% v_y | v_observed %in% v_indicator]
+  v_observed_endogenous <- v_observed[
+    v_observed %in% v_y | v_observed %in% v_indicator]
   v_observed_exogenous <- v_observed[!v_observed %in% v_observed_endogenous]
   v_observed_indicator <- v_observed[v_observed %in% v_indicator]
   v_latent_indicator <- v_latent[v_latent %in% v_indicator]
@@ -182,7 +185,7 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
   while ((round(sum(diag(R)), 10) != k) * (iterations < max_iterations)) {
     iA <- solve(diag(k) - A)
     R <- iA %*% S %*% t(iA)
-    sdS <- diag(diag(S)^0.5)
+    sdS <- diag(diag(S) ^ 0.5)
     S <- diag(diag(diag(k) - R)) + (sdS %*% exo_cor %*% sdS)
     diag(S)[diag(S) < 0] <- 0.00000001
     iterations <- iterations + 1
@@ -284,7 +287,7 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
       drop = F
     ] %*% A_composite
 
-    A_composite_w <- A_composite %*% diag(diag(CM_composite)^-0.5,
+    A_composite_w <- A_composite %*% diag(diag(CM_composite) ^ -0.5,
       nrow = nrow(CM_composite)
     )
     colnames(A_composite_w) <- v_composite_score
@@ -373,7 +376,7 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
     ),
     lavaan_models = list(
       model_without_variances = m,
-      model_with_variances = paste0(m,"\n# Variances\n",lavaan_variances),
+      model_with_variances = paste0(m, "\n# Variances\n", lavaan_variances),
       model_free = fixed2free(m)
     ),
     v_names = l_names,
@@ -455,7 +458,8 @@ sim_standardized <- function(
 
   # Calculate composite scores
   if (length(o$v_names$v_observed_indicator) > 0) {
-    d_composite_scores <- d_observed_indicators %*% o$Coefficients$composite_score
+    d_composite_scores <- d_observed_indicators %*%
+      o$Coefficients$composite_score
   } else {
     d_composite_scores <- d_blank
   }
@@ -481,7 +485,7 @@ sim_standardized <- function(
   if (factor_scores) v_include <- c(v_include, o$v_names$v_factor_score)
   if (composites) v_include <- c(v_include, o$v_names$v_composite_score)
 
-  d <- d[,v_include]
+  d <- d[, v_include]
 
   # Attach metadata as attribute
   if (matrices) attr(d, "matrices") <- o
@@ -565,20 +569,21 @@ model_complete <- function(m){
 #' # Compute factor scores for two cases
 #' add_factor_scores(d, m)
 add_factor_scores <- function(d, m, CI = FALSE, p = 0.95, ...) {
-  sm <- sim_standardized_matrices(m,...)
+  sm <- sim_standardized_matrices(m, ...)
 
   # Coefficients for estimated factor scores
-  v_FS <- paste0(sm$v_names$v_latent,"_FS")
+  v_FS <- paste0(sm$v_names$v_latent, "_FS")
   latent_factor_score <- sm$Coefficients$factor_score[, v_FS, drop = FALSE]
 
   # Remove _FS from factor score names
-  colnames(latent_factor_score) <- stringr::str_remove_all(colnames(latent_factor_score), "_FS")
+  colnames(latent_factor_score) <- stringr::str_remove_all(
+    colnames(latent_factor_score), "_FS")
 
   # Get observed score names
   v_observed <- rownames(sm$Coefficients$factor_score)
 
   # Get observed data
-  d_observed <- as.matrix(d[,v_observed, drop = FALSE])
+  d_observed <- as.matrix(d[, v_observed, drop = FALSE])
 
   # Make factor scores
   d_factor_score <- d_observed %*% latent_factor_score
@@ -591,11 +596,10 @@ add_factor_scores <- function(d, m, CI = FALSE, p = 0.95, ...) {
     z <- -1 * stats::qnorm((1 - p) / 2)
     FS_se <- sm$Coefficients$factor_score_se[v_FS]
     d_lower_bound <- d_factor_score - z * FS_se
-    colnames(d_lower_bound) <- paste0(colnames(d_factor_score) , "_LB")
+    colnames(d_lower_bound) <- paste0(colnames(d_factor_score), "_LB")
     d_upper_bound <- d_factor_score + z * FS_se
-    colnames(d_upper_bound) <- paste0(colnames(d_factor_score) , "_UB")
+    colnames(d_upper_bound) <- paste0(colnames(d_factor_score), "_UB")
     d_all <- cbind(d_all, d_lower_bound, d_upper_bound)
   }
   d_all
 }
-

@@ -5,6 +5,7 @@ date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
     df_print: kable
+    css: VignetteStyle.css
 vignette: >
   %\VignetteIndexEntry{Using the simstandard package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -29,11 +30,14 @@ library(tibble)
 library(tidyr)
 library(dplyr)
 library(kableExtra)
-library(simsem)
 
 options(digits = 2)
-set.seed(12345)
+set.seed(123456)
+
+
 ```
+
+<img src="logo.png" align="right" height=140/>
 
 # Purpose of simstandard
 
@@ -273,9 +277,11 @@ summary(
 
 # Extract RAM paths
 RAM <- semPlot::modelMatrices(lav_results)
+
 # Display asymmetric paths (i.e., single-headed arrows for 
 # loadings and structure coefficients)
 RAM$A[[1]]$std %>% ggcor()
+
 # Display symmetric paths (i.e., curved double-headed arrows
 # exogenous variances, error variances, disturbance variances, 
 # and any covariances among these)
@@ -302,50 +308,4 @@ m_complete <- model_complete(m)
 cat(m_complete)
 ```
 
-This complete model could be used in the excellent [simsem package ](https://cran.r-project.org/package=simsem) to conduct a power analysis or to perform methodological investigations. To do so, we will also need an analogous model with all the parameters set free.
 
-```{r simfree}
-# Make a model with all parameters set free
-m_free <- fixed2free(m)
-# Display free model
-cat(m_free)
-```
-
-Now we can use `simsem::sim` to create many samples based on the `m_complete` model. These samples will be evaluated with the `m_free` model.
-
-Let's make 100 samples, of *n* = 150 individuals.
-
-```{r simsem}
-# Use simsem to make 100 samples of n = 150 each (real analyses would be larger)
-library(simsem)
-simsem_output <- sim(
-  nRep = 100, 
-  model = m_free, 
-  generate = m_complete,
-  n = 150, 
-  lavaanfun = "cfa", 
-  silent = TRUE
-  )
-# Summary of output
-summary(simsem_output)
-```
-
-We can view a summary of the fit statistics with the `simsem::summaryFit` function:
-
-```{r viewfit}
-# View summary of fit statistics
-summaryFit(simsem_output) %>% 
-  kable(digits = 2)
-```
-
-Given that the `m_free` model is based directly on the the model that generated the data, it is unsurprising that the `m_free` model fits almost perfectly.
-
-We can view a summary of the standardized parameters with the `simsem::summaryParam` function if we set the `std` parameter to `TRUE`:
-
-```{r viewstdparam}
-# View summary with standardized parameters
-summaryParam(simsem_output, std = TRUE) %>% 
-  kable(digits = 2)
-```
-
-The Power column shows how often each parameter was found to be significantly different from 0. These results suggest that if the `m_complete` model is correct, all its parameters are likely to be found significantly different from 0 when the sample size is 200.

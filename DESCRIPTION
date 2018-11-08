@@ -12,7 +12,7 @@ Depends: R (>= 3.5.0)
 License: CC0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Imports:
     lavaan,
     mvtnorm,
@@ -20,7 +20,8 @@ Imports:
     stats,
     magrittr,
     rlang
-Suggests: knitr,
+Suggests: 
+    knitr,
     rmarkdown,
     ggplot2,
     dplyr,
@@ -29,7 +30,10 @@ Suggests: knitr,
     kableExtra,
     stringr,
     semPlot,
-    simsem
+    simsem,
+    testthat,
+    covr,
+    badger
 VignetteBuilder: knitr
 URL: https://github.com/wjschne/simstandard
 BugReports: https://github.com/wjschne/simstandard/issues
