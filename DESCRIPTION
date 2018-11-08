@@ -30,7 +30,6 @@ Suggests:
     kableExtra,
     stringr,
     semPlot,
-    simsem,
     testthat,
     covr,
     badger
