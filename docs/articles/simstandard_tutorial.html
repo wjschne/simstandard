@@ -84,7 +84,7 @@
       <h1>Using the simstandard package</h1>
                         <h4 class="author">W. Joel Schneider</h4>
             
-            <h4 class="date">2018-11-08</h4>
+            <h4 class="date">2018-11-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/wjschne/simstandard/blob/master/vignettes/simstandard_tutorial.Rmd"><code>vignettes/simstandard_tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>simstandard_tutorial.Rmd</code></div>
@@ -682,7 +682,7 @@ B3
 <div id="estimated-factor-scores" class="section level1">
 <h1 class="hasAnchor">
 <a href="#estimated-factor-scores" class="anchor"></a>Estimated Factor Scores</h1>
-<p>If you want to estimate factor scores using the regression method (i.e., Thurstone’s method), set `factor_scores = TRUE’. All scores ending in "_FS" are factor score estimates.</p>
+<p>If you want to estimate factor scores using the regression method (i.e., Thurstone’s method), set <code>factor_scores</code> to <code>TRUE</code>. All scores ending in *_FS* are factor score estimates.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">m &lt;-<span class="st"> "</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">"</span></a>
@@ -946,16 +946,16 @@ e_A3_FS
 <div id="adding-factor-scores-to-new-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#adding-factor-scores-to-new-data" class="anchor"></a>Adding factor scores to new data</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">d &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="op">~</span>A1,  <span class="op">~</span>A2,  <span class="op">~</span>A3,</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">   2L,  <span class="fl">2.5</span>,  <span class="fl">1.3</span>,</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="op">-</span>1L, <span class="fl">-1.5</span>, <span class="fl">-2.1</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">  )</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="kw"><a href="../reference/add_factor_scores.html">add_factor_scores</a></span>(d, m ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="st">  </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<p>Suppose you have some new data and which to add estimated factor scores to it. The <code>add_factor_scores</code> function will take your data and return your data with the estimated factors added to it.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">d &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="op">~</span>A1,  <span class="op">~</span>A2,  <span class="op">~</span>A3,</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">   2L,  <span class="fl">2.5</span>,  <span class="fl">1.3</span>,</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="op">-</span>1L, <span class="fl">-1.5</span>, <span class="fl">-2.1</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">  )</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="kw"><a href="../reference/add_factor_scores.html">add_factor_scores</a></span>(d, m ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="st">  </span><span class="kw">kable_styling</span>()</a></code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:right;">
@@ -1209,7 +1209,7 @@ A_Composite
 <div id="return-lavaan-syntax-with-all-parameters-set-free" class="section level1">
 <h1 class="hasAnchor">
 <a href="#return-lavaan-syntax-with-all-parameters-set-free" class="anchor"></a>Return lavaan syntax with all parameters set free</h1>
-<p>Suppose that we want to verify that the data generated by the <code>sim_standardized</code> function is correct. We will need an analogous model, but with all the fixed parameters set free. We could manually remove the fixed parameter values, but with large models the process is tedious and introduces a risk of error. The <code>fixed2free</code> function removes the fixed parameters values painlessly from the model.</p>
+<p>Suppose that we want to verify that the data generated by the <code>sim_standardized</code> function is correct. We will need an analogous model, but with all the fixed parameters set free. We could manually remove the fixed parameter values, but with large models the process is tedious and introduces a risk of error. The <code>fixed2free</code> function painlessly removes the fixed parameters values from the model.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># lavaan syntax for model</span></a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">m &lt;-<span class="st"> "</span></a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></a>
