@@ -6,7 +6,6 @@
 #' @export
 #' @param m Structural model represented by lavaan syntax
 #' @param max_iterations Maximum number of iterations before the algorithm fails
-#' @importFrom lavaan lavParTable
 #' @return list of path and covariance coefficients
 #' @examples
 #' library(simstandard)
@@ -17,7 +16,7 @@
 sim_standardized_matrices <- function(m, max_iterations = 100) {
 
   # Parameter Table
-  pt <- lavParTable(m, fixed.x = F)
+  pt <- lavaan::lavParTable(m, fixed.x = F)
 
   # Checks----
 
@@ -277,8 +276,19 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
     }
 
 
+    A_composite_direct <- sign(A_big[v_observed_indicator, v_latent, drop = F])
 
-    A_composite <- sign(A_big[v_observed_indicator, v_latent, drop = F]) + sign(A[v_observed_indicator, v_latent, drop = F] %*% A[v_latent, v_latent, drop = F])
+    # Has Direct Indicators
+    Has_direct <- (colSums(abs(A_composite_direct)) > 0) * 1
+
+    # Higher-order factors
+    A_composite_higher_order <- sign(A_composite_direct %*%
+                                       A[v_latent, v_latent, drop = F] %*%
+                                       diag(1 - Has_direct,
+                                            nrow = length(Has_direct)))
+
+
+    A_composite <- A_composite_direct + A_composite_higher_order
 
 
 

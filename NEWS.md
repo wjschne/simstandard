@@ -1,3 +1,7 @@
+# simstandard 0.2.1
+
+* Fixed method of finding indicators for composite variables. A composite now is only created from direct indicators unless the latent variable is a higher-order factors with no direct indicators.
+
 # simstandard 0.2.0
 
 * Added the `fixed2free` function, which takes a `lavaan` syntax model with fixed parameters and returns a `lavaan` syntax model in which all parameters are free.
