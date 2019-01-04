@@ -6,7 +6,7 @@
 \usage{
 sim_standardized(m, n = 1000, observed = TRUE, latent = TRUE,
   errors = TRUE, factor_scores = FALSE, composites = FALSE,
-  matrices = FALSE)
+  matrices = FALSE, ...)
 }
 \arguments{
 \item{m}{Structural model represented by lavaan syntax}
@@ -24,6 +24,8 @@ sim_standardized(m, n = 1000, observed = TRUE, latent = TRUE,
 \item{composites}{Include composite variables}
 
 \item{matrices}{Include matrices as attribute of tibble}
+
+\item{...}{Arguments passed to `simstandardized_matrices`}
 }
 \value{
 tibble with standardized data

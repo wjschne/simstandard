@@ -4,12 +4,15 @@
 \alias{sim_standardized_matrices}
 \title{Return model characteristics}
 \usage{
-sim_standardized_matrices(m, max_iterations = 100)
+sim_standardized_matrices(m, max_iterations = 100,
+  composite_threshold = NULL)
 }
 \arguments{
 \item{m}{Structural model represented by lavaan syntax}
 
 \item{max_iterations}{Maximum number of iterations before the algorithm fails}
+
+\item{composite_threshold}{Loadings with absolute values less than this threshold will not be counted as composite indicators}
 }
 \value{
 list of path and covariance coefficients

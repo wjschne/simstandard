@@ -308,4 +308,129 @@ m_complete <- model_complete(m)
 cat(m_complete)
 ```
 
+# Return lavaan syntax from matrices
+
+Suppose that a research article provides model coefficients in a table. We could spend time creating lavaan syntax by hand, but such work can be tedious. The `matrix2lavaan` function can help save time when the models are already specified in matrix form.
+
+## The measurement model
+
+The measurement model can be specified with a matrix in which the column names are latent variables and the row names are indicator variables.
+
+Here we have three latent variables, Vocabulary, Working Memory Capacity, and Reading, each defined by three indicator variables.
+
+```{r}
+m_meas <- matrix(c(
+	0.8,0,0,  # VC1
+	0.9,0,0,  # VC2
+	0.7,0,0,  # VC3
+	0,0.6,0,  # WM1
+	0,0.7,0,  # WM2
+	0,0.8,0,  # WM3
+	0,0,0.9,  # RD1
+	0,0,0.7,  # RD2
+	0,0,0.8), # RD3
+	nrow = 9, 
+	byrow = TRUE,
+	dimnames = list(
+	  c("VC1", "VC2", "VC3", 
+	    "WM1", "WM2", "WM3", 
+	    "RD1", "RD2", "RD3"),
+	  c("Vocabulary", "WorkingMemory", "Reading")))
+
+```
+
+## The structural model
+
+The structural model can be specified with a matrix in which the predictors are the column names and the criterion variables are the row names.
+
+Here we have Vocabulary and Working Memory Capacity predicting Reading Scores. 
+
+```{r}
+m_struct <- matrix(
+  c(0.4,0.3), 
+	ncol = 2,
+	dimnames = list(
+	  "Reading",
+	  c("Vocabulary", "WorkingMemory"))) 
+
+```
+
+This could have been a 3 by 3 matrix with zeroes (which are ignored).
+
+```{r}
+m_struct <- matrix(c(
+	0,   0,   0,  # Vocabulary
+	0,   0,   0,  # WorkingMemory
+	0.4, 0.3, 0), # Reading
+	nrow = 3, 
+	byrow = TRUE) 
+rownames(m_struct) <- c("Vocabulary", "WorkingMemory", "Reading")
+colnames(m_struct) <- c("Vocabulary", "WorkingMemory", "Reading")
+```
+
+
+## Covariances
+
+The variances and covariances must be specified as a symmetric matrix, though variables can be omitted. 
+
+Here we specify that the latent variables Vocabulary and Working Memory Capacity are correlated.
+
+```{r}
+m_cov <- matrix(c(
+	1,   0.5, 
+	0.5, 1), 
+	nrow = 2,
+	dimnames = list(
+	  c("Vocabulary", "WorkingMemory"),
+	  c("Vocabulary", "WorkingMemory"))) 
+
+```
+
+## Using the `matrix2lavaan` function
+
+The `matrix2lavaan` function takes arguments for the measurement model, structural model, and covariances. Any of the three matrices can be omitted.
+
+```{r}
+model <- matrix2lavaan(measurement_model = m_meas, 
+                       structural_model = m_struct, 
+                       covariances = m_cov)
+cat(model)
+```
+
+
+## Specifying models with data.frames instead of matrices
+
+As an alternative, the `matrix2lavaan` function can take data.frames (or tibbles) with either rownames or the first column as a character vector.
+
+```{r}
+# A tibble with indicator variables listed in the first column
+m_meas <- tibble::tribble(
+     ~Test, ~Vocabulary, ~WorkingMemory, ~Reading,
+     "VC1",         0.8,              0,        0,
+     "VC2",         0.9,              0,        0,
+     "VC3",         0.7,              0,        0,
+     "WM1",           0,            0.6,        0,
+     "WM2",           0,            0.7,        0,
+     "WM3",           0,            0.8,        0,
+     "RD1",           0,              0,      0.9,
+     "RD2",           0,              0,      0.7,
+     "RD3",           0,              0,      0.8)
+
+# A data.frame with criterion variable specified as a row name
+m_struct <- data.frame(Vocabulary = 0.4, 
+                       WorkingMemory = 0.3, 
+                       row.names = "Reading")
+
+# A data.frame with variable names specified as row names
+m_cov <- data.frame(Vocabulary =    c(1, 0.5),
+                    WorkingMemory = c(0.5, 1))
+rownames(m_cov) <- c("Vocabulary", "WorkingMemory")
+
+
+model <- matrix2lavaan(measurement_model = m_meas, 
+                       structural_model = m_struct, 
+                       covariances = m_cov)
+```
+
+
 

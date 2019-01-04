@@ -6,6 +6,7 @@
 #' @export
 #' @param m Structural model represented by lavaan syntax
 #' @param max_iterations Maximum number of iterations before the algorithm fails
+#' @param composite_threshold Loadings with absolute values less than this threshold will not be counted as composite indicators
 #' @return list of path and covariance coefficients
 #' @examples
 #' library(simstandard)
@@ -13,7 +14,9 @@
 #' m = "Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"
 #'
 #' sim_standardized_matrices(m)
-sim_standardized_matrices <- function(m, max_iterations = 100) {
+sim_standardized_matrices <- function(m,
+                                      max_iterations = 100,
+                                      composite_threshold = NULL) {
 
   # Parameter Table
   pt <- lavaan::lavParTable(m, fixed.x = F)
@@ -278,6 +281,12 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
 
     A_composite_direct <- sign(A_big[v_observed_indicator, v_latent, drop = F])
 
+    if (!is.null(composite_threshold)) {
+      A_composite_direct <- A_composite_direct *
+        (abs(A_big[v_observed_indicator, v_latent, drop = F]) >
+           composite_threshold)
+    }
+
     # Has Direct Indicators
     Has_direct <- (colSums(abs(A_composite_direct)) > 0) * 1
 
@@ -410,6 +419,7 @@ sim_standardized_matrices <- function(m, max_iterations = 100) {
 #' @param factor_scores Include factor score variables
 #' @param composites Include composite variables
 #' @param matrices Include matrices as attribute of tibble
+#' @param ... Arguments passed to `simstandardized_matrices`
 #' @return tibble with standardized data
 #' @importFrom mvtnorm rmvnorm
 #' @examples
@@ -427,10 +437,11 @@ sim_standardized <- function(
   errors = TRUE,
   factor_scores = FALSE,
   composites = FALSE,
-  matrices = FALSE) {
+  matrices = FALSE,
+  ...) {
 
   # Get main object from sim_standardized_matrices
-  o <- sim_standardized_matrices(m)
+  o <- sim_standardized_matrices(m,...)
 
   # Names of variables in S (Symmetric) matrix
 
@@ -612,4 +623,210 @@ add_factor_scores <- function(d, m, CI = FALSE, p = 0.95, ...) {
     d_all <- cbind(d_all, d_lower_bound, d_upper_bound)
   }
   d_all
+}
+
+#' Create lavaan model syntax from matrix coefficients
+#'
+#' @export
+#' @param measurement_model A matrix or data.frame with measurement model loadings. Column names are latent variables. Row names or the first column of a data.frame are indicator variables.
+#' @param structural_model A matrix or data.frame with structural model coefficients (i.e., regressions). Column names are "causal" variables. Row names or the first column of a data.frame are "effect" variables.
+#' @param covariances A matrix or data.frame with model covariances. Column names must match the row names. If a data.frame, row variable names can be specified in the first column.
+#' @return a character string with lavaan syntax
+#' @examples
+#' library(simstandard)
+#' # Specifying the measurement model:
+#' # For a data.frame, the column names are latent variables,
+#' # and the indictors can be specified as rownames.
+#' m <- data.frame(X = c(0.7,0.8,0,0),
+#'                 Y = c(0,0,0.8,0.9))
+#' rownames(m) <- c("A", "B", "C", "D")
+#' # Indicator variables can also be specified
+#' # as the first column variable
+#' # with subsequent column names as latent variables
+#' m <- data.frame(Indicators = c("A", "B", "C", "D"),
+#'                 X = c(0.7,0.8,0,0),
+#'                 Y = c(0,0,0.8,0.9))
+#' # Alternately, a matrix can be used:
+#' m <- matrix(c(0.7,0.8,0,0,
+#'               0,0,0.8,0.9),
+#'               ncol = 2,
+#'               dimnames = list(c("A", "B", "C", "D"),
+#'                               c("X", "Y")))
+#' # Specifying the structural coefficients:
+#' # The regression coefficients of the structural model can be
+#' # specified as either a data.frame or a matrix. Column names
+#' # are the predictors and row names are the criterion variables.
+#' # With a data.frame, criterion variables can alternataly be
+#' # specified with as the first column.
+#' s <- matrix(0.5, nrow = 1, ncol = 1, dimnames = list("Y", "X"))
+#' # The covariance matrix must be symmetric. Can also be specified
+#' # as a data. frame.
+#' Sigma <- matrix(c(1, 0.3,
+#'                   0.3, 1),
+#'                 nrow = 2,
+#'                 ncol = 2,
+#'                 dimnames = list(c("B","C"),
+#'                                 c("B","C")) )
+#' model <- matrix2lavaan(measurement_model = m,
+#'                        structural_model = s,
+#'                        covariances = Sigma)
+#' cat(model)
+matrix2lavaan <- function(
+  measurement_model = NULL,
+  structural_model = NULL,
+  covariances = NULL) {
+  lav_m <- character(0)
+  lav_s <- character(0)
+  lav_c <- character(0)
+
+  # Measurment model ----
+  if (!is.null(measurement_model)) {
+
+    measurement_model <- check_matrix2lavaan(m = measurement_model,
+                                             mname = "Measurement model")
+
+
+    testcol_m <- colnames(measurement_model)[1]
+    lav_m <- measurement_model %>%
+      dplyr::rename(Test = !!testcol_m) %>%
+      tidyr::gather(key = "Construct",
+                    value = "Loading",
+                    -1,
+                    factor_key = T) %>%
+      dplyr::filter(.data$Loading != 0) %>%
+      dplyr::mutate(
+        model = paste0(.data$Loading, " * ", .data$Test)) %>%
+      dplyr::group_by(.data$Construct) %>%
+      dplyr::summarise(
+        model = paste0(
+          .data$model,
+          collapse = " + ")) %>%
+      dplyr::summarise(
+        model = paste0(
+          .data$Construct,
+          " =~ " ,
+          .data$model,
+          collapse = "\n")) %>%
+      dplyr::pull(.data$model)
+
+  }
+
+  # Structural model ----
+  if (!is.null(structural_model)) {
+
+    structural_model <- check_matrix2lavaan(m = structural_model,
+                                            mname = "Structural model")
+
+    testcol_s <- colnames(structural_model)[1]
+    lav_s <- structural_model %>%
+      dplyr::rename(Criterion = !!testcol_s) %>%
+      tidyr::gather(key = "Predictor",
+                    value = "Coefficient",
+                    -1,
+                    factor_key = T) %>%
+      dplyr::filter(.data$Coefficient != 0) %>%
+      dplyr::mutate(
+        model = paste0(.data$Coefficient, " * ", .data$Predictor)) %>%
+      dplyr::group_by(.data$Criterion) %>%
+      dplyr::summarise(
+        model = paste0(
+          .data$model,
+          collapse = " + ")) %>%
+      dplyr::summarise(
+        model = paste0(
+          .data$Criterion,
+          " ~ " ,
+          .data$model,
+          collapse = "\n")) %>%
+      dplyr::pull(.data$model)
+
+  }
+
+  # Covariances ----
+  if (!is.null(covariances)) {
+    covariances <- check_matrix2lavaan(m = covariances,
+                                       mname = "Covariances")
+
+    mcovariances <- as.matrix(covariances[,-1, drop = FALSE])
+    rownames(mcovariances) <- colnames(mcovariances)
+    if (!isSymmetric(mcovariances)) stop("covariances must be symmetric.")
+
+    for (j in 2:ncol(covariances)) {
+      for (i in 1:nrow(covariances)) {
+        if (i + 1 < j) covariances[i,j] <- NA
+        if (i + 1 == j & covariances[i,j] == 1) covariances[i,j] <- NA
+      }
+    }
+
+    testcol_covariances <- colnames(covariances)[1]
+    lav_c <- covariances %>%
+      dplyr::rename(Test = !!testcol_covariances) %>%
+      tidyr::gather(key = "Construct",
+                    value = "Coefficient",
+                    -1,
+                    factor_key = T) %>%
+      dplyr::filter(!is.na(.data$Coefficient)) %>%
+      dplyr::filter(.data$Coefficient != 0) %>%
+      dplyr::mutate(
+        model = paste0(.data$Coefficient, " * ", .data$Test)) %>%
+      dplyr::group_by(.data$Construct) %>%
+      dplyr::summarise(
+        model = paste0(
+          .data$model,
+          collapse = " + ")) %>%
+      dplyr::summarise(
+        model = paste0(
+          .data$Construct,
+          " ~~ " ,
+          .data$model,
+          collapse = "\n")) %>%
+      dplyr::pull(.data$model)
+
+
+
+  }
+
+  paste(lav_m, lav_s, lav_c, sep = "\n")
+
+}
+
+#' Checks matrices for matrix2lavaan function
+#' @param m matrix, data.frame or tibble
+#' @param mname Name of m
+#' @keywords internal
+#' @usage NULL
+check_matrix2lavaan <- function(m, mname) {
+
+  if ("matrix" %in% class(m)) {
+    if (is.null(rownames(m))) stop(paste(mname, "must have row names."))
+    if (is.null(colnames(m))) stop(paste(mname, "must have column names."))
+    m <- as.data.frame(m) %>%
+      tibble::rownames_to_column(var = "Test")
+  }
+
+  if (!("data.frame" %in% class(m))) {
+    stop(
+      paste(mname, "must be a data.frame, tibble, or matrix."))
+  }
+
+  if (!(purrr::map_chr(m[, 1, drop = FALSE],class) %in% c("character", "factor"))) {
+    if (any(rownames(m) == as.character(seq(1, length(
+      rownames(m)
+    ))))) {
+      stop(
+        paste(mname, "must either have indicator variable names in the first column or as rownames of the data.frame.")
+      )
+    } else
+      m <-
+        tibble::rownames_to_column(m, var = "Test")
+
+  }
+
+  allnumeric_s <- purrr::map_lgl(m[, -1, drop = FALSE],is.numeric) %>%
+    all
+
+  if (!allnumeric_s) stop(paste("All columns of", tolower(mname), "must be numeric except for the first column."))
+
+  m
+
 }

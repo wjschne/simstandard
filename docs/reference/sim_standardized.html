@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simstandard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@
 
     <pre class="usage"><span class='fu'>sim_standardized</span>(<span class='no'>m</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>observed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>latent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>factor_scores</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>composites</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>matrices</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>matrices</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,6 +168,10 @@
       <th>matrices</th>
       <td><p>Include matrices as attribute of tibble</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed to `simstandardized_matrices`</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -185,19 +189,19 @@
 <span class='no'>m</span> <span class='kw'>=</span> <span class='st'>"Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"</span>
 
 <span class='co'># simulate 10 cases</span>
-<span class='fu'>sim_standardized</span>(<span class='no'>m</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 7</span><span>
+<span class='fu'>sim_standardized</span>(<span class='no'>m</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 7
 #&gt;       Ob_1    Ob_2    Ob_3 Latent_1 e_Ob_1  e_Ob_2 e_Ob_3
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> -</span><span style='color: #BB0000;'>0.844</span><span>   0.178  -</span><span style='color: #BB0000;'>2.24</span><span>   -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>57</span><span> -</span><span style='color: #BB0000;'>0.840</span><span>  0.182  -</span><span style='color: #BB0000;'>2.23</span><span> 
-#&gt; </span><span style='color: #555555;'> 2</span><span>  0.175   0.647  -</span><span style='color: #BB0000;'>1.77</span><span>   -</span><span style='color: #BB0000;'>0.247</span><span>    0.373  0.820  -</span><span style='color: #BB0000;'>1.67</span><span> 
-#&gt; </span><span style='color: #555555;'> 3</span><span>  0.357   0.238  -</span><span style='color: #BB0000;'>0.256</span><span>   0.629   -</span><span style='color: #BB0000;'>0.147</span><span> -</span><span style='color: #BB0000;'>0.202</span><span>  -</span><span style='color: #BB0000;'>0.507</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> -</span><span style='color: #BB0000;'>0.251</span><span>  -</span><span style='color: #BB0000;'>2.47</span><span>   -</span><span style='color: #BB0000;'>0.276</span><span>  -</span><span style='color: #BB0000;'>1.86</span><span>     1.24  -</span><span style='color: #BB0000;'>1.16</span><span>    0.470
-#&gt; </span><span style='color: #555555;'> 5</span><span> -</span><span style='color: #BB0000;'>1.04</span><span>   -</span><span style='color: #BB0000;'>0.677</span><span>   0.132  -</span><span style='color: #BB0000;'>0.914</span><span>   -</span><span style='color: #BB0000;'>0.313</span><span> -</span><span style='color: #BB0000;'>0.037</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span>  0.498
-#&gt; </span><span style='color: #555555;'> 6</span><span>  0.871   0.776  -</span><span style='color: #BB0000;'>0.901</span><span>   0.738    0.281  0.259  -</span><span style='color: #BB0000;'>1.20</span><span> 
-#&gt; </span><span style='color: #555555;'> 7</span><span>  1.12   -</span><span style='color: #BB0000;'>0.080</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span> -</span><span style='color: #BB0000;'>0.864</span><span>  -</span><span style='color: #BB0000;'>0.016</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>   1.13  -</span><span style='color: #BB0000;'>0.069</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span> -</span><span style='color: #BB0000;'>0.858</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span> -</span><span style='color: #BB0000;'>0.355</span><span>  -</span><span style='color: #BB0000;'>0.957</span><span>   0.928   0.176   -</span><span style='color: #BB0000;'>0.496</span><span> -</span><span style='color: #BB0000;'>1.08</span><span>    0.857
-#&gt; </span><span style='color: #555555;'> 9</span><span>  0.039</span><span style='text-decoration: underline;'>0</span><span>  1.07    0.049</span><span style='text-decoration: underline;'>1</span><span> -</span><span style='color: #BB0000;'>0.134</span><span>    0.146  1.16    0.103
-#&gt; </span><span style='color: #555555;'>10</span><span> -</span><span style='color: #BB0000;'>0.292</span><span>   0.548   0.140   1.07    -</span><span style='color: #BB0000;'>1.15</span><span>  -</span><span style='color: #BB0000;'>0.199</span><span>  -</span><span style='color: #BB0000;'>0.287</span><span></div></span></pre>
+#&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 -0.844   0.178  -2.24   -0.00557 -0.840  0.182  -2.23 
+#&gt;  2  0.175   0.647  -1.77   -0.247    0.373  0.820  -1.67 
+#&gt;  3  0.357   0.238  -0.256   0.629   -0.147 -0.202  -0.507
+#&gt;  4 -0.251  -2.47   -0.276  -1.86     1.24  -1.16    0.470
+#&gt;  5 -1.04   -0.677   0.132  -0.914   -0.313 -0.0376  0.498
+#&gt;  6  0.871   0.776  -0.901   0.738    0.281  0.259  -1.20 
+#&gt;  7  1.12   -0.0808 -0.864  -0.0160   1.13  -0.0696 -0.858
+#&gt;  8 -0.355  -0.957   0.928   0.176   -0.496 -1.08    0.857
+#&gt;  9  0.0390  1.07    0.0491 -0.134    0.146  1.16    0.103
+#&gt; 10 -0.292   0.548   0.140   1.07    -1.15  -0.199  -0.287</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -220,7 +224,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

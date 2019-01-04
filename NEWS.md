@@ -1,6 +1,11 @@
+# simstandard 0.3
+
+* Added the `matrix2lavaan` function to provide a convenient method of creating lavaan syntax from matrices.
+* The `sim_standardized_matrices` function has a new argument, `composite_threshold`. If this argument is specified, variables with loadings below the threshold are not used as indicators of the composite scores.
+
 # simstandard 0.2.1
 
-* Fixed method of finding indicators for composite variables. A composite now is only created from direct indicators unless the latent variable is a higher-order factors with no direct indicators.
+* Fixed the method of finding indicators for composite variables. A composite now is only created from direct indicators unless the latent variable is a higher-order factor with no direct indicators.
 
 # simstandard 0.2.0
 
