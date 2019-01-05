@@ -3,6 +3,7 @@
 export("%>%")
 export(add_factor_scores)
 export(fixed2free)
+export(lav2ram)
 export(matrix2lavaan)
 export(model_complete)
 export(sim_standardized)

@@ -85,7 +85,7 @@
       <h1>Using the simstandard package</h1>
                         <h4 class="author">W. Joel Schneider</h4>
             
-            <h4 class="date">2019-01-04</h4>
+            <h4 class="date">2019-01-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/wjschne/simstandard/blob/master/vignettes/simstandard_tutorial.Rmd"><code>vignettes/simstandard_tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>simstandard_tutorial.Rmd</code></div>
@@ -469,29 +469,30 @@ d_B
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">    </span>tibble<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/rownames">rownames_to_column</a></span>(<span class="st">"rowname"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">    </span>tidyr<span class="op">::</span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span>(colname, r, <span class="op">-</span>rowname) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">rowname =</span> forcats<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/forcats/topics/fct_rev">fct_rev</a></span>(rowname)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(colname, rowname, <span class="dt">fill =</span> r)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">    </span><span class="kw">geom_tile</span>(<span class="dt">color =</span> <span class="st">"gray90"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">      <span class="dt">label =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/formatc">formatC</a></span>(</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">      r, </a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">      <span class="dt">digits =</span> <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">      <span class="dt">format =</span> <span class="st">"f"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stringr/topics/str_replace">str_replace_all</a></span>(<span class="st">"0</span><span class="ch">\\</span><span class="st">."</span>,<span class="st">"."</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stringr/topics/str_replace">str_replace_all</a></span>(<span class="st">"1.00"</span>,<span class="st">"1"</span>)), </a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">    <span class="dt">color =</span> <span class="st">"white"</span>, </a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">    <span class="dt">fontface =</span> <span class="st">"bold"</span>,</a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">    <span class="dt">family =</span> <span class="st">"serif"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="st">    </span><span class="kw">scale_fill_gradient2</span>(<span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">      <span class="dt">na.value =</span> <span class="st">"gray20"</span>,</a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">      <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">1.01</span>, <span class="fl">1.01</span>),</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">      <span class="dt">high =</span> <span class="st">"#924552"</span>,</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">      <span class="dt">low =</span> <span class="st">"#293999"</span></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">    ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="st">    </span><span class="kw">scale_x_discrete</span>(<span class="ot">NULL</span>,<span class="dt">position =</span> <span class="st">"top"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="st">    </span><span class="kw">theme_light</span>(<span class="dt">base_family =</span> <span class="st">"serif"</span>, <span class="dt">base_size =</span> <span class="dv">14</span>) </a>
-<a class="sourceLine" id="cb2-29" data-line-number="29">}</a></code></pre></div>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">colname =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(colname, <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rev">rev</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/levels">levels</a></span>(rowname)))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(colname, rowname, <span class="dt">fill =</span> r)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">    </span><span class="kw">geom_tile</span>(<span class="dt">color =</span> <span class="st">"gray90"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">      <span class="dt">label =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/formatc">formatC</a></span>(</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">      r, </a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">      <span class="dt">digits =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">      <span class="dt">format =</span> <span class="st">"f"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span>(<span class="st">"0</span><span class="ch">\\</span><span class="st">."</span>,<span class="st">"."</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span>(<span class="st">"1.00"</span>,<span class="st">"1"</span>)), </a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">    <span class="dt">color =</span> <span class="st">"white"</span>, </a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">    <span class="dt">fontface =</span> <span class="st">"bold"</span>,</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">    <span class="dt">family =</span> <span class="st">"serif"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="st">    </span><span class="kw">scale_fill_gradient2</span>(<span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">      <span class="dt">na.value =</span> <span class="st">"gray20"</span>,</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">      <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">1.01</span>, <span class="fl">1.01</span>),</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">      <span class="dt">high =</span> <span class="st">"#924552"</span>,</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">      <span class="dt">low =</span> <span class="st">"#293999"</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">    ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="st">    </span><span class="kw">scale_x_discrete</span>(<span class="ot">NULL</span>,<span class="dt">position =</span> <span class="st">"top"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="st">    </span><span class="kw">theme_light</span>(<span class="dt">base_family =</span> <span class="st">"serif"</span>, <span class="dt">base_size =</span> <span class="dv">14</span>) </a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">}</a></code></pre></div>
 <p>Because the data are standardized, the covariance matrix of the observed and latent variables should be nearly identical to a correlation matrix. The error and disturbance terms are not standardized.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cov</a></span>(d) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span>ggcor</a></code></pre></div>
@@ -1323,17 +1324,17 @@ A_Composite
 <a class="sourceLine" id="cb13-96" data-line-number="96"><span class="co">#&gt;    .B                 0.315    0.003  124.248    0.000    0.641    0.641</span></a>
 <a class="sourceLine" id="cb13-97" data-line-number="97"></a>
 <a class="sourceLine" id="cb13-98" data-line-number="98"><span class="co"># Extract RAM paths</span></a>
-<a class="sourceLine" id="cb13-99" data-line-number="99">RAM &lt;-<span class="st"> </span>semPlot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/semPlot/topics/modelMatrices">modelMatrices</a></span>(lav_results)</a>
+<a class="sourceLine" id="cb13-99" data-line-number="99">RAM &lt;-<span class="st"> </span><span class="kw"><a href="../reference/lav2ram.html">lav2ram</a></span>(lav_results)</a>
 <a class="sourceLine" id="cb13-100" data-line-number="100"></a>
 <a class="sourceLine" id="cb13-101" data-line-number="101"><span class="co"># Display asymmetric paths (i.e., single-headed arrows for </span></a>
 <a class="sourceLine" id="cb13-102" data-line-number="102"><span class="co"># loadings and structure coefficients)</span></a>
-<a class="sourceLine" id="cb13-103" data-line-number="103">RAM<span class="op">$</span>A[[<span class="dv">1</span>]]<span class="op">$</span>std <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggcor</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb13-103" data-line-number="103">RAM<span class="op">$</span>A <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggcor</span>()</a></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/lavaantest-1.svg" width="100%" height="100%"></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co"># Display symmetric paths (i.e., curved double-headed arrows</span></a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co"># exogenous variances, error variances, disturbance variances, </span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co"># and any covariances among these)</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5">RAM<span class="op">$</span>S[[<span class="dv">1</span>]]<span class="op">$</span>std <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggcor</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb14-5" data-line-number="5">RAM<span class="op">$</span>S <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggcor</span>()</a></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/lavaantest-2.svg" width="100%" height="100%"></p>
 <p>As can be seen, all the fit measures indicate a near-perfect fit, and the parameter estimates are within rounding error of the fixed parameters in model <code>m</code>.</p>
 </div>

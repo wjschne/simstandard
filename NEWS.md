@@ -1,7 +1,9 @@
 # simstandard 0.3
 
 * Added the `matrix2lavaan` function to provide a convenient method of creating lavaan syntax from matrices.
+* Added the `lav2ram` function to extract standardized RAM matrices from a lavaan object.
 * The `sim_standardized_matrices` function has a new argument, `composite_threshold`. If this argument is specified, variables with loadings below the threshold are not used as indicators of the composite scores.
+* Removed the semPlot package from suggests list
 
 # simstandard 0.2.1
 

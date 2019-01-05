@@ -30,7 +30,6 @@ Suggests:
     forcats,
     kableExtra,
     stringr,
-    semPlot,
     testthat,
     covr,
     badger

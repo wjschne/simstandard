@@ -89,6 +89,7 @@ ggcor <- function(d) {
     tibble::rownames_to_column("rowname") %>%
     tidyr::gather(colname, r, -rowname) %>%
     dplyr::mutate(rowname = forcats::fct_rev(rowname)) %>% 
+    dplyr::mutate(colname = factor(colname, levels = rev(levels(rowname)))) %>% 
     ggplot(aes(colname, rowname, fill = r)) +
     geom_tile(color = "gray90") +
     geom_text(aes(
@@ -276,16 +277,16 @@ summary(
   fit.measures = TRUE)
 
 # Extract RAM paths
-RAM <- semPlot::modelMatrices(lav_results)
+RAM <- lav2ram(lav_results)
 
 # Display asymmetric paths (i.e., single-headed arrows for 
 # loadings and structure coefficients)
-RAM$A[[1]]$std %>% ggcor()
+RAM$A %>% ggcor()
 
 # Display symmetric paths (i.e., curved double-headed arrows
 # exogenous variances, error variances, disturbance variances, 
 # and any covariances among these)
-RAM$S[[1]]$std %>% ggcor()
+RAM$S %>% ggcor()
 
 ```
 

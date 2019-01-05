@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • simstandard</title>
+<title>Extract standardized RAM matrices from lavaan object — lav2ram • simstandard</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Extract standardized RAM matrices from lavaan object — lav2ram" />
+
+<meta property="og:description" content="Extract standardized RAM matrices from lavaan object" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -52,7 +54,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -114,78 +116,44 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Extract standardized RAM matrices from lavaan object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/wjschne/simstandard/blob/master/R/main.R'><code>R/main.R</code></a></small>
+    <div class="hidden name"><code>lav2ram.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Extract standardized RAM matrices from lavaan object</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="add_factor_scores.html">add_factor_scores()</a></code> </p>
-        </td>
-        <td><p>Add factor scores to observed data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fixed2free.html">fixed2free()</a></code> </p>
-        </td>
-        <td><p>Remove fixed parameters from a lavaan model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lav2ram.html">lav2ram()</a></code> </p>
-        </td>
-        <td><p>Extract standardized RAM matrices from lavaan object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="matrix2lavaan.html">matrix2lavaan()</a></code> </p>
-        </td>
-        <td><p>Create lavaan model syntax from matrix coefficients</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="model_complete.html">model_complete()</a></code> </p>
-        </td>
-        <td><p>Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sim_standardized.html">sim_standardized()</a></code> </p>
-        </td>
-        <td><p>Generates simulated data with standardized parameters.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sim_standardized_matrices.html">sim_standardized_matrices()</a></code> </p>
-        </td>
-        <td><p>Return model characteristics</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>lav2ram</span>(<span class='no'>fit</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>fit</th>
+      <td><p>An object of class lavaan</p></td>
+    </tr>
     </table>
-  </div>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>list of RAM matrices A (assymetric paths), S (symmetric paths), and F (filter matrix)</p>
+    
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
+
   </div>
 </div>
 

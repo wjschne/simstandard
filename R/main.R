@@ -790,7 +790,48 @@ matrix2lavaan <- function(
 
 }
 
+#' Extract standardized RAM matrices from lavaan object
+#'
+#' @export
+#' @param fit An object of class lavaan
+#' @return list of RAM matrices A (assymetric paths), S (symmetric paths), and F (filter matrix)
+lav2ram <- function(fit) {
+  pt <- lavaan::standardizedSolution(fit)
+  pt$id <- 1:nrow(pt)
+  v_all <- unique(c(pt$lhs, pt$rhs))
+  v_latent <- unique(pt$lhs[pt$op == "=~"])
+  v_observed <- v_all[!(v_all %in% v_latent)]
+
+  k <- length(v_all)
+  A <- matrix(0, nrow = k, ncol = k, dimnames = list(v_all, v_all))
+  S <- matrix(0, nrow = k, ncol = k, dimnames = list(v_all, v_all))
+  F <- A
+  diag(F) <- 1
+  F <- F[v_observed,]
+
+  # Assign loadings to A
+  for (i in pt[pt[, "op"] == "=~", "id"]) {
+    A[pt$rhs[i], pt$lhs[i]] <- pt$est.std[i]
+  }
+
+  # Assign regressions to A
+  for (i in pt[pt[, "op"] == "~", "id"]) {
+    A[pt$lhs[i], pt$rhs[i]] <- pt$est.std[i]
+  }
+
+  # Assign correlations to exo_cor
+
+  for (i in pt[(pt[, "op"] == "~~"), "id"]) {
+    S[pt$lhs[i], pt$rhs[i]] <- pt$est.std[i]
+    S[pt$rhs[i], pt$lhs[i]] <- pt$est.std[i]
+  }
+
+  list(A = A, S = S, F = F)
+
+}
+
 #' Checks matrices for matrix2lavaan function
+#'
 #' @param m matrix, data.frame or tibble
 #' @param mname Name of m
 #' @keywords internal
@@ -830,3 +871,5 @@ check_matrix2lavaan <- function(m, mname) {
   m
 
 }
+
+
