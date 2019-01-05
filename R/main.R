@@ -794,7 +794,7 @@ matrix2lavaan <- function(
 #'
 #' @export
 #' @param fit An object of class lavaan
-#' @return list of RAM matrices A (assymetric paths), S (symmetric paths), and F (filter matrix)
+#' @return list of RAM matrices A (asymmetric paths), S (symmetric paths), and F (filter matrix)
 lav2ram <- function(fit) {
   pt <- lavaan::standardizedSolution(fit)
   pt$id <- 1:nrow(pt)

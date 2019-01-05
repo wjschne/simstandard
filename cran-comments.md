@@ -1,9 +1,13 @@
 ## Test environments
-* local Windows 10 install, R 3.5.1
-* ubuntu 14.04 (on travis-ci), R 3.5.1
+* local Windows 10 install, R 3.5.2
+* ubuntu 14.04.5 LTS (on travis-ci), R 3.5.2
 * win-builder (devel and release)
 
-## R CMD check results
+## R CMD check results 
+
+simstandard 0.3 
+
+Duration: 24.5s
 
 0 errors v | 0 warnings v | 0 notes v
 
