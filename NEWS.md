@@ -1,4 +1,4 @@
-# simstandard 0.3
+# simstandard 0.3.0
 
 * Added the `matrix2lavaan` function to provide a convenient method of creating lavaan syntax from matrices.
 * Added the `lav2ram` function to extract standardized RAM matrices from a lavaan object.

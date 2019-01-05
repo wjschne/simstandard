@@ -5,7 +5,7 @@
 
 ## R CMD check results 
 
-simstandard 0.3 
+simstandard 0.3.0 
 
 Duration: 24.5s
 
