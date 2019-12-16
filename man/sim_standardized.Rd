@@ -4,9 +4,17 @@
 \alias{sim_standardized}
 \title{Generates simulated data with standardized parameters.}
 \usage{
-sim_standardized(m, n = 1000, observed = TRUE, latent = TRUE,
-  errors = TRUE, factor_scores = FALSE, composites = FALSE,
-  matrices = FALSE, ...)
+sim_standardized(
+  m,
+  n = 1000,
+  observed = TRUE,
+  latent = TRUE,
+  errors = TRUE,
+  factor_scores = FALSE,
+  composites = FALSE,
+  matrices = FALSE,
+  ...
+)
 }
 \arguments{
 \item{m}{Structural model represented by lavaan syntax}

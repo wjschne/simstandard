@@ -1,3 +1,5 @@
+^vignettes/ModelFigureComplete\.tex$
+^vignettes/ModelFigure\.tex$
 ^CRAN-RELEASE$
 ^cran-comments\.md$
 ^codecov\.yml$

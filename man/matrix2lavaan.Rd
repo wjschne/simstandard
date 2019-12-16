@@ -4,8 +4,11 @@
 \alias{matrix2lavaan}
 \title{Create lavaan model syntax from matrix coefficients}
 \usage{
-matrix2lavaan(measurement_model = NULL, structural_model = NULL,
-  covariances = NULL)
+matrix2lavaan(
+  measurement_model = NULL,
+  structural_model = NULL,
+  covariances = NULL
+)
 }
 \arguments{
 \item{measurement_model}{A matrix or data.frame with measurement model loadings. Column names are latent variables. Row names or the first column of a data.frame are indicator variables.}

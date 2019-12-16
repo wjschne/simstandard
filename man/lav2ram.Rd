@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{lav2ram}
 \alias{lav2ram}
-\title{Extract standardized RAM matrices from lavaan object}
+\title{Extract standardized RAM matrices from a lavaan object}
 \usage{
 lav2ram(fit)
 }
@@ -13,5 +13,5 @@ lav2ram(fit)
 list of RAM matrices A (asymmetric paths), S (symmetric paths), and F (filter matrix)
 }
 \description{
-Extract standardized RAM matrices from lavaan object
+Extract standardized RAM matrices from a lavaan object
 }

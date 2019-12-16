@@ -1,3 +1,7 @@
+# simstandard 0.4.0
+
+* Fixed bug that prevents computation of composite scores of third-order and fourth-order latent variables.
+
 # simstandard 0.3.0
 
 * Added the `matrix2lavaan` function to provide a convenient method of creating lavaan syntax from matrices.

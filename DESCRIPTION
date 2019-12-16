@@ -1,6 +1,6 @@
 Package: simstandard
 Title: Generate Standardized Data
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: 
     person(given = "W. Joel",
            family = "Schneider",
@@ -8,11 +8,11 @@ Authors@R:
            email = "w.joel.schneider@gmail.com",
            comment = c(ORCID = "0000-0002-8393-5316"))
 Description: Creates simulated data from structural equation models with standardized loading.
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.4.0)
 License: CC0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Imports:
     lavaan,
     mvtnorm,

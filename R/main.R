@@ -290,25 +290,45 @@ sim_standardized_matrices <- function(m,
     # Has Direct Indicators
     Has_direct <- (colSums(abs(A_composite_direct)) > 0) * 1
 
-    # Higher-order factors
-    A_composite_higher_order <- sign(A_composite_direct %*%
-                                       A[v_latent, v_latent, drop = F] %*%
-                                       diag(1 - Has_direct,
-                                            nrow = length(Has_direct)))
+    # Second-order factors
+    A_composite_second_order <- sign(
+      A_composite_direct %*%
+        A[v_latent, v_latent, drop = F] %*%
+        diag(1 - Has_direct,
+             nrow = length(Has_direct)))
+
+    # Third-order factors
+    Has_direct_second <- (colSums(abs(A_composite_second_order)) > 0) * 1
+    A_composite_third_order <- sign(
+      A_composite_second_order %*%
+        A[v_latent, v_latent, drop = F] %*%
+        diag(1 - Has_direct_second,
+             nrow = length(Has_direct_second)))
+
+    # Fourth-order factors
+    Has_direct_third <- (colSums(abs(A_composite_third_order)) > 0) * 1
+    A_composite_fourth_order <- sign(
+      A_composite_third_order %*%
+        A[v_latent, v_latent, drop = F] %*%
+        diag(1 - Has_direct_third,
+             nrow = length(Has_direct_third)))
 
 
-    A_composite <- A_composite_direct + A_composite_higher_order
+
+
+    A_composite <- A_composite_direct + A_composite_second_order + A_composite_third_order + A_composite_fourth_order
 
 
 
-    CM_composite <- t(A_composite) %*% R[v_observed_indicator,
-      v_observed_indicator,
-      drop = F
-    ] %*% A_composite
+    CM_composite <- t(A_composite) %*%
+      R[v_observed_indicator,
+        v_observed_indicator,
+        drop = FALSE] %*%
+      A_composite
 
-    A_composite_w <- A_composite %*% diag(diag(CM_composite) ^ -0.5,
-      nrow = nrow(CM_composite)
-    )
+    A_composite_w <- A_composite %*%
+      diag(diag(CM_composite) ^ -0.5, nrow = nrow(CM_composite))
+
     colnames(A_composite_w) <- v_composite_score
 
     colnames(A_factor_score) <- v_FS
@@ -790,7 +810,7 @@ matrix2lavaan <- function(
 
 }
 
-#' Extract standardized RAM matrices from lavaan object
+#' Extract standardized RAM matrices from a lavaan object
 #'
 #' @export
 #' @param fit An object of class lavaan

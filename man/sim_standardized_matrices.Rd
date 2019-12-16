@@ -4,8 +4,7 @@
 \alias{sim_standardized_matrices}
 \title{Return model characteristics}
 \usage{
-sim_standardized_matrices(m, max_iterations = 100,
-  composite_threshold = NULL)
+sim_standardized_matrices(m, max_iterations = 100, composite_threshold = NULL)
 }
 \arguments{
 \item{m}{Structural model represented by lavaan syntax}
