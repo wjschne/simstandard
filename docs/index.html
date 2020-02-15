@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">simstandard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -103,31 +103,31 @@
 <h3 class="hasAnchor">
 <a href="#option-1-install-the-most-recent-stable-release-from-cran" class="anchor"></a>Option 1: Install the most recent stable release from CRAN</h3>
 <p>You can install simstandard from CRAN by running this code:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"simstandard"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"simstandard"</span>)</span></code></pre></div>
 </div>
 <div id="option-2-install-the-development-version-from-github" class="section level3">
 <h3 class="hasAnchor">
 <a href="#option-2-install-the-development-version-from-github" class="anchor"></a>Option 2: Install the development version from GitHub</h3>
 <p>To install the development version of simstandard, you need to check if devtools is installed. If not, run this:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</span></code></pre></div>
 <p>Once you are sure you have devtools installed, you can install the development version of simstandard from GitHub by running this code:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"wjschne/simstandard"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"wjschne/simstandard"</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>The <code>simstandard</code> package uses <a href="http://lavaan.ugent.be/tutorial/syntax1.html">lavaan syntax</a> to specify models.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simstandard)</a>
-<a class="sourceLine" id="cb4-2" title="2">model &lt;-<span class="st"> "</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="st">A =~ 0.5 * A1 + 0.8 * A2</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="st">B =~ 0.6 * B1 + 0.7 * B2</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="st">B ~ 0.8 * A</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="st">C ~~ 0.5 * A</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="st">"</span></a>
-<a class="sourceLine" id="cb4-8" title="8">data &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_standardized.html">sim_standardized</a></span>(<span class="dt">m =</span> model, <span class="dt">n =</span> <span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb4-9" title="9"></a>
-<a class="sourceLine" id="cb4-10" title="10">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(data), <span class="dt">digits =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simstandard)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>model &lt;-<span class="st"> "</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">A =~ 0.5 * A1 + 0.8 * A2</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="st">B =~ 0.6 * B1 + 0.7 * B2</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">B ~ 0.8 * A</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="st">C ~~ 0.5 * A</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">"</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>data &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_standardized.html">sim_standardized</a></span>(<span class="dt">m =</span> model, <span class="dt">n =</span> <span class="dv">500</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(data), <span class="dt">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">A1</th>

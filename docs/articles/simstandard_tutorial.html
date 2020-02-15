@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simstandard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -87,13 +87,13 @@
 
       
 
-      </header><script src="simstandard_tutorial_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
+      </header><script src="simstandard_tutorial_files/header-attrs-2.1/header-attrs.js"></script><script src="simstandard_tutorial_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Using the simstandard package</h1>
                         <h4 class="author">W. Joel Schneider</h4>
             
-            <h4 class="date">2019-12-16</h4>
+            <h4 class="date">2020-02-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/wjschne/simstandard/blob/master/vignettes/simstandard_tutorial.Rmd"><code>vignettes/simstandard_tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>simstandard_tutorial.Rmd</code></div>
@@ -114,29 +114,29 @@
 <div id="generate-model-based-multivariate-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#generate-model-based-multivariate-data" class="anchor"></a>Generate Model-Based Multivariate Data</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simstandard)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lavaan)</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(knitr)</a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(kableExtra)</a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tibble)</a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
-<a class="sourceLine" id="cb1-9" title="9"></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co"># lavaan syntax for model</span></a>
-<a class="sourceLine" id="cb1-11" title="11">m &lt;-<span class="st"> "</span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></a>
-<a class="sourceLine" id="cb1-13" title="13"><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></a>
-<a class="sourceLine" id="cb1-14" title="14"><span class="st">B ~ 0.6 * A</span></a>
-<a class="sourceLine" id="cb1-15" title="15"><span class="st">"</span></a>
-<a class="sourceLine" id="cb1-16" title="16"></a>
-<a class="sourceLine" id="cb1-17" title="17"><span class="co"># Simulate data</span></a>
-<a class="sourceLine" id="cb1-18" title="18">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m, <span class="dt">n =</span> <span class="dv">100000</span>)</a>
-<a class="sourceLine" id="cb1-19" title="19"></a>
-<a class="sourceLine" id="cb1-20" title="20"><span class="co"># Display First 6 rows</span></a>
-<a class="sourceLine" id="cb1-21" title="21"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(d) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-22" title="22"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-23" title="23"><span class="st">  </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simstandard)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lavaan)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(knitr)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(kableExtra)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tibble)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># lavaan syntax for model</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>m &lt;-<span class="st"> "</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="st">B ~ 0.6 * A</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="st">"</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co"># Simulate data</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m, <span class="dt">n =</span> <span class="dv">100000</span>)</span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># Display First 6 rows</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(d) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="st">  </span><span class="kw">kable_styling</span>()</span></code></pre></div>
 <table class="table table">
 <thead><tr>
 <th style="text-align:right;">
@@ -471,49 +471,49 @@ d_B
 </tbody>
 </table>
 <p>Let’s make a function to display correlations and covariance matrices:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">ggcor &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
-<a class="sourceLine" id="cb2-2" title="2">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb2-3" title="3">  <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(d) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="st">    </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span>(<span class="st">"rowname"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="st">    </span>tidyr<span class="op">::</span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span>(colname, r, <span class="op">-</span>rowname) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">rowname =</span> forcats<span class="op">::</span><span class="kw"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span>(rowname)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">colname =</span> <span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(colname, <span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/rev.html">rev</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/levels.html">levels</a></span>(rowname)))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(colname, rowname, <span class="dt">fill =</span> r)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="st">    </span><span class="kw">geom_tile</span>(<span class="dt">color =</span> <span class="st">"gray90"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(</a>
-<a class="sourceLine" id="cb2-11" title="11">      <span class="dt">label =</span> <span class="kw"><a href="https://rdrr.io/r/base/formatc.html">formatC</a></span>(</a>
-<a class="sourceLine" id="cb2-12" title="12">      r, </a>
-<a class="sourceLine" id="cb2-13" title="13">      <span class="dt">digits =</span> <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb2-14" title="14">      <span class="dt">format =</span> <span class="st">"f"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-15" title="15"><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span>(<span class="st">"0</span><span class="ch">\\</span><span class="st">."</span>,<span class="st">"."</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span>(<span class="st">"1.00"</span>,<span class="st">"1"</span>)), </a>
-<a class="sourceLine" id="cb2-17" title="17">    <span class="dt">color =</span> <span class="st">"white"</span>, </a>
-<a class="sourceLine" id="cb2-18" title="18">    <span class="dt">fontface =</span> <span class="st">"bold"</span>,</a>
-<a class="sourceLine" id="cb2-19" title="19">    <span class="dt">family =</span> <span class="st">"serif"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-20" title="20"><span class="st">    </span><span class="kw">scale_fill_gradient2</span>(<span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb2-21" title="21">      <span class="dt">na.value =</span> <span class="st">"gray20"</span>,</a>
-<a class="sourceLine" id="cb2-22" title="22">      <span class="dt">limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">1.01</span>, <span class="fl">1.01</span>),</a>
-<a class="sourceLine" id="cb2-23" title="23">      <span class="dt">high =</span> <span class="st">"#924552"</span>,</a>
-<a class="sourceLine" id="cb2-24" title="24">      <span class="dt">low =</span> <span class="st">"#293999"</span></a>
-<a class="sourceLine" id="cb2-25" title="25">    ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-26" title="26"><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-27" title="27"><span class="st">    </span><span class="kw">scale_x_discrete</span>(<span class="ot">NULL</span>,<span class="dt">position =</span> <span class="st">"top"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-28" title="28"><span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-29" title="29"><span class="st">    </span><span class="kw">theme_light</span>(<span class="dt">base_family =</span> <span class="st">"serif"</span>, <span class="dt">base_size =</span> <span class="dv">14</span>) </a>
-<a class="sourceLine" id="cb2-30" title="30">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>ggcor &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(ggplot2)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(d) <span class="op">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="st">    </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span>(<span class="st">"rowname"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="st">    </span>tidyr<span class="op">::</span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span>(colname, r, <span class="op">-</span>rowname) <span class="op">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">rowname =</span> forcats<span class="op">::</span><span class="kw"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span>(rowname)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">colname =</span> <span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(colname, <span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/rev.html">rev</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/levels.html">levels</a></span>(rowname)))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(colname, rowname, <span class="dt">fill =</span> r)) <span class="op">+</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="st">    </span><span class="kw">geom_tile</span>(<span class="dt">color =</span> <span class="st">"gray90"</span>) <span class="op">+</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(</span>
+<span id="cb2-11"><a href="#cb2-11"></a>      <span class="dt">label =</span> <span class="kw"><a href="https://rdrr.io/r/base/formatc.html">formatC</a></span>(</span>
+<span id="cb2-12"><a href="#cb2-12"></a>      r, </span>
+<span id="cb2-13"><a href="#cb2-13"></a>      <span class="dt">digits =</span> <span class="dv">2</span>, </span>
+<span id="cb2-14"><a href="#cb2-14"></a>      <span class="dt">format =</span> <span class="st">"f"</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span>(<span class="st">"0</span><span class="ch">\\</span><span class="st">."</span>,<span class="st">"."</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="st">        </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span>(<span class="st">"1.00"</span>,<span class="st">"1"</span>)), </span>
+<span id="cb2-17"><a href="#cb2-17"></a>    <span class="dt">color =</span> <span class="st">"white"</span>, </span>
+<span id="cb2-18"><a href="#cb2-18"></a>    <span class="dt">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    <span class="dt">family =</span> <span class="st">"serif"</span>) <span class="op">+</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="st">    </span><span class="kw">scale_fill_gradient2</span>(<span class="ot">NULL</span>,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>      <span class="dt">na.value =</span> <span class="st">"gray20"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22"></a>      <span class="dt">limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">1.01</span>, <span class="fl">1.01</span>),</span>
+<span id="cb2-23"><a href="#cb2-23"></a>      <span class="dt">high =</span> <span class="st">"#924552"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>      <span class="dt">low =</span> <span class="st">"#293999"</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>    ) <span class="op">+</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="st">    </span><span class="kw">scale_x_discrete</span>(<span class="ot">NULL</span>,<span class="dt">position =</span> <span class="st">"top"</span>) <span class="op">+</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="st">    </span><span class="kw">theme_light</span>(<span class="dt">base_family =</span> <span class="st">"serif"</span>, <span class="dt">base_size =</span> <span class="dv">14</span>) </span>
+<span id="cb2-30"><a href="#cb2-30"></a>}</span></code></pre></div>
 <p>Because the data are standardized, the covariance matrix of the observed and latent variables should be nearly identical to a correlation matrix. The error and disturbance terms are not standardized.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span>(d) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="st">  </span>ggcor</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span>(d) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span>ggcor</span></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/modelcov-1.svg" width="100%" height="100%"></p>
 <p>To return only the observed variables</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m,</a>
-<a class="sourceLine" id="cb4-2" title="2">                      <span class="dt">n =</span> <span class="dv">100000</span>,</a>
-<a class="sourceLine" id="cb4-3" title="3">                      <span class="dt">latent =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb4-4" title="4">                      <span class="dt">errors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co"># Display First 6 rows</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(d) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="st">  </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(m,</span>
+<span id="cb4-2"><a href="#cb4-2"></a>                      <span class="dt">n =</span> <span class="dv">100000</span>,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>                      <span class="dt">latent =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>                      <span class="dt">errors =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co"># Display First 6 rows</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(d) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="st">  </span><span class="kw">kable_styling</span>()</span></code></pre></div>
 <table class="table table">
 <thead><tr>
 <th style="text-align:right;">
@@ -664,27 +664,27 @@ B3
 <a href="#comparison-with-lavaansimulatedata" class="anchor"></a>Comparison with <code>lavaan::simulateData</code>
 </h1>
 <p>I love the lavaan package. However, one aspect of one function in lavaan is not quite right yet. lavaan’s <code>simulateData</code> function <a href="https://github.com/yrosseel/lavaan/issues/46">is known to generate non-standardized data</a>, even when the <code>standardized</code> parameter is set to <code>TRUE</code>. See how it creates variables B1, B2, and B3 with variances much higher than 1. Furthermore, it only produces observed variables.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lavaan)</a>
-<a class="sourceLine" id="cb5-2" title="2">d_lavaan &lt;-<span class="st"> </span><span class="kw">simulateData</span>(</a>
-<a class="sourceLine" id="cb5-3" title="3">  <span class="dt">model =</span> m, </a>
-<a class="sourceLine" id="cb5-4" title="4">  <span class="dt">sample.nobs =</span> <span class="dv">100000</span>, </a>
-<a class="sourceLine" id="cb5-5" title="5">  <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span>(d_lavaan) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-7" title="7"><span class="st">  </span>ggcor</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lavaan)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>d_lavaan &lt;-<span class="st"> </span><span class="kw">simulateData</span>(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="dt">model =</span> m, </span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="dt">sample.nobs =</span> <span class="dv">100000</span>, </span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span>(d_lavaan) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="st">  </span>ggcor</span></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/lavaan-1.svg" width="100%" height="100%"></p>
 </div>
 <div id="inspecting-model-matrices" class="section level1">
 <h1 class="hasAnchor">
 <a href="#inspecting-model-matrices" class="anchor"></a>Inspecting model matrices</h1>
 <p>You can inspect the matrices that simstandard uses to create the data by calling <code>simstandardized_matrices</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">matrices &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized_matrices.html">sim_standardized_matrices</a></span>(m)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>matrices &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized_matrices.html">sim_standardized_matrices</a></span>(m)</span></code></pre></div>
 <p>The A matrix contains all the asymmetric path coefficients (i.e., the loadings and the structural coefficients). These coefficients are specified in the lavaan model syntax.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>A <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw">ggcor</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>A <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">ggcor</span>()</span></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/Amatrix-1.svg" width="100%" height="100%"></p>
 <p>The S matrix contains all the symmetric path coefficients (i.e., the variances and correlations of the observed and latent variables). For endogenous variables, the variances and correlations refer to the variance and correlations of the variable’s associated error or disturbance term. In this case, A is the only endogenous variable, and thus its variance on the diagonal of the S matrix is 1.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>S <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">ggcor</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>matrices<span class="op">$</span>RAM_matrices<span class="op">$</span>S <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">ggcor</span>()</span></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/Smatrix-1.svg" width="100%" height="100%"></p>
 <p>Thus, we can use these results to insert the missing values from the path diagram at the beginning of this tutorial</p>
 <p><img src="ModelFigureComplete.svg" width="700" height="100%" style="display: block; margin: auto;"></p>
@@ -693,17 +693,17 @@ B3
 <h1 class="hasAnchor">
 <a href="#estimated-factor-scores" class="anchor"></a>Estimated Factor Scores</h1>
 <p>If you want to estimate factor scores using the regression method (i.e., Thurstone’s method), set <code>factor_scores</code> to <code>TRUE</code>. All scores ending in <em>FS</em> are factor score estimates.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">m &lt;-<span class="st"> "</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="st">A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="st">"</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(</a>
-<a class="sourceLine" id="cb9-5" title="5">  m, </a>
-<a class="sourceLine" id="cb9-6" title="6">  <span class="dt">n =</span> <span class="dv">100000</span>, </a>
-<a class="sourceLine" id="cb9-7" title="7">  <span class="dt">factor_scores =</span> <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb9-8" title="8">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-10" title="10"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-11" title="11"><span class="st">  </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>m &lt;-<span class="st"> "</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">"</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  m, </span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="dt">n =</span> <span class="dv">100000</span>, </span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="dt">factor_scores =</span> <span class="ot">TRUE</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="st">  </span><span class="kw">kable_styling</span>()</span></code></pre></div>
 <table class="table table">
 <thead><tr>
 <th style="text-align:right;">
@@ -957,15 +957,15 @@ e_A3_FS
 <h2 class="hasAnchor">
 <a href="#adding-factor-scores-to-new-data" class="anchor"></a>Adding factor scores to new data</h2>
 <p>Suppose you have some new data and wish to add estimated factor scores to it. The <code>add_factor_scores</code> function will take your data and return your data with the estimated factors added to it.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">d &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
-<a class="sourceLine" id="cb10-2" title="2">  <span class="op">~</span>A1,  <span class="op">~</span>A2,  <span class="op">~</span>A3,</a>
-<a class="sourceLine" id="cb10-3" title="3">   2L,  <span class="fl">2.5</span>,  <span class="fl">1.3</span>,</a>
-<a class="sourceLine" id="cb10-4" title="4">  <span class="op">-</span>1L, <span class="fl">-1.5</span>, <span class="fl">-2.1</span></a>
-<a class="sourceLine" id="cb10-5" title="5">  )</a>
-<a class="sourceLine" id="cb10-6" title="6"></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="kw"><a href="../reference/add_factor_scores.html">add_factor_scores</a></span>(d, m ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-9" title="9"><span class="st">  </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>d &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="op">~</span>A1,  <span class="op">~</span>A2,  <span class="op">~</span>A3,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>   2L,  <span class="fl">2.5</span>,  <span class="fl">1.3</span>,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="op">-</span>1L, <span class="fl">-1.5</span>, <span class="fl">-2.1</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  )</span>
+<span id="cb10-6"><a href="#cb10-6"></a></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="kw"><a href="../reference/add_factor_scores.html">add_factor_scores</a></span>(d, m ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="st">  </span><span class="kw">kable_styling</span>()</span></code></pre></div>
 <table class="table table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1018,17 +1018,17 @@ A
 <h1 class="hasAnchor">
 <a href="#composite-scores" class="anchor"></a>Composite Scores</h1>
 <p>If you want to calculate equally-weighted composite scores based on the indicators of each latent variable, set `composites = TRUE’.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">m &lt;-<span class="st"> "</span></a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="st">A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3</span></a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="st">"</span></a>
-<a class="sourceLine" id="cb11-4" title="4"><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(</a>
-<a class="sourceLine" id="cb11-5" title="5">  m, </a>
-<a class="sourceLine" id="cb11-6" title="6">  <span class="dt">n =</span> <span class="dv">100000</span>, </a>
-<a class="sourceLine" id="cb11-7" title="7">  <span class="dt">composites =</span> <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb11-8" title="8">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-9" title="9"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-10" title="10"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-11" title="11"><span class="st">  </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>m &lt;-<span class="st"> "</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="st">A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="st">"</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(</span>
+<span id="cb11-5"><a href="#cb11-5"></a>  m, </span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="dt">n =</span> <span class="dv">100000</span>, </span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="dt">composites =</span> <span class="ot">TRUE</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="st">  </span><span class="kw">kable_styling</span>()</span></code></pre></div>
 <table class="table table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1220,131 +1220,131 @@ A_Composite
 <h1 class="hasAnchor">
 <a href="#return-lavaan-syntax-with-all-parameters-set-free" class="anchor"></a>Return lavaan syntax with all parameters set free</h1>
 <p>Suppose that we want to verify that the data generated by the <code>sim_standardized</code> function is correct. We will need an analogous model, but with all the fixed parameters set free. We could manually remove the fixed parameter values, but with large models the process is tedious and introduces a risk of error. The <code>fixed2free</code> function painlessly removes the fixed parameters values from the model.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># lavaan syntax for model</span></a>
-<a class="sourceLine" id="cb12-2" title="2">m &lt;-<span class="st"> "</span></a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="st">B ~ 0.6 * A</span></a>
-<a class="sourceLine" id="cb12-6" title="6"><span class="st">"</span></a>
-<a class="sourceLine" id="cb12-7" title="7"><span class="co"># Make model m free</span></a>
-<a class="sourceLine" id="cb12-8" title="8">m_free &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fixed2free.html">fixed2free</a></span>(m)</a>
-<a class="sourceLine" id="cb12-9" title="9"><span class="co"># Display model m_free</span></a>
-<a class="sourceLine" id="cb12-10" title="10"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(m_free)</a>
-<a class="sourceLine" id="cb12-11" title="11"><span class="co">#&gt; A =~ A1 + A2 + A3 + B1</span></a>
-<a class="sourceLine" id="cb12-12" title="12"><span class="co">#&gt; B =~ B1 + B2 + B3</span></a>
-<a class="sourceLine" id="cb12-13" title="13"><span class="co">#&gt; B ~ A</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># lavaan syntax for model</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>m &lt;-<span class="st"> "</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="st">B ~ 0.6 * A</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="st">"</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co"># Make model m free</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>m_free &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fixed2free.html">fixed2free</a></span>(m)</span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co"># Display model m_free</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(m_free)</span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt; A =~ A1 + A2 + A3 + B1</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt; B =~ B1 + B2 + B3</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt; B ~ A</span></span></code></pre></div>
 <p>Now let’s use lavaan to see if the observed data in <code>d</code> conform to the model in <code>m_free</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># Set the random number generator for reproducible results</span></a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="co"># Generate data based on model m</span></a>
-<a class="sourceLine" id="cb13-4" title="4">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(</a>
-<a class="sourceLine" id="cb13-5" title="5">  m,</a>
-<a class="sourceLine" id="cb13-6" title="6">  <span class="dt">n =</span> <span class="dv">100000</span>,</a>
-<a class="sourceLine" id="cb13-7" title="7">  <span class="dt">latent =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb13-8" title="8">  <span class="dt">errors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb13-9" title="9"></a>
-<a class="sourceLine" id="cb13-10" title="10"><span class="co"># Evaluate the fit of model m_free on data d</span></a>
-<a class="sourceLine" id="cb13-11" title="11"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lavaan)</a>
-<a class="sourceLine" id="cb13-12" title="12">lav_results &lt;-<span class="st"> </span><span class="kw">sem</span>(</a>
-<a class="sourceLine" id="cb13-13" title="13">  <span class="dt">model =</span> m_free, </a>
-<a class="sourceLine" id="cb13-14" title="14">  <span class="dt">data =</span> d)</a>
-<a class="sourceLine" id="cb13-15" title="15"></a>
-<a class="sourceLine" id="cb13-16" title="16"><span class="co"># Display summary of model</span></a>
-<a class="sourceLine" id="cb13-17" title="17"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(</a>
-<a class="sourceLine" id="cb13-18" title="18">  lav_results, </a>
-<a class="sourceLine" id="cb13-19" title="19">  <span class="dt">standardized =</span> <span class="ot">TRUE</span>, </a>
-<a class="sourceLine" id="cb13-20" title="20">  <span class="dt">fit.measures =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb13-21" title="21"><span class="co">#&gt; lavaan 0.6-5 ended normally after 27 iterations</span></a>
-<a class="sourceLine" id="cb13-22" title="22"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-23" title="23"><span class="co">#&gt;   Estimator                                         ML</span></a>
-<a class="sourceLine" id="cb13-24" title="24"><span class="co">#&gt;   Optimization method                           NLMINB</span></a>
-<a class="sourceLine" id="cb13-25" title="25"><span class="co">#&gt;   Number of free parameters                         14</span></a>
-<a class="sourceLine" id="cb13-26" title="26"><span class="co">#&gt;                                                       </span></a>
-<a class="sourceLine" id="cb13-27" title="27"><span class="co">#&gt;   Number of observations                        100000</span></a>
-<a class="sourceLine" id="cb13-28" title="28"><span class="co">#&gt;                                                       </span></a>
-<a class="sourceLine" id="cb13-29" title="29"><span class="co">#&gt; Model Test User Model:</span></a>
-<a class="sourceLine" id="cb13-30" title="30"><span class="co">#&gt;                                                       </span></a>
-<a class="sourceLine" id="cb13-31" title="31"><span class="co">#&gt;   Test statistic                                 7.493</span></a>
-<a class="sourceLine" id="cb13-32" title="32"><span class="co">#&gt;   Degrees of freedom                                 7</span></a>
-<a class="sourceLine" id="cb13-33" title="33"><span class="co">#&gt;   P-value (Chi-square)                           0.379</span></a>
-<a class="sourceLine" id="cb13-34" title="34"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-35" title="35"><span class="co">#&gt; Model Test Baseline Model:</span></a>
-<a class="sourceLine" id="cb13-36" title="36"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-37" title="37"><span class="co">#&gt;   Test statistic                            371352.125</span></a>
-<a class="sourceLine" id="cb13-38" title="38"><span class="co">#&gt;   Degrees of freedom                                15</span></a>
-<a class="sourceLine" id="cb13-39" title="39"><span class="co">#&gt;   P-value                                        0.000</span></a>
-<a class="sourceLine" id="cb13-40" title="40"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-41" title="41"><span class="co">#&gt; User Model versus Baseline Model:</span></a>
-<a class="sourceLine" id="cb13-42" title="42"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-43" title="43"><span class="co">#&gt;   Comparative Fit Index (CFI)                    1.000</span></a>
-<a class="sourceLine" id="cb13-44" title="44"><span class="co">#&gt;   Tucker-Lewis Index (TLI)                       1.000</span></a>
-<a class="sourceLine" id="cb13-45" title="45"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-46" title="46"><span class="co">#&gt; Loglikelihood and Information Criteria:</span></a>
-<a class="sourceLine" id="cb13-47" title="47"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-48" title="48"><span class="co">#&gt;   Loglikelihood user model (H0)            -666610.982</span></a>
-<a class="sourceLine" id="cb13-49" title="49"><span class="co">#&gt;   Loglikelihood unrestricted model (H1)    -666607.236</span></a>
-<a class="sourceLine" id="cb13-50" title="50"><span class="co">#&gt;                                                       </span></a>
-<a class="sourceLine" id="cb13-51" title="51"><span class="co">#&gt;   Akaike (AIC)                             1333249.965</span></a>
-<a class="sourceLine" id="cb13-52" title="52"><span class="co">#&gt;   Bayesian (BIC)                           1333383.146</span></a>
-<a class="sourceLine" id="cb13-53" title="53"><span class="co">#&gt;   Sample-size adjusted Bayesian (BIC)      1333338.653</span></a>
-<a class="sourceLine" id="cb13-54" title="54"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-55" title="55"><span class="co">#&gt; Root Mean Square Error of Approximation:</span></a>
-<a class="sourceLine" id="cb13-56" title="56"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-57" title="57"><span class="co">#&gt;   RMSEA                                          0.001</span></a>
-<a class="sourceLine" id="cb13-58" title="58"><span class="co">#&gt;   90 Percent confidence interval - lower         0.000</span></a>
-<a class="sourceLine" id="cb13-59" title="59"><span class="co">#&gt;   90 Percent confidence interval - upper         0.004</span></a>
-<a class="sourceLine" id="cb13-60" title="60"><span class="co">#&gt;   P-value RMSEA &lt;= 0.05                          1.000</span></a>
-<a class="sourceLine" id="cb13-61" title="61"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-62" title="62"><span class="co">#&gt; Standardized Root Mean Square Residual:</span></a>
-<a class="sourceLine" id="cb13-63" title="63"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-64" title="64"><span class="co">#&gt;   SRMR                                           0.001</span></a>
-<a class="sourceLine" id="cb13-65" title="65"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-66" title="66"><span class="co">#&gt; Parameter Estimates:</span></a>
-<a class="sourceLine" id="cb13-67" title="67"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-68" title="68"><span class="co">#&gt;   Information                                 Expected</span></a>
-<a class="sourceLine" id="cb13-69" title="69"><span class="co">#&gt;   Information saturated (h1) model          Structured</span></a>
-<a class="sourceLine" id="cb13-70" title="70"><span class="co">#&gt;   Standard errors                             Standard</span></a>
-<a class="sourceLine" id="cb13-71" title="71"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-72" title="72"><span class="co">#&gt; Latent Variables:</span></a>
-<a class="sourceLine" id="cb13-73" title="73"><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all</span></a>
-<a class="sourceLine" id="cb13-74" title="74"><span class="co">#&gt;   A =~                                                                  </span></a>
-<a class="sourceLine" id="cb13-75" title="75"><span class="co">#&gt;     A1                1.000                               0.703    0.703</span></a>
-<a class="sourceLine" id="cb13-76" title="76"><span class="co">#&gt;     A2                1.142    0.005  231.116    0.000    0.803    0.800</span></a>
-<a class="sourceLine" id="cb13-77" title="77"><span class="co">#&gt;     A3                1.284    0.005  247.676    0.000    0.903    0.901</span></a>
-<a class="sourceLine" id="cb13-78" title="78"><span class="co">#&gt;     B1                0.427    0.004  114.547    0.000    0.300    0.300</span></a>
-<a class="sourceLine" id="cb13-79" title="79"><span class="co">#&gt;   B =~                                                                  </span></a>
-<a class="sourceLine" id="cb13-80" title="80"><span class="co">#&gt;     B1                1.000                               0.701    0.700</span></a>
-<a class="sourceLine" id="cb13-81" title="81"><span class="co">#&gt;     B2                1.139    0.005  238.139    0.000    0.798    0.798</span></a>
-<a class="sourceLine" id="cb13-82" title="82"><span class="co">#&gt;     B3                1.288    0.005  247.366    0.000    0.902    0.901</span></a>
-<a class="sourceLine" id="cb13-83" title="83"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-84" title="84"><span class="co">#&gt; Regressions:</span></a>
-<a class="sourceLine" id="cb13-85" title="85"><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all</span></a>
-<a class="sourceLine" id="cb13-86" title="86"><span class="co">#&gt;   B ~                                                                   </span></a>
-<a class="sourceLine" id="cb13-87" title="87"><span class="co">#&gt;     A                 0.597    0.004  141.196    0.000    0.599    0.599</span></a>
-<a class="sourceLine" id="cb13-88" title="88"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-89" title="89"><span class="co">#&gt; Variances:</span></a>
-<a class="sourceLine" id="cb13-90" title="90"><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all</span></a>
-<a class="sourceLine" id="cb13-91" title="91"><span class="co">#&gt;    .A1                0.507    0.003  194.579    0.000    0.507    0.506</span></a>
-<a class="sourceLine" id="cb13-92" title="92"><span class="co">#&gt;    .A2                0.362    0.002  165.904    0.000    0.362    0.359</span></a>
-<a class="sourceLine" id="cb13-93" title="93"><span class="co">#&gt;    .A3                0.188    0.002   97.276    0.000    0.188    0.188</span></a>
-<a class="sourceLine" id="cb13-94" title="94"><span class="co">#&gt;    .B1                0.170    0.001  130.982    0.000    0.170    0.169</span></a>
-<a class="sourceLine" id="cb13-95" title="95"><span class="co">#&gt;    .B2                0.362    0.002  178.775    0.000    0.362    0.362</span></a>
-<a class="sourceLine" id="cb13-96" title="96"><span class="co">#&gt;    .B3                0.189    0.002  106.863    0.000    0.189    0.189</span></a>
-<a class="sourceLine" id="cb13-97" title="97"><span class="co">#&gt;     A                 0.495    0.004  121.519    0.000    1.000    1.000</span></a>
-<a class="sourceLine" id="cb13-98" title="98"><span class="co">#&gt;    .B                 0.315    0.003  124.248    0.000    0.641    0.641</span></a>
-<a class="sourceLine" id="cb13-99" title="99"></a>
-<a class="sourceLine" id="cb13-100" title="100"><span class="co"># Extract RAM paths</span></a>
-<a class="sourceLine" id="cb13-101" title="101">RAM &lt;-<span class="st"> </span><span class="kw"><a href="../reference/lav2ram.html">lav2ram</a></span>(lav_results)</a>
-<a class="sourceLine" id="cb13-102" title="102"></a>
-<a class="sourceLine" id="cb13-103" title="103"><span class="co"># Display asymmetric paths (i.e., single-headed arrows for </span></a>
-<a class="sourceLine" id="cb13-104" title="104"><span class="co"># loadings and structure coefficients)</span></a>
-<a class="sourceLine" id="cb13-105" title="105">RAM<span class="op">$</span>A <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggcor</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Set the random number generator for reproducible results</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">12</span>)</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="co"># Generate data based on model m</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_standardized.html">sim_standardized</a></span>(</span>
+<span id="cb13-5"><a href="#cb13-5"></a>  m,</span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="dt">n =</span> <span class="dv">100000</span>,</span>
+<span id="cb13-7"><a href="#cb13-7"></a>  <span class="dt">latent =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb13-8"><a href="#cb13-8"></a>  <span class="dt">errors =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb13-9"><a href="#cb13-9"></a></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co"># Evaluate the fit of model m_free on data d</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lavaan)</span>
+<span id="cb13-12"><a href="#cb13-12"></a>lav_results &lt;-<span class="st"> </span><span class="kw">sem</span>(</span>
+<span id="cb13-13"><a href="#cb13-13"></a>  <span class="dt">model =</span> m_free, </span>
+<span id="cb13-14"><a href="#cb13-14"></a>  <span class="dt">data =</span> d)</span>
+<span id="cb13-15"><a href="#cb13-15"></a></span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="co"># Display summary of model</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(</span>
+<span id="cb13-18"><a href="#cb13-18"></a>  lav_results, </span>
+<span id="cb13-19"><a href="#cb13-19"></a>  <span class="dt">standardized =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb13-20"><a href="#cb13-20"></a>  <span class="dt">fit.measures =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb13-21"><a href="#cb13-21"></a><span class="co">#&gt; lavaan 0.6-5 ended normally after 27 iterations</span></span>
+<span id="cb13-22"><a href="#cb13-22"></a><span class="co">#&gt; </span></span>
+<span id="cb13-23"><a href="#cb13-23"></a><span class="co">#&gt;   Estimator                                         ML</span></span>
+<span id="cb13-24"><a href="#cb13-24"></a><span class="co">#&gt;   Optimization method                           NLMINB</span></span>
+<span id="cb13-25"><a href="#cb13-25"></a><span class="co">#&gt;   Number of free parameters                         14</span></span>
+<span id="cb13-26"><a href="#cb13-26"></a><span class="co">#&gt;                                                       </span></span>
+<span id="cb13-27"><a href="#cb13-27"></a><span class="co">#&gt;   Number of observations                        100000</span></span>
+<span id="cb13-28"><a href="#cb13-28"></a><span class="co">#&gt;                                                       </span></span>
+<span id="cb13-29"><a href="#cb13-29"></a><span class="co">#&gt; Model Test User Model:</span></span>
+<span id="cb13-30"><a href="#cb13-30"></a><span class="co">#&gt;                                                       </span></span>
+<span id="cb13-31"><a href="#cb13-31"></a><span class="co">#&gt;   Test statistic                                 7.493</span></span>
+<span id="cb13-32"><a href="#cb13-32"></a><span class="co">#&gt;   Degrees of freedom                                 7</span></span>
+<span id="cb13-33"><a href="#cb13-33"></a><span class="co">#&gt;   P-value (Chi-square)                           0.379</span></span>
+<span id="cb13-34"><a href="#cb13-34"></a><span class="co">#&gt; </span></span>
+<span id="cb13-35"><a href="#cb13-35"></a><span class="co">#&gt; Model Test Baseline Model:</span></span>
+<span id="cb13-36"><a href="#cb13-36"></a><span class="co">#&gt; </span></span>
+<span id="cb13-37"><a href="#cb13-37"></a><span class="co">#&gt;   Test statistic                            371352.125</span></span>
+<span id="cb13-38"><a href="#cb13-38"></a><span class="co">#&gt;   Degrees of freedom                                15</span></span>
+<span id="cb13-39"><a href="#cb13-39"></a><span class="co">#&gt;   P-value                                        0.000</span></span>
+<span id="cb13-40"><a href="#cb13-40"></a><span class="co">#&gt; </span></span>
+<span id="cb13-41"><a href="#cb13-41"></a><span class="co">#&gt; User Model versus Baseline Model:</span></span>
+<span id="cb13-42"><a href="#cb13-42"></a><span class="co">#&gt; </span></span>
+<span id="cb13-43"><a href="#cb13-43"></a><span class="co">#&gt;   Comparative Fit Index (CFI)                    1.000</span></span>
+<span id="cb13-44"><a href="#cb13-44"></a><span class="co">#&gt;   Tucker-Lewis Index (TLI)                       1.000</span></span>
+<span id="cb13-45"><a href="#cb13-45"></a><span class="co">#&gt; </span></span>
+<span id="cb13-46"><a href="#cb13-46"></a><span class="co">#&gt; Loglikelihood and Information Criteria:</span></span>
+<span id="cb13-47"><a href="#cb13-47"></a><span class="co">#&gt; </span></span>
+<span id="cb13-48"><a href="#cb13-48"></a><span class="co">#&gt;   Loglikelihood user model (H0)            -666610.982</span></span>
+<span id="cb13-49"><a href="#cb13-49"></a><span class="co">#&gt;   Loglikelihood unrestricted model (H1)    -666607.236</span></span>
+<span id="cb13-50"><a href="#cb13-50"></a><span class="co">#&gt;                                                       </span></span>
+<span id="cb13-51"><a href="#cb13-51"></a><span class="co">#&gt;   Akaike (AIC)                             1333249.965</span></span>
+<span id="cb13-52"><a href="#cb13-52"></a><span class="co">#&gt;   Bayesian (BIC)                           1333383.146</span></span>
+<span id="cb13-53"><a href="#cb13-53"></a><span class="co">#&gt;   Sample-size adjusted Bayesian (BIC)      1333338.653</span></span>
+<span id="cb13-54"><a href="#cb13-54"></a><span class="co">#&gt; </span></span>
+<span id="cb13-55"><a href="#cb13-55"></a><span class="co">#&gt; Root Mean Square Error of Approximation:</span></span>
+<span id="cb13-56"><a href="#cb13-56"></a><span class="co">#&gt; </span></span>
+<span id="cb13-57"><a href="#cb13-57"></a><span class="co">#&gt;   RMSEA                                          0.001</span></span>
+<span id="cb13-58"><a href="#cb13-58"></a><span class="co">#&gt;   90 Percent confidence interval - lower         0.000</span></span>
+<span id="cb13-59"><a href="#cb13-59"></a><span class="co">#&gt;   90 Percent confidence interval - upper         0.004</span></span>
+<span id="cb13-60"><a href="#cb13-60"></a><span class="co">#&gt;   P-value RMSEA &lt;= 0.05                          1.000</span></span>
+<span id="cb13-61"><a href="#cb13-61"></a><span class="co">#&gt; </span></span>
+<span id="cb13-62"><a href="#cb13-62"></a><span class="co">#&gt; Standardized Root Mean Square Residual:</span></span>
+<span id="cb13-63"><a href="#cb13-63"></a><span class="co">#&gt; </span></span>
+<span id="cb13-64"><a href="#cb13-64"></a><span class="co">#&gt;   SRMR                                           0.001</span></span>
+<span id="cb13-65"><a href="#cb13-65"></a><span class="co">#&gt; </span></span>
+<span id="cb13-66"><a href="#cb13-66"></a><span class="co">#&gt; Parameter Estimates:</span></span>
+<span id="cb13-67"><a href="#cb13-67"></a><span class="co">#&gt; </span></span>
+<span id="cb13-68"><a href="#cb13-68"></a><span class="co">#&gt;   Information                                 Expected</span></span>
+<span id="cb13-69"><a href="#cb13-69"></a><span class="co">#&gt;   Information saturated (h1) model          Structured</span></span>
+<span id="cb13-70"><a href="#cb13-70"></a><span class="co">#&gt;   Standard errors                             Standard</span></span>
+<span id="cb13-71"><a href="#cb13-71"></a><span class="co">#&gt; </span></span>
+<span id="cb13-72"><a href="#cb13-72"></a><span class="co">#&gt; Latent Variables:</span></span>
+<span id="cb13-73"><a href="#cb13-73"></a><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all</span></span>
+<span id="cb13-74"><a href="#cb13-74"></a><span class="co">#&gt;   A =~                                                                  </span></span>
+<span id="cb13-75"><a href="#cb13-75"></a><span class="co">#&gt;     A1                1.000                               0.703    0.703</span></span>
+<span id="cb13-76"><a href="#cb13-76"></a><span class="co">#&gt;     A2                1.142    0.005  231.116    0.000    0.803    0.800</span></span>
+<span id="cb13-77"><a href="#cb13-77"></a><span class="co">#&gt;     A3                1.284    0.005  247.676    0.000    0.903    0.901</span></span>
+<span id="cb13-78"><a href="#cb13-78"></a><span class="co">#&gt;     B1                0.427    0.004  114.547    0.000    0.300    0.300</span></span>
+<span id="cb13-79"><a href="#cb13-79"></a><span class="co">#&gt;   B =~                                                                  </span></span>
+<span id="cb13-80"><a href="#cb13-80"></a><span class="co">#&gt;     B1                1.000                               0.701    0.700</span></span>
+<span id="cb13-81"><a href="#cb13-81"></a><span class="co">#&gt;     B2                1.139    0.005  238.139    0.000    0.798    0.798</span></span>
+<span id="cb13-82"><a href="#cb13-82"></a><span class="co">#&gt;     B3                1.288    0.005  247.366    0.000    0.902    0.901</span></span>
+<span id="cb13-83"><a href="#cb13-83"></a><span class="co">#&gt; </span></span>
+<span id="cb13-84"><a href="#cb13-84"></a><span class="co">#&gt; Regressions:</span></span>
+<span id="cb13-85"><a href="#cb13-85"></a><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all</span></span>
+<span id="cb13-86"><a href="#cb13-86"></a><span class="co">#&gt;   B ~                                                                   </span></span>
+<span id="cb13-87"><a href="#cb13-87"></a><span class="co">#&gt;     A                 0.597    0.004  141.196    0.000    0.599    0.599</span></span>
+<span id="cb13-88"><a href="#cb13-88"></a><span class="co">#&gt; </span></span>
+<span id="cb13-89"><a href="#cb13-89"></a><span class="co">#&gt; Variances:</span></span>
+<span id="cb13-90"><a href="#cb13-90"></a><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all</span></span>
+<span id="cb13-91"><a href="#cb13-91"></a><span class="co">#&gt;    .A1                0.507    0.003  194.579    0.000    0.507    0.506</span></span>
+<span id="cb13-92"><a href="#cb13-92"></a><span class="co">#&gt;    .A2                0.362    0.002  165.904    0.000    0.362    0.359</span></span>
+<span id="cb13-93"><a href="#cb13-93"></a><span class="co">#&gt;    .A3                0.188    0.002   97.276    0.000    0.188    0.188</span></span>
+<span id="cb13-94"><a href="#cb13-94"></a><span class="co">#&gt;    .B1                0.170    0.001  130.982    0.000    0.170    0.169</span></span>
+<span id="cb13-95"><a href="#cb13-95"></a><span class="co">#&gt;    .B2                0.362    0.002  178.775    0.000    0.362    0.362</span></span>
+<span id="cb13-96"><a href="#cb13-96"></a><span class="co">#&gt;    .B3                0.189    0.002  106.863    0.000    0.189    0.189</span></span>
+<span id="cb13-97"><a href="#cb13-97"></a><span class="co">#&gt;     A                 0.495    0.004  121.519    0.000    1.000    1.000</span></span>
+<span id="cb13-98"><a href="#cb13-98"></a><span class="co">#&gt;    .B                 0.315    0.003  124.248    0.000    0.641    0.641</span></span>
+<span id="cb13-99"><a href="#cb13-99"></a></span>
+<span id="cb13-100"><a href="#cb13-100"></a><span class="co"># Extract RAM paths</span></span>
+<span id="cb13-101"><a href="#cb13-101"></a>RAM &lt;-<span class="st"> </span><span class="kw"><a href="../reference/lav2ram.html">lav2ram</a></span>(lav_results)</span>
+<span id="cb13-102"><a href="#cb13-102"></a></span>
+<span id="cb13-103"><a href="#cb13-103"></a><span class="co"># Display asymmetric paths (i.e., single-headed arrows for </span></span>
+<span id="cb13-104"><a href="#cb13-104"></a><span class="co"># loadings and structure coefficients)</span></span>
+<span id="cb13-105"><a href="#cb13-105"></a>RAM<span class="op">$</span>A <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggcor</span>()</span></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/lavaantest-1.svg" width="100%" height="100%"></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"></a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="co"># Display symmetric paths (i.e., curved double-headed arrows</span></a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="co"># exogenous variances, error variances, disturbance variances, </span></a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="co"># and any covariances among these)</span></a>
-<a class="sourceLine" id="cb14-5" title="5">RAM<span class="op">$</span>S <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggcor</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co"># Display symmetric paths (i.e., curved double-headed arrows</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co"># exogenous variances, error variances, disturbance variances, </span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co"># and any covariances among these)</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>RAM<span class="op">$</span>S <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggcor</span>()</span></code></pre></div>
 <p><img src="simstandard_tutorial_files/figure-html/lavaantest-2.svg" width="100%" height="100%"></p>
 <p>As can be seen, all the fit measures indicate a near-perfect fit, and the parameter estimates are within rounding error of the fixed parameters in model <code>m</code>.</p>
 </div>
@@ -1352,29 +1352,29 @@ A_Composite
 <h1 class="hasAnchor">
 <a href="#return-lavaan-syntax-for-a-model-with-standardized-variances-specified" class="anchor"></a>Return lavaan syntax for a model with standardized variances specified</h1>
 <p>Although the <code>simstandardized</code> function will generate data for you, you might want to use a function from a different package instead, such as <code><a href="https://rdrr.io/pkg/lavaan/man/simulateData.html">lavaan::simulateData</a></code> or <code><a href="https://rdrr.io/pkg/simsem/man/sim.html">simsem::sim</a></code>. In this case, you can use the <code>model_complete</code> function to output the lavaan syntax for a standardized model with all standardized variances specified.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># Specify model</span></a>
-<a class="sourceLine" id="cb15-2" title="2">m &lt;-<span class="st"> "</span></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></a>
-<a class="sourceLine" id="cb15-4" title="4"><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="st">B ~ 0.6 * A</span></a>
-<a class="sourceLine" id="cb15-6" title="6"><span class="st">"</span></a>
-<a class="sourceLine" id="cb15-7" title="7">m_complete &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_complete.html">model_complete</a></span>(m)</a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="co"># Display complete model</span></a>
-<a class="sourceLine" id="cb15-9" title="9"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(m_complete)</a>
-<a class="sourceLine" id="cb15-10" title="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-11" title="11"><span class="co">#&gt; A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></a>
-<a class="sourceLine" id="cb15-12" title="12"><span class="co">#&gt; B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></a>
-<a class="sourceLine" id="cb15-13" title="13"><span class="co">#&gt; B ~ 0.6 * A</span></a>
-<a class="sourceLine" id="cb15-14" title="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-15" title="15"><span class="co">#&gt; # Variances</span></a>
-<a class="sourceLine" id="cb15-16" title="16"><span class="co">#&gt; A1 ~~ 0.51 * A1</span></a>
-<a class="sourceLine" id="cb15-17" title="17"><span class="co">#&gt; A2 ~~ 0.36 * A2</span></a>
-<a class="sourceLine" id="cb15-18" title="18"><span class="co">#&gt; A3 ~~ 0.19 * A3</span></a>
-<a class="sourceLine" id="cb15-19" title="19"><span class="co">#&gt; B1 ~~ 0.168 * B1</span></a>
-<a class="sourceLine" id="cb15-20" title="20"><span class="co">#&gt; B2 ~~ 0.36 * B2</span></a>
-<a class="sourceLine" id="cb15-21" title="21"><span class="co">#&gt; B3 ~~ 0.19 * B3</span></a>
-<a class="sourceLine" id="cb15-22" title="22"><span class="co">#&gt; A ~~ 1 * A</span></a>
-<a class="sourceLine" id="cb15-23" title="23"><span class="co">#&gt; B ~~ 0.64 * B</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Specify model</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>m &lt;-<span class="st"> "</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="st">B ~ 0.6 * A</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="st">"</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>m_complete &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model_complete.html">model_complete</a></span>(m)</span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># Display complete model</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(m_complete)</span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt; </span></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="co">#&gt; A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="co">#&gt; B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="co">#&gt; B ~ 0.6 * A</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="co">#&gt; </span></span>
+<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt; # Variances</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt; A1 ~~ 0.51 * A1</span></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="co">#&gt; A2 ~~ 0.36 * A2</span></span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="co">#&gt; A3 ~~ 0.19 * A3</span></span>
+<span id="cb15-19"><a href="#cb15-19"></a><span class="co">#&gt; B1 ~~ 0.168 * B1</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a><span class="co">#&gt; B2 ~~ 0.36 * B2</span></span>
+<span id="cb15-21"><a href="#cb15-21"></a><span class="co">#&gt; B3 ~~ 0.19 * B3</span></span>
+<span id="cb15-22"><a href="#cb15-22"></a><span class="co">#&gt; A ~~ 1 * A</span></span>
+<span id="cb15-23"><a href="#cb15-23"></a><span class="co">#&gt; B ~~ 0.64 * B</span></span></code></pre></div>
 </div>
 <div id="return-lavaan-syntax-from-matrices" class="section level1">
 <h1 class="hasAnchor">
@@ -1385,103 +1385,103 @@ A_Composite
 <a href="#the-measurement-model" class="anchor"></a>The measurement model</h2>
 <p>The measurement model can be specified with a matrix in which the column names are latent variables and the row names are indicator variables.</p>
 <p>Here we have three latent variables, Vocabulary, Working Memory Capacity, and Reading, each defined by three indicator variables.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">m_meas &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
-<a class="sourceLine" id="cb16-2" title="2">    <span class="fl">0.8</span>,<span class="dv">0</span>,<span class="dv">0</span>,  <span class="co"># VC1</span></a>
-<a class="sourceLine" id="cb16-3" title="3">    <span class="fl">0.9</span>,<span class="dv">0</span>,<span class="dv">0</span>,  <span class="co"># VC2</span></a>
-<a class="sourceLine" id="cb16-4" title="4">    <span class="fl">0.7</span>,<span class="dv">0</span>,<span class="dv">0</span>,  <span class="co"># VC3</span></a>
-<a class="sourceLine" id="cb16-5" title="5">    <span class="dv">0</span>,<span class="fl">0.6</span>,<span class="dv">0</span>,  <span class="co"># WM1</span></a>
-<a class="sourceLine" id="cb16-6" title="6">    <span class="dv">0</span>,<span class="fl">0.7</span>,<span class="dv">0</span>,  <span class="co"># WM2</span></a>
-<a class="sourceLine" id="cb16-7" title="7">    <span class="dv">0</span>,<span class="fl">0.8</span>,<span class="dv">0</span>,  <span class="co"># WM3</span></a>
-<a class="sourceLine" id="cb16-8" title="8">    <span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.9</span>,  <span class="co"># RD1</span></a>
-<a class="sourceLine" id="cb16-9" title="9">    <span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.7</span>,  <span class="co"># RD2</span></a>
-<a class="sourceLine" id="cb16-10" title="10">    <span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.8</span>), <span class="co"># RD3</span></a>
-<a class="sourceLine" id="cb16-11" title="11">    <span class="dt">nrow =</span> <span class="dv">9</span>, </a>
-<a class="sourceLine" id="cb16-12" title="12">    <span class="dt">byrow =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb16-13" title="13">    <span class="dt">dimnames =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
-<a class="sourceLine" id="cb16-14" title="14">      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"VC1"</span>, <span class="st">"VC2"</span>, <span class="st">"VC3"</span>, </a>
-<a class="sourceLine" id="cb16-15" title="15">        <span class="st">"WM1"</span>, <span class="st">"WM2"</span>, <span class="st">"WM3"</span>, </a>
-<a class="sourceLine" id="cb16-16" title="16">        <span class="st">"RD1"</span>, <span class="st">"RD2"</span>, <span class="st">"RD3"</span>),</a>
-<a class="sourceLine" id="cb16-17" title="17">      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>, <span class="st">"Reading"</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>m_meas &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>    <span class="fl">0.8</span>,<span class="dv">0</span>,<span class="dv">0</span>,  <span class="co"># VC1</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="fl">0.9</span>,<span class="dv">0</span>,<span class="dv">0</span>,  <span class="co"># VC2</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>    <span class="fl">0.7</span>,<span class="dv">0</span>,<span class="dv">0</span>,  <span class="co"># VC3</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="dv">0</span>,<span class="fl">0.6</span>,<span class="dv">0</span>,  <span class="co"># WM1</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>    <span class="dv">0</span>,<span class="fl">0.7</span>,<span class="dv">0</span>,  <span class="co"># WM2</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>    <span class="dv">0</span>,<span class="fl">0.8</span>,<span class="dv">0</span>,  <span class="co"># WM3</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>    <span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.9</span>,  <span class="co"># RD1</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a>    <span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.7</span>,  <span class="co"># RD2</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a>    <span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.8</span>), <span class="co"># RD3</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a>    <span class="dt">nrow =</span> <span class="dv">9</span>, </span>
+<span id="cb16-12"><a href="#cb16-12"></a>    <span class="dt">byrow =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb16-13"><a href="#cb16-13"></a>    <span class="dt">dimnames =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</span>
+<span id="cb16-14"><a href="#cb16-14"></a>      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"VC1"</span>, <span class="st">"VC2"</span>, <span class="st">"VC3"</span>, </span>
+<span id="cb16-15"><a href="#cb16-15"></a>        <span class="st">"WM1"</span>, <span class="st">"WM2"</span>, <span class="st">"WM3"</span>, </span>
+<span id="cb16-16"><a href="#cb16-16"></a>        <span class="st">"RD1"</span>, <span class="st">"RD2"</span>, <span class="st">"RD3"</span>),</span>
+<span id="cb16-17"><a href="#cb16-17"></a>      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>, <span class="st">"Reading"</span>)))</span></code></pre></div>
 </div>
 <div id="the-structural-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-structural-model" class="anchor"></a>The structural model</h2>
 <p>The structural model can be specified with a matrix in which the predictors are the column names and the criterion variables are the row names.</p>
 <p>Here we have Vocabulary and Working Memory Capacity predicting Reading Scores.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">m_struct &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(</a>
-<a class="sourceLine" id="cb17-2" title="2">  <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.4</span>,<span class="fl">0.3</span>), </a>
-<a class="sourceLine" id="cb17-3" title="3">    <span class="dt">ncol =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb17-4" title="4">    <span class="dt">dimnames =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
-<a class="sourceLine" id="cb17-5" title="5">      <span class="st">"Reading"</span>,</a>
-<a class="sourceLine" id="cb17-6" title="6">      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>))) </a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>m_struct &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(</span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.4</span>,<span class="fl">0.3</span>), </span>
+<span id="cb17-3"><a href="#cb17-3"></a>    <span class="dt">ncol =</span> <span class="dv">2</span>,</span>
+<span id="cb17-4"><a href="#cb17-4"></a>    <span class="dt">dimnames =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</span>
+<span id="cb17-5"><a href="#cb17-5"></a>      <span class="st">"Reading"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6"></a>      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>))) </span></code></pre></div>
 <p>This could have been a 3 by 3 matrix with zeroes (which are ignored).</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">m_struct &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
-<a class="sourceLine" id="cb18-2" title="2">    <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">0</span>,  <span class="co"># Vocabulary</span></a>
-<a class="sourceLine" id="cb18-3" title="3">    <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">0</span>,  <span class="co"># WorkingMemory</span></a>
-<a class="sourceLine" id="cb18-4" title="4">    <span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="dv">0</span>), <span class="co"># Reading</span></a>
-<a class="sourceLine" id="cb18-5" title="5">    <span class="dt">nrow =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb18-6" title="6">    <span class="dt">byrow =</span> <span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb18-7" title="7"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(m_struct) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>, <span class="st">"Reading"</span>)</a>
-<a class="sourceLine" id="cb18-8" title="8"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(m_struct) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>, <span class="st">"Reading"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>m_struct &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</span>
+<span id="cb18-2"><a href="#cb18-2"></a>    <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">0</span>,  <span class="co"># Vocabulary</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>    <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">0</span>,  <span class="co"># WorkingMemory</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>    <span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="dv">0</span>), <span class="co"># Reading</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a>    <span class="dt">nrow =</span> <span class="dv">3</span>, </span>
+<span id="cb18-6"><a href="#cb18-6"></a>    <span class="dt">byrow =</span> <span class="ot">TRUE</span>) </span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(m_struct) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>, <span class="st">"Reading"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(m_struct) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>, <span class="st">"Reading"</span>)</span></code></pre></div>
 </div>
 <div id="covariances" class="section level2">
 <h2 class="hasAnchor">
 <a href="#covariances" class="anchor"></a>Covariances</h2>
 <p>The variances and covariances must be specified as a symmetric matrix, though variables can be omitted.</p>
 <p>Here we specify that the latent variables Vocabulary and Working Memory Capacity are correlated.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">m_cov &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
-<a class="sourceLine" id="cb19-2" title="2">    <span class="dv">1</span>,   <span class="fl">0.5</span>, </a>
-<a class="sourceLine" id="cb19-3" title="3">    <span class="fl">0.5</span>, <span class="dv">1</span>), </a>
-<a class="sourceLine" id="cb19-4" title="4">    <span class="dt">nrow =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb19-5" title="5">    <span class="dt">dimnames =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
-<a class="sourceLine" id="cb19-6" title="6">      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>),</a>
-<a class="sourceLine" id="cb19-7" title="7">      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>))) </a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>m_cov &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</span>
+<span id="cb19-2"><a href="#cb19-2"></a>    <span class="dv">1</span>,   <span class="fl">0.5</span>, </span>
+<span id="cb19-3"><a href="#cb19-3"></a>    <span class="fl">0.5</span>, <span class="dv">1</span>), </span>
+<span id="cb19-4"><a href="#cb19-4"></a>    <span class="dt">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb19-5"><a href="#cb19-5"></a>    <span class="dt">dimnames =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</span>
+<span id="cb19-6"><a href="#cb19-6"></a>      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>),</span>
+<span id="cb19-7"><a href="#cb19-7"></a>      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>))) </span></code></pre></div>
 </div>
 <div id="using-the-matrix2lavaan-function" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-the-matrix2lavaan-function" class="anchor"></a>Using the <code>matrix2lavaan</code> function</h2>
 <p>The <code>matrix2lavaan</code> function takes arguments for the measurement model, structural model, and covariances. Any of the three matrices can be omitted.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/matrix2lavaan.html">matrix2lavaan</a></span>(<span class="dt">measurement_model =</span> m_meas, </a>
-<a class="sourceLine" id="cb20-2" title="2">                       <span class="dt">structural_model =</span> m_struct, </a>
-<a class="sourceLine" id="cb20-3" title="3">                       <span class="dt">covariances =</span> m_cov)</a>
-<a class="sourceLine" id="cb20-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(model)</a>
-<a class="sourceLine" id="cb20-5" title="5"><span class="co">#&gt; Vocabulary =~ 0.8 * VC1 + 0.9 * VC2 + 0.7 * VC3</span></a>
-<a class="sourceLine" id="cb20-6" title="6"><span class="co">#&gt; WorkingMemory =~ 0.6 * WM1 + 0.7 * WM2 + 0.8 * WM3</span></a>
-<a class="sourceLine" id="cb20-7" title="7"><span class="co">#&gt; Reading =~ 0.9 * RD1 + 0.7 * RD2 + 0.8 * RD3</span></a>
-<a class="sourceLine" id="cb20-8" title="8"><span class="co">#&gt; Reading ~ 0.4 * Vocabulary + 0.3 * WorkingMemory</span></a>
-<a class="sourceLine" id="cb20-9" title="9"><span class="co">#&gt; Vocabulary ~~ 0.5 * WorkingMemory</span></a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/matrix2lavaan.html">matrix2lavaan</a></span>(<span class="dt">measurement_model =</span> m_meas, </span>
+<span id="cb20-2"><a href="#cb20-2"></a>                       <span class="dt">structural_model =</span> m_struct, </span>
+<span id="cb20-3"><a href="#cb20-3"></a>                       <span class="dt">covariances =</span> m_cov)</span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(model)</span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="co">#&gt; Vocabulary =~ 0.8 * VC1 + 0.9 * VC2 + 0.7 * VC3</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="co">#&gt; WorkingMemory =~ 0.6 * WM1 + 0.7 * WM2 + 0.8 * WM3</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="co">#&gt; Reading =~ 0.9 * RD1 + 0.7 * RD2 + 0.8 * RD3</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="co">#&gt; Reading ~ 0.4 * Vocabulary + 0.3 * WorkingMemory</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a><span class="co">#&gt; Vocabulary ~~ 0.5 * WorkingMemory</span></span></code></pre></div>
 </div>
 <div id="specifying-models-with-data-frames-instead-of-matrices" class="section level2">
 <h2 class="hasAnchor">
 <a href="#specifying-models-with-data-frames-instead-of-matrices" class="anchor"></a>Specifying models with data.frames instead of matrices</h2>
 <p>As an alternative, the <code>matrix2lavaan</code> function can take data.frames (or tibbles) with either rownames or the first column as a character vector.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># A tibble with indicator variables listed in the first column</span></a>
-<a class="sourceLine" id="cb21-2" title="2">m_meas &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
-<a class="sourceLine" id="cb21-3" title="3">     <span class="op">~</span>Test, <span class="op">~</span>Vocabulary, <span class="op">~</span>WorkingMemory, <span class="op">~</span>Reading,</a>
-<a class="sourceLine" id="cb21-4" title="4">     <span class="st">"VC1"</span>,         <span class="fl">0.8</span>,              <span class="dv">0</span>,        <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb21-5" title="5">     <span class="st">"VC2"</span>,         <span class="fl">0.9</span>,              <span class="dv">0</span>,        <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb21-6" title="6">     <span class="st">"VC3"</span>,         <span class="fl">0.7</span>,              <span class="dv">0</span>,        <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb21-7" title="7">     <span class="st">"WM1"</span>,           <span class="dv">0</span>,            <span class="fl">0.6</span>,        <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb21-8" title="8">     <span class="st">"WM2"</span>,           <span class="dv">0</span>,            <span class="fl">0.7</span>,        <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb21-9" title="9">     <span class="st">"WM3"</span>,           <span class="dv">0</span>,            <span class="fl">0.8</span>,        <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb21-10" title="10">     <span class="st">"RD1"</span>,           <span class="dv">0</span>,              <span class="dv">0</span>,      <span class="fl">0.9</span>,</a>
-<a class="sourceLine" id="cb21-11" title="11">     <span class="st">"RD2"</span>,           <span class="dv">0</span>,              <span class="dv">0</span>,      <span class="fl">0.7</span>,</a>
-<a class="sourceLine" id="cb21-12" title="12">     <span class="st">"RD3"</span>,           <span class="dv">0</span>,              <span class="dv">0</span>,      <span class="fl">0.8</span>)</a>
-<a class="sourceLine" id="cb21-13" title="13"></a>
-<a class="sourceLine" id="cb21-14" title="14"><span class="co"># A data.frame with criterion variable specified as a row name</span></a>
-<a class="sourceLine" id="cb21-15" title="15">m_struct &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">Vocabulary =</span> <span class="fl">0.4</span>, </a>
-<a class="sourceLine" id="cb21-16" title="16">                       <span class="dt">WorkingMemory =</span> <span class="fl">0.3</span>, </a>
-<a class="sourceLine" id="cb21-17" title="17">                       <span class="dt">row.names =</span> <span class="st">"Reading"</span>)</a>
-<a class="sourceLine" id="cb21-18" title="18"></a>
-<a class="sourceLine" id="cb21-19" title="19"><span class="co"># A data.frame with variable names specified as row names</span></a>
-<a class="sourceLine" id="cb21-20" title="20">m_cov &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">Vocabulary =</span>    <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="fl">0.5</span>),</a>
-<a class="sourceLine" id="cb21-21" title="21">                    <span class="dt">WorkingMemory =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.5</span>, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb21-22" title="22"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(m_cov) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>)</a>
-<a class="sourceLine" id="cb21-23" title="23"></a>
-<a class="sourceLine" id="cb21-24" title="24"></a>
-<a class="sourceLine" id="cb21-25" title="25">model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/matrix2lavaan.html">matrix2lavaan</a></span>(<span class="dt">measurement_model =</span> m_meas, </a>
-<a class="sourceLine" id="cb21-26" title="26">                       <span class="dt">structural_model =</span> m_struct, </a>
-<a class="sourceLine" id="cb21-27" title="27">                       <span class="dt">covariances =</span> m_cov)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># A tibble with indicator variables listed in the first column</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>m_meas &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</span>
+<span id="cb21-3"><a href="#cb21-3"></a>     <span class="op">~</span>Test, <span class="op">~</span>Vocabulary, <span class="op">~</span>WorkingMemory, <span class="op">~</span>Reading,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>     <span class="st">"VC1"</span>,         <span class="fl">0.8</span>,              <span class="dv">0</span>,        <span class="dv">0</span>,</span>
+<span id="cb21-5"><a href="#cb21-5"></a>     <span class="st">"VC2"</span>,         <span class="fl">0.9</span>,              <span class="dv">0</span>,        <span class="dv">0</span>,</span>
+<span id="cb21-6"><a href="#cb21-6"></a>     <span class="st">"VC3"</span>,         <span class="fl">0.7</span>,              <span class="dv">0</span>,        <span class="dv">0</span>,</span>
+<span id="cb21-7"><a href="#cb21-7"></a>     <span class="st">"WM1"</span>,           <span class="dv">0</span>,            <span class="fl">0.6</span>,        <span class="dv">0</span>,</span>
+<span id="cb21-8"><a href="#cb21-8"></a>     <span class="st">"WM2"</span>,           <span class="dv">0</span>,            <span class="fl">0.7</span>,        <span class="dv">0</span>,</span>
+<span id="cb21-9"><a href="#cb21-9"></a>     <span class="st">"WM3"</span>,           <span class="dv">0</span>,            <span class="fl">0.8</span>,        <span class="dv">0</span>,</span>
+<span id="cb21-10"><a href="#cb21-10"></a>     <span class="st">"RD1"</span>,           <span class="dv">0</span>,              <span class="dv">0</span>,      <span class="fl">0.9</span>,</span>
+<span id="cb21-11"><a href="#cb21-11"></a>     <span class="st">"RD2"</span>,           <span class="dv">0</span>,              <span class="dv">0</span>,      <span class="fl">0.7</span>,</span>
+<span id="cb21-12"><a href="#cb21-12"></a>     <span class="st">"RD3"</span>,           <span class="dv">0</span>,              <span class="dv">0</span>,      <span class="fl">0.8</span>)</span>
+<span id="cb21-13"><a href="#cb21-13"></a></span>
+<span id="cb21-14"><a href="#cb21-14"></a><span class="co"># A data.frame with criterion variable specified as a row name</span></span>
+<span id="cb21-15"><a href="#cb21-15"></a>m_struct &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">Vocabulary =</span> <span class="fl">0.4</span>, </span>
+<span id="cb21-16"><a href="#cb21-16"></a>                       <span class="dt">WorkingMemory =</span> <span class="fl">0.3</span>, </span>
+<span id="cb21-17"><a href="#cb21-17"></a>                       <span class="dt">row.names =</span> <span class="st">"Reading"</span>)</span>
+<span id="cb21-18"><a href="#cb21-18"></a></span>
+<span id="cb21-19"><a href="#cb21-19"></a><span class="co"># A data.frame with variable names specified as row names</span></span>
+<span id="cb21-20"><a href="#cb21-20"></a>m_cov &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">Vocabulary =</span>    <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="fl">0.5</span>),</span>
+<span id="cb21-21"><a href="#cb21-21"></a>                    <span class="dt">WorkingMemory =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.5</span>, <span class="dv">1</span>))</span>
+<span id="cb21-22"><a href="#cb21-22"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(m_cov) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Vocabulary"</span>, <span class="st">"WorkingMemory"</span>)</span>
+<span id="cb21-23"><a href="#cb21-23"></a></span>
+<span id="cb21-24"><a href="#cb21-24"></a></span>
+<span id="cb21-25"><a href="#cb21-25"></a>model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/matrix2lavaan.html">matrix2lavaan</a></span>(<span class="dt">measurement_model =</span> m_meas, </span>
+<span id="cb21-26"><a href="#cb21-26"></a>                       <span class="dt">structural_model =</span> m_struct, </span>
+<span id="cb21-27"><a href="#cb21-27"></a>                       <span class="dt">covariances =</span> m_cov)</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -1497,7 +1497,8 @@ A_Composite
       <li><a href="#comparison-with-lavaansimulatedata">Comparison with <code>lavaan::simulateData</code></a></li>
       <li><a href="#inspecting-model-matrices">Inspecting model matrices</a></li>
       <li>
-<a href="#estimated-factor-scores">Estimated Factor Scores</a><ul class="nav nav-pills nav-stacked">
+<a href="#estimated-factor-scores">Estimated Factor Scores</a>
+      <ul class="nav nav-pills nav-stacked">
 <li><a href="#adding-factor-scores-to-new-data">Adding factor scores to new data</a></li>
       </ul>
 </li>
@@ -1505,7 +1506,8 @@ A_Composite
       <li><a href="#return-lavaan-syntax-with-all-parameters-set-free">Return lavaan syntax with all parameters set free</a></li>
       <li><a href="#return-lavaan-syntax-for-a-model-with-standardized-variances-specified">Return lavaan syntax for a model with standardized variances specified</a></li>
       <li>
-<a href="#return-lavaan-syntax-from-matrices">Return lavaan syntax from matrices</a><ul class="nav nav-pills nav-stacked">
+<a href="#return-lavaan-syntax-from-matrices">Return lavaan syntax from matrices</a>
+      <ul class="nav nav-pills nav-stacked">
 <li><a href="#the-measurement-model">The measurement model</a></li>
       <li><a href="#the-structural-model">The structural model</a></li>
       <li><a href="#covariances">Covariances</a></li>

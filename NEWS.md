@@ -1,3 +1,8 @@
+# simstandard 0.5.0
+
+* Added `composite_score_validity` to list returned by `sim_standardized_matrices`
+
+
 # simstandard 0.4.0
 
 * Fixed bug that prevents computation of composite scores of third-order and fourth-order latent variables.

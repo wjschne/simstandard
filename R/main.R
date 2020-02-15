@@ -374,9 +374,16 @@ sim_standardized_matrices <- function(m,
 
   # Factor Score Validity
   factor_score_validity <- diag(R_all[v_FS,
-                                      v_factor_score])
+                                      v_factor_score,
+                                      drop = FALSE])
   names(factor_score_validity) <- v_FS
   factor_score_se <- sqrt(1 - factor_score_validity ^ 2)
+
+  # Composite Score Validity
+  composite_score_validity <- diag(R_all[v_latent,
+                                         v_composite_score,
+                                         drop = FALSE])
+  names(composite_score_validity) <- v_composite_score
 
 
   # Return list ----
@@ -411,7 +418,8 @@ sim_standardized_matrices <- function(m,
       factor_score = A_factor_score,
       factor_score_validity = factor_score_validity,
       factor_score_se = factor_score_se,
-      composite_score = A_composite_w
+      composite_score = A_composite_w,
+      composite_score_validity = composite_score_validity
     ),
     lavaan_models = list(
       model_without_variances = m,
@@ -656,7 +664,7 @@ add_factor_scores <- function(d, m, CI = FALSE, p = 0.95, ...) {
 #' library(simstandard)
 #' # Specifying the measurement model:
 #' # For a data.frame, the column names are latent variables,
-#' # and the indictors can be specified as rownames.
+#' # and the indicators can be specified as rownames.
 #' m <- data.frame(X = c(0.7,0.8,0,0),
 #'                 Y = c(0,0,0.8,0.9))
 #' rownames(m) <- c("A", "B", "C", "D")
@@ -699,12 +707,13 @@ matrix2lavaan <- function(
   lav_s <- character(0)
   lav_c <- character(0)
 
-  # Measurment model ----
+  # Measurement model ----
   if (!is.null(measurement_model)) {
 
-    measurement_model <- check_matrix2lavaan(m = measurement_model,
-                                             mname = "Measurement model")
 
+    measurement_model <- check_matrix2lavaan(
+      m = measurement_model,
+      mname = "Measurement model")
 
     testcol_m <- colnames(measurement_model)[1]
     lav_m <- measurement_model %>%
@@ -734,8 +743,9 @@ matrix2lavaan <- function(
   # Structural model ----
   if (!is.null(structural_model)) {
 
-    structural_model <- check_matrix2lavaan(m = structural_model,
-                                            mname = "Structural model")
+    structural_model <- check_matrix2lavaan(
+      m = structural_model,
+      mname = "Structural model")
 
     testcol_s <- colnames(structural_model)[1]
     lav_s <- structural_model %>%
@@ -764,8 +774,11 @@ matrix2lavaan <- function(
 
   # Covariances ----
   if (!is.null(covariances)) {
-    covariances <- check_matrix2lavaan(m = covariances,
-                                       mname = "Covariances")
+
+
+    covariances <- check_matrix2lavaan(
+      m = covariances,
+      mname = "Covariances")
 
     mcovariances <- as.matrix(covariances[,-1, drop = FALSE])
     rownames(mcovariances) <- colnames(mcovariances)
@@ -883,10 +896,10 @@ check_matrix2lavaan <- function(m, mname) {
 
   }
 
-  allnumeric_s <- purrr::map_lgl(m[, -1, drop = FALSE],is.numeric) %>%
-    all
-
-  if (!allnumeric_s) stop(paste("All columns of", tolower(mname), "must be numeric except for the first column."))
+  # allnumeric_s <- purrr::map_lgl(m[, -1, drop = FALSE],is.numeric) %>%
+  #   all
+  #
+  # if (!allnumeric_s) stop(paste("All columns of", tolower(mname), "must be numeric except for the first column."))
 
   m
 

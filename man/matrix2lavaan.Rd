@@ -27,7 +27,7 @@ Create lavaan model syntax from matrix coefficients
 library(simstandard)
 # Specifying the measurement model:
 # For a data.frame, the column names are latent variables,
-# and the indictors can be specified as rownames.
+# and the indicators can be specified as rownames.
 m <- data.frame(X = c(0.7,0.8,0,0),
                 Y = c(0,0,0.8,0.9))
 rownames(m) <- c("A", "B", "C", "D")
