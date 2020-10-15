@@ -227,7 +227,7 @@ sim_standardized_matrices <- function(m,
   v_big <- c(vA, v_residual)
   dimnames(A_big) <- list(v_big, v_big)
 
-  # Initialise S_big
+  # Initialize S_big
   S_big <- matrix(0,
     nrow = length(v_big),
     ncol = length(v_big),
@@ -650,6 +650,52 @@ add_factor_scores <- function(d, m, CI = FALSE, p = 0.95, ...) {
     colnames(d_upper_bound) <- paste0(colnames(d_factor_score), "_UB")
     d_all <- cbind(d_all, d_lower_bound, d_upper_bound)
   }
+  d_all
+}
+
+#' Add composite scores to observed data
+#'
+#' @export
+#' @param d A data.frame with observed data in standardized form (i.e, z-scores)
+#' @param m A character string with lavaan model
+#' @param ... parameters passed to simstandardized_matrices
+#' @return data.frame with observed data and estimated factor scores
+#' @examples
+#' library(simstandard)
+#' # lavaan model
+#' m = "
+#' X =~ 0.9 * X1 + 0.8 * X2 + 0.7 * X3
+#' "
+#'
+#' # Make data.frame for two cases
+#' d <- data.frame(
+#'   X1 = c(1.2, -1.2),
+#'   X2 = c(1.5, -1.8),
+#'   X3 = c(1.8, -1.1))
+#'
+#' # Compute factor scores for two cases
+#' add_composite_scores(d, m)
+add_composite_scores <- function(d, m, ...) {
+  sm <- sim_standardized_matrices(m, ...)
+
+
+  # Get composite score names
+  v_composite <- sm$v_names$v_composite_score
+
+  # Coefficients for composite scores
+  l_composite_score <- sm$Coefficients$composite_score
+
+  # Get observed score names
+  v_observed <- rownames(sm$Coefficients$composite_score)
+
+  # Get observed data
+  d_observed <- as.matrix(d[, v_observed, drop = FALSE])
+
+  # Make factor scores
+  d_composite_score <- d_observed %*% l_composite_score
+
+  # Bind factor scores to observed data
+  d_all <- cbind(as.data.frame(d), as.data.frame(d_composite_score))
   d_all
 }
 

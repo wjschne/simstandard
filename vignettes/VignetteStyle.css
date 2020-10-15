@@ -1,20 +1,25 @@
 body {
     margin:auto;
     font-family:Palatino,"Palatino Linotype",Times,serif;
-    font-size:18pt;
+    font-size:16pt;
     text-align:left;
     max-width:7.5in
 }
 
 
-
+table {
+    border-collapse: collapse;
+}
 th,td {
-    padding-bottom:5px;
-    padding-top:5px;
-    padding-left:10px;
-    padding-right:10px;
+    padding: 5px 10px 5px 10px;
     vertical-align:top
 }
+
+thead tr {border-top:1px solid gray;
+    border-bottom:1px solid gray
+}
+
+tr:last-child {border-bottom:1px solid gray}
 
 .references p {
     padding-left:2.5em;
@@ -57,7 +62,7 @@ img {
 
 pre {
   padding:5px;
-  border: 1px solid #D5DAF0;  
+  border: 1px solid #D5DAF0;
 }
 
 code {

@@ -29,7 +29,7 @@ library(ggplot2)
 library(tibble)
 library(tidyr)
 library(dplyr)
-library(kableExtra)
+
 
 options(digits = 2)
 set.seed(123456)
@@ -37,12 +37,11 @@ set.seed(123456)
 
 ```
 
-<img src="logo.png" align="right" height=140/>
+<img src="logo.png" align="right" height="140/"/>
 
 # Purpose of simstandard
 
-In the figure below, you can see a hypothetical structural model with its standardized loadings and path coefficients. 
-
+In the figure below, you can see a hypothetical structural model with its standardized loadings and path coefficients.
 
 ```{r, out.width=700, fig.align='center', echo = FALSE}
 knitr::include_graphics("ModelFigure.svg")
@@ -58,7 +57,6 @@ The simstandard package finds the standardized variances and creates standardize
 library(simstandard)
 library(lavaan)
 library(knitr)
-library(kableExtra)
 library(dplyr)
 library(ggplot2)
 library(tibble)
@@ -75,9 +73,7 @@ B ~ 0.6 * A
 d <- sim_standardized(m, n = 100000)
 
 # Display First 6 rows
-head(d) %>% 
-  kable() %>% 
-  kable_styling()
+head(d)
 ```
 
 Let's make a function to display correlations and covariance matrices:
@@ -89,25 +85,21 @@ ggcor <- function(d) {
     tibble::rownames_to_column("rowname") %>%
     tidyr::gather(colname, r, -rowname) %>%
     dplyr::mutate(rowname = forcats::fct_rev(rowname)) %>% 
-    dplyr::mutate(colname = factor(colname, levels = rev(levels(rowname)))) %>% 
+    dplyr::mutate(colname = factor(colname, 
+                                   levels = rev(levels(rowname)))) %>% 
     ggplot(aes(colname, rowname, fill = r)) +
     geom_tile(color = "gray90") +
-    geom_text(aes(
-      label = formatC(
-      r, 
-      digits = 2, 
-      format = "f") %>% 
-        stringr::str_replace_all("0\\.",".") %>% 
-        stringr::str_replace_all("1.00","1")), 
+    geom_text(aes(label = formatC(r, digits = 2, format = "f") %>% 
+                    stringr::str_replace_all("0\\.",".") %>% 
+                    stringr::str_replace_all("1.00","1")), 
     color = "white", 
     fontface = "bold",
     family = "serif") +
     scale_fill_gradient2(NULL,
-      na.value = "gray20",
-      limits = c(-1.01, 1.01),
-      high = "#924552",
-      low = "#293999"
-    ) +
+                         na.value = "gray20",
+                         limits = c(-1.01, 1.01),
+                         high = "#924552",
+                         low = "#293999") +
     coord_equal() +
     scale_x_discrete(NULL,position = "top") +
     scale_y_discrete(NULL) +
@@ -131,25 +123,36 @@ d <- sim_standardized(m,
                       latent = FALSE,
                       errors = FALSE)
 # Display First 6 rows
-head(d) %>% 
-  kable() %>% 
-  kable_styling()
+head(d) 
 ```
-
-
 
 # Comparison with `lavaan::simulateData`
 
-I love the lavaan package. However, one aspect of one function in lavaan is not quite right yet. lavaan's `simulateData` function [is known to generate non-standardized data](https://github.com/yrosseel/lavaan/issues/46), even when the `standardized` parameter is set to `TRUE`. See how it creates variables B1, B2, and B3 with variances much higher than 1. Furthermore, it only produces observed variables.
+I love the lavaan package. However, one aspect of one function in lavaan is not quite right yet. lavaan's `simulateData` function [is known to generate non-standardized data](https://github.com/yrosseel/lavaan/issues/46), even when the `standardized` parameter is set to `TRUE`. See how it creates variable Y with a variance higher than 1.
 
 ```{r lavaan}
+test_model <- "
+Y ~ -.75 * X_1 + .25 * X_2
+X =~ .75 * X_1 + .75 * X_2
+"
+
 library(lavaan)
 d_lavaan <- simulateData(
-  model = m, 
+  model = test_model, 
   sample.nobs = 100000, 
   standardized = TRUE)
 cov(d_lavaan) %>% 
   ggcor
+```
+
+With the same test model, simstandard will calculate variables with variances of 1.
+
+```{r simstandard_comparison}
+sim_standardized(test_model, 
+                 n = 100000, 
+                 errors = FALSE) %>% 
+  cov %>% 
+  ggcor()
 ```
 
 # Inspecting model matrices
@@ -193,32 +196,27 @@ sim_standardized(
   n = 100000, 
   factor_scores = TRUE
   ) %>% 
-  head() %>% 
-  kable() %>% 
-  kable_styling()
+  head() 
 ```
 
 ## Adding factor scores to new data
 
 Suppose you have some new data and wish to add estimated factor scores to it. The `add_factor_scores` function will take your data and return your data with the estimated factors added to it.
 
-```{r}
+```{r add_factor_scores}
 d <- tibble::tribble(
   ~A1,  ~A2,  ~A3,
    2L,  2.5,  1.3,
   -1L, -1.5, -2.1
   )
 
-add_factor_scores(d, m ) %>% 
-  kable() %>% 
-  kable_styling()
+add_factor_scores(d, m ) 
 
 ```
 
-
 # Composite Scores
 
-If you want to calculate equally-weighted composite scores based on the indicators of each latent variable, set `composites = TRUE'. 
+If you want to calculate equally-weighted composite scores based on the indicators of each latent variable, set \`composites = TRUE'.
 
 ```{r composites}
 m <- "
@@ -229,10 +227,14 @@ sim_standardized(
   n = 100000, 
   composites = TRUE
   ) %>% 
-  head() %>% 
-  kable() %>% 
-  kable_styling()
+  head()
   
+```
+
+Composite scores with equal weights can also be added to new data:
+
+```{r add_composite_scores}
+add_composite_scores(d, m ) 
 ```
 
 # Return lavaan syntax with all parameters set free
@@ -292,7 +294,6 @@ RAM$S %>% ggcor()
 
 As can be seen, all the fit measures indicate a near-perfect fit, and the parameter estimates are within rounding error of the fixed parameters in model `m`.
 
-
 # Return lavaan syntax for a model with standardized variances specified
 
 Although the `simstandardized` function will generate data for you, you might want to use a function from a different package instead, such as `lavaan::simulateData` or `simsem::sim`. In this case, you can use the `model_complete` function to output the lavaan syntax for a standardized model with all standardized variances specified.
@@ -344,7 +345,7 @@ m_meas <- matrix(c(
 
 The structural model can be specified with a matrix in which the predictors are the column names and the criterion variables are the row names.
 
-Here we have Vocabulary and Working Memory Capacity predicting Reading Scores. 
+Here we have Vocabulary and Working Memory Capacity predicting Reading Scores.
 
 ```{r}
 m_struct <- matrix(
@@ -369,10 +370,9 @@ rownames(m_struct) <- c("Vocabulary", "WorkingMemory", "Reading")
 colnames(m_struct) <- c("Vocabulary", "WorkingMemory", "Reading")
 ```
 
-
 ## Covariances
 
-The variances and covariances must be specified as a symmetric matrix, though variables can be omitted. 
+The variances and covariances must be specified as a symmetric matrix, though variables can be omitted.
 
 Here we specify that the latent variables Vocabulary and Working Memory Capacity are correlated.
 
@@ -397,7 +397,6 @@ model <- matrix2lavaan(measurement_model = m_meas,
                        covariances = m_cov)
 cat(model)
 ```
-
 
 ## Specifying models with data.frames instead of matrices
 
@@ -432,6 +431,3 @@ model <- matrix2lavaan(measurement_model = m_meas,
                        structural_model = m_struct, 
                        covariances = m_cov)
 ```
-
-
-
