@@ -44,12 +44,14 @@ set.seed(123456)
 In the figure below, you can see a hypothetical structural model with its standardized loadings and path coefficients.
 
 ```{r, out.width=700, fig.align='center', echo = FALSE}
+
 knitr::include_graphics("ModelFigure.svg")
+
 ```
 
 Suppose you need to simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically, and instead they must be found iteratively.
 
-The simstandard package finds the standardized variances and creates standardized multivariate normal data using [lavaan syntax](http://lavaan.ugent.be/tutorial/syntax1.html). It can also create latent variable scores, error terms, disturbance terms, estimated factor scores, and equally weighted composite scores for each latent variable.
+The simstandard package finds the standardized variances and creates standardized multivariate normal data using [lavaan syntax](https://lavaan.ugent.be/tutorial/syntax1.html). It can also create latent variable scores, error terms, disturbance terms, estimated factor scores, and equally weighted composite scores for each latent variable.
 
 # Generate Model-Based Multivariate Data
 

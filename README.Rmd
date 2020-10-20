@@ -12,24 +12,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-# simstandard <img src="man/figures/logo.png" align="right" height=140/>
+# simstandard <img src="man/figures/logo.png" align="right" height="140/"/>
 
-[![CRAN status](https://www.r-pkg.org/badges/version/simstandard)](https://cran.r-project.org/package=simstandard)
-[![Rdoc](http://www.rdocumentation.org/badges/version/simstandard)](http://www.rdocumentation.org/packages/simstandard)
-`r badger::badge_devel("wjschne/simstandard", "blue")`
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Travis build status](https://travis-ci.org/wjschne/simstandard.svg?branch=master)](https://travis-ci.org/wjschne/simstandard)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/wjschne/simstandard?branch=master&svg=true)](https://ci.appveyor.com/project/wjschne/simstandard)
-[![Coverage status](https://codecov.io/gh/wjschne/simstandard/branch/master/graph/badge.svg)](https://codecov.io/github/wjschne/simstandard?branch=master)
-
-
+[![CRAN status](https://www.r-pkg.org/badges/version/simstandard)](https://cran.r-project.org/package=simstandard) [![Rdoc](https://www.rdocumentation.org/badges/version/simstandard)](https://www.rdocumentation.org/packages/simstandard) `r badger::badge_devel("wjschne/simstandard", "blue")` [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing) [![Travis build status](https://travis-ci.org/wjschne/simstandard.svg?branch=master)](https://travis-ci.org/wjschne/simstandard) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/wjschne/simstandard?branch=master&svg=true)](https://ci.appveyor.com/project/wjschne/simstandard) [![Coverage status](https://codecov.io/gh/wjschne/simstandard/branch/master/graph/badge.svg)](https://codecov.io/github/wjschne/simstandard?branch=master)
 
 Sometimes you have a structural model with standardized path coefficients, structural coefficients, and correlations, but you do not know the error and disturbance variances. The purpose of `simstandard` is to calculate these variances and then simulate multivariate normal data based on your model.
 
 ## Installation
 
-You can either install simstandard from CRAN or install the
-development version of simstandard from github.
+You can either install simstandard from CRAN or install the development version of simstandard from github.
 
 ### Option 1: Install the most recent stable release from CRAN
 
@@ -41,24 +32,21 @@ install.packages("simstandard")
 
 ### Option 2: Install the development version from GitHub
 
-To install the development version of simstandard, you need to check
-if devtools is installed. If not, run this:
+To install the development version of simstandard, you need to check if devtools is installed. If not, run this:
 
 ```{r, eval = FALSE}
 install.packages("devtools")
 ```
 
-Once you are sure you have devtools installed, you can install the
-development version of simstandard from GitHub by running this code:
+Once you are sure you have devtools installed, you can install the development version of simstandard from GitHub by running this code:
 
 ```{r, eval = FALSE}
 devtools::install_github("wjschne/simstandard")
 ```
 
-
 ## Example
 
-The `simstandard` package uses [lavaan syntax](http://lavaan.ugent.be/tutorial/syntax1.html) to specify models.
+The `simstandard` package uses [lavaan syntax](https://lavaan.ugent.be/tutorial/syntax1.html) to specify models.
 
 ```{r example}
 library(simstandard)
