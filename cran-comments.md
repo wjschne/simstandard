@@ -8,7 +8,7 @@
 
 simstandard 0.5.0
 
-Duration: 34s
+Duration: 40.1s
 
 0 errors v \| 0 warnings v \| 0 notes v
 
@@ -17,4 +17,3 @@ R CMD check succeeded
 ## Addressing problems from the previous submission
 
 -   Broken URLs were updated.
--   A reference to the method was added to the Description field.
