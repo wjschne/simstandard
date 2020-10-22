@@ -8,7 +8,7 @@
 
 simstandard 0.5.0
 
-Duration: 40.1s
+Duration: 39.5s
 
 0 errors v \| 0 warnings v \| 0 notes v
 
