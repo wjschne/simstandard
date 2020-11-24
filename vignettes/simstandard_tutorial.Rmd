@@ -85,8 +85,8 @@ ggcor <- function(d) {
   require(ggplot2)
   as.data.frame(d) %>%
     tibble::rownames_to_column("rowname") %>%
-    tidyr::gather(colname, r, -rowname) %>%
-    dplyr::mutate(rowname = forcats::fct_rev(rowname)) %>% 
+    tidyr::pivot_longer(-rowname, names_to = "colname", values_to = "r") %>%
+    dplyr::mutate(rowname = forcats::fct_inorder(rowname) %>% forcats::fct_rev()) %>% 
     dplyr::mutate(colname = factor(colname, 
                                    levels = rev(levels(rowname)))) %>% 
     ggplot(aes(colname, rowname, fill = r)) +
@@ -433,3 +433,22 @@ model <- matrix2lavaan(measurement_model = m_meas,
                        structural_model = m_struct, 
                        covariances = m_cov)
 ```
+
+
+# Return model-implied correlation matrices
+
+After specifying a standardized model with lavaan syntax, we can extract a model-implied correlation matrix. By default, we extract just the correlations among the observed variables.
+
+```{r}
+get_model_implied_correlations(m) %>% 
+  ggcor()
+```
+
+It is possible to extract the model-implied correlations among the observed variables, latent variables, error terms, factor scores, and composite variables. For example, here we extract correlations among the observed and latent variables:
+
+```{r}
+get_model_implied_correlations(m, 
+                               latent = TRUE) %>% 
+  ggcor()
+```
+

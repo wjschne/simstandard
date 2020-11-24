@@ -449,7 +449,6 @@ sim_standardized_matrices <- function(m,
 #' @param matrices Include matrices as attribute of tibble
 #' @param ... Arguments passed to `simstandardized_matrices`
 #' @return tibble with standardized data
-#' @importFrom mvtnorm rmvnorm
 #' @examples
 #' library(simstandard)
 #' # Lavaan model
@@ -481,7 +480,7 @@ sim_standardized <- function(
   )
 
   # Simulate exogenous variables in S matricx
-  u <- rmvnorm(n = n, sigma = o$RAM_matrices$S[S_names, S_names, drop = F])
+  u <- mvtnorm::rmvnorm(n = n, sigma = o$RAM_matrices$S[S_names, S_names, drop = F])
   colnames(u) <- c(
     o$v_names$v_observed_exogenous,
     o$v_names$v_error,
@@ -952,3 +951,51 @@ check_matrix2lavaan <- function(m, mname) {
 }
 
 
+#' Return model-implied correlation matrix
+#'
+#' Function that takes a lavaan model with standardized parameters and returns a model-implied correlation matrix
+#' @export
+#' @param m Structural model represented by lavaan syntax
+#' @param observed Include observed variables
+#' @param latent Include latent variables
+#' @param errors Include observed error and latent disturbances variables
+#' @param factor_scores Include factor score variables
+#' @param composites Include composite variables
+#' @param ... parameters passed to the `sim_standardized_matrices` function
+#' @return correlation matrix
+#' @examples
+#' library(simstandard)
+#' # lavaan model
+#' m = "Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"
+#'
+#' get_model_implied_correlations(m)
+get_model_implied_correlations <- function(m,
+                                           observed = TRUE,
+                                           latent = FALSE,
+                                           errors = FALSE,
+                                           factor_scores = FALSE,
+                                           composites = FALSE,
+                                           ...) {
+  fit <- sim_standardized_matrices(m, ...)
+
+  # Variable names
+  v_names <- character(0)
+
+  # Observed Variable Names
+  if (observed) v_names <- c(v_names, fit$v_names$v_observed)
+
+  # Latent Variable Names
+  if (latent) v_names <- c(v_names, fit$v_names$v_latent)
+
+  # Error Variable Names
+  if (errors) v_names <- c(v_names, fit$v_names$v_residual)
+
+  # Factor-Score Variable Names
+  if (factor_scores) v_names <- c(v_names, paste0(fit$v_names$v_latent,"_FS"))
+
+  # Composite Variable Names
+  if (composites) v_names <- c(v_names, fit$v_names$v_composite_score)
+
+  # Return correlation matrix
+  fit$Correlations$R_all[v_names, v_names]
+}

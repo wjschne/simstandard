@@ -1,3 +1,6 @@
+# simstandard 0.6.0
+-   Added `get_model_implied_correlations` function, which returns the model-implied correlation matrix of observed variables, latent variables, error terms, factor scores, and composite variables.
+
 # simstandard 0.5.0
 
 -   Added `composite_score_validity` to list returned by `sim_standardized_matrices`

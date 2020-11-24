@@ -6,14 +6,10 @@
 
 ## R CMD check results
 
-simstandard 0.5.0
+simstandard 0.6.0
 
-Duration: 39.5s
+Duration: 41.4s
 
 0 errors v \| 0 warnings v \| 0 notes v
 
 R CMD check succeeded
-
-## Addressing problems from the previous submission
-
--   Broken URLs were updated.
