@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">simstandard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -103,26 +103,26 @@
 <h3 class="hasAnchor">
 <a href="#option-1-install-the-most-recent-stable-release-from-cran" class="anchor"></a>Option 1: Install the most recent stable release from CRAN</h3>
 <p>You can install simstandard from CRAN by running this code:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"simstandard"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"simstandard"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="option-2-install-the-development-version-from-github" class="section level3">
 <h3 class="hasAnchor">
 <a href="#option-2-install-the-development-version-from-github" class="anchor"></a>Option 2: Install the development version from GitHub</h3>
 <p>To install the development version of simstandard, you need to check if devtools is installed. If not, run this:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></code></pre></div>
 <p>Once you are sure you have devtools installed, you can install the development version of simstandard from GitHub by running this code:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"wjschne/simstandard"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"wjschne/simstandard"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>The <code>simstandard</code> package uses <a href="https://lavaan.ugent.be/tutorial/syntax1.html">lavaan syntax</a> to specify models.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/wjschne/simstandard">simstandard</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/wjschne/simstandard">simstandard</a></span><span class="op">)</span>
 <span class="va">model</span> <span class="op">&lt;-</span> <span class="st">"
 A =~ 0.5 * A1 + 0.8 * A2
 B =~ 0.6 * B1 + 0.7 * B2
@@ -131,7 +131,7 @@ C ~~ 0.5 * A
 "</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_standardized.html">sim_standardized</a></span><span class="op">(</span>m <span class="op">=</span> <span class="va">model</span>, n <span class="op">=</span> <span class="fl">500</span><span class="op">)</span>
 
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">A1</th>

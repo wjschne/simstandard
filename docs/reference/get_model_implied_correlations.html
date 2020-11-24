@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • simstandard</title>
+<title>Return model-implied correlation matrix — get_model_implied_correlations • simstandard</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Return model-implied correlation matrix — get_model_implied_correlations" />
+<meta property="og:description" content="Function that takes a lavaan model with standardized parameters and returns a model-implied correlation matrix" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -68,7 +69,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -130,90 +131,75 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Return model-implied correlation matrix</h1>
+    <small class="dont-index">Source: <a href='https://github.com/wjschne/simstandard/blob/master/R/main.R'><code>R/main.R</code></a></small>
+    <div class="hidden name"><code>get_model_implied_correlations.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Function that takes a lavaan model with standardized parameters and returns a model-implied correlation matrix</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>get_model_implied_correlations</span><span class='op'>(</span>
+  <span class='va'>m</span>,
+  observed <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  latent <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  errors <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  factor_scores <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  composites <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="add_composite_scores.html">add_composite_scores()</a></code> </p>
-        </td>
-        <td><p>Add composite scores to observed data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_factor_scores.html">add_factor_scores()</a></code> </p>
-        </td>
-        <td><p>Add factor scores to observed data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fixed2free.html">fixed2free()</a></code> </p>
-        </td>
-        <td><p>Remove fixed parameters from a lavaan model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_model_implied_correlations.html">get_model_implied_correlations()</a></code> </p>
-        </td>
-        <td><p>Return model-implied correlation matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lav2ram.html">lav2ram()</a></code> </p>
-        </td>
-        <td><p>Extract standardized RAM matrices from a lavaan object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="matrix2lavaan.html">matrix2lavaan()</a></code> </p>
-        </td>
-        <td><p>Create lavaan model syntax from matrix coefficients</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="model_complete.html">model_complete()</a></code> </p>
-        </td>
-        <td><p>Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sim_standardized.html">sim_standardized()</a></code> </p>
-        </td>
-        <td><p>Generates simulated data with standardized parameters.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sim_standardized_matrices.html">sim_standardized_matrices()</a></code> </p>
-        </td>
-        <td><p>Return model characteristics</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>m</th>
+      <td><p>Structural model represented by lavaan syntax</p></td>
+    </tr>
+    <tr>
+      <th>observed</th>
+      <td><p>Include observed variables</p></td>
+    </tr>
+    <tr>
+      <th>latent</th>
+      <td><p>Include latent variables</p></td>
+    </tr>
+    <tr>
+      <th>errors</th>
+      <td><p>Include observed error and latent disturbances variables</p></td>
+    </tr>
+    <tr>
+      <th>factor_scores</th>
+      <td><p>Include factor score variables</p></td>
+    </tr>
+    <tr>
+      <th>composites</th>
+      <td><p>Include composite variables</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>parameters passed to the `sim_standardized_matrices` function</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>correlation matrix</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/wjschne/simstandard'>simstandard</a></span><span class='op'>)</span>
+<span class='co'># lavaan model</span>
+<span class='va'>m</span> <span class='op'>=</span> <span class='st'>"Latent_1 =~ 0.8 * Ob_1 + 0.7 * Ob_2 + 0.4 * Ob_3"</span>
+
+<span class='fu'>get_model_implied_correlations</span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      Ob_1 Ob_2 Ob_3
+#&gt; Ob_1 1.00 0.56 0.32
+#&gt; Ob_2 0.56 1.00 0.28
+#&gt; Ob_3 0.32 0.28 1.00</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
