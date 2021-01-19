@@ -15,7 +15,7 @@ get_model_implied_correlations(
 )
 }
 \arguments{
-\item{m}{Structural model represented by lavaan syntax}
+\item{m}{Structural model represented by lavaan syntax or output of sim_standardized_matrices function.}
 
 \item{observed}{Include observed variables}
 

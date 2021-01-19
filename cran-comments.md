@@ -1,7 +1,7 @@
 ## Test environments
 
--   local Windows 10 install, R 4.0.2
--   ubuntu 14.04.5 LTS (on travis-ci), R 4.0.2
+-   local Windows 10 install, R 4.0.3
+-   ubuntu 14.04.5 LTS (on travis-ci), R 4.0.3
 -   win-builder (devel and release)
 
 ## R CMD check results

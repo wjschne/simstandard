@@ -16,7 +16,6 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  dev = "svg",
   out.height = "100%",
   out.width = "100%",
   fig.width = 7,
@@ -45,7 +44,7 @@ In the figure below, you can see a hypothetical structural model with its standa
 
 ```{r, out.width=700, fig.align='center', echo = FALSE}
 
-knitr::include_graphics("ModelFigure.svg")
+knitr::include_graphics("ModelFigure.png")
 
 ```
 
@@ -182,7 +181,7 @@ matrices$RAM_matrices$S %>%
 Thus, we can use these results to insert the missing values from the path diagram at the beginning of this tutorial
 
 ```{r, out.width=700, fig.align='center', echo = FALSE}
-knitr::include_graphics("ModelFigureComplete.svg")
+knitr::include_graphics("ModelFigureComplete.png")
 ```
 
 # Estimated Factor Scores

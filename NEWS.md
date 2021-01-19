@@ -1,3 +1,8 @@
+# simstandard 0.6.1
+-   Can specify a mean and standard deviation in the `add_composite_scores` and `add_factor_scores` functions.
+-   The `add_factor_scores` function now appends `_FS` to the factor score names.
+-   Replaced all .svg files in vignette with .png files.
+
 # simstandard 0.6.0
 -   Added `get_model_implied_correlations` function, which returns the model-implied correlation matrix of observed variables, latent variables, error terms, factor scores, and composite variables.
 

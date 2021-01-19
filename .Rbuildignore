@@ -1,5 +1,7 @@
 ^vignettes/ModelFigureComplete\.tex$
+^vignettes/ModelFigureComplete\.svg$
 ^vignettes/ModelFigure\.tex$
+^vignettes/ModelFigure\.svg$
 ^CRAN-RELEASE$
 ^cran-comments\.md$
 ^codecov\.yml$
@@ -14,3 +16,4 @@
 ^README-.*\.png$
 ^pkgdown$
 ^fixdocs.R$
+^\.github$

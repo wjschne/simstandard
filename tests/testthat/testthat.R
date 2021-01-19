@@ -232,3 +232,59 @@ test_that(
     expect_error(sim_standardized_matrices(m, max_iterations = 0))
   }
 )
+
+
+test_that(
+  "missing composite data",
+  code = {
+    m <- "
+    A =~ 0.5 * A1 + 0.8 * A2 + 0.8 * A3
+    "
+    d <- data.frame(A1 = 1, A2 = 2)
+    expect_error(add_composite_scores(d, m), "Some observed variables specified in the model are missing from the data\\.")
+  }
+)
+
+test_that(
+  "composite with mu and sigma specified",
+  code = {
+    m <- "
+    A =~ 0.8 * A1 + 0.8 * A2 + 0.8 * A3
+    "
+    d_SS <- data.frame(A1 = 115, A2 = 115, A3 = 115) %>%
+      add_composite_scores(m, mu = 100, sigma = 15) %>%
+      add_factor_scores(m, mu = 100, sigma = 15)
+    d_z <- data.frame(A1 = 1, A2 = 1, A3 = 1) %>%
+      add_composite_scores(m) %>%
+      add_factor_scores(m)
+    expect_equal(d_SS$A_Composite, d_z$A_Composite * 15 + 100)
+    expect_equal(d_SS$A_FS, d_z$A_FS * 15 + 100)
+  }
+)
+
+
+test_that(
+  "composite and factor scores with names suffixes",
+  code = {
+    m <- "
+    A =~ 0.8 * A1 + 0.8 * A2 + 0.8 * A3
+    "
+    d <- data.frame(A1 = 115, A2 = 115, A3 = 115)
+    v_composite <- colnames(add_composite_scores(d, m, names_suffix = "_cs"))[4]
+    v_fs <- colnames(add_factor_scores(d, m, names_suffix = "_factor_score"))[4]
+    expect_equal(v_composite,  "A_cs")
+    expect_equal(v_fs,  "A_factor_score")
+  }
+)
+
+
+test_that(
+  "get model-implied matrix from sim_standardized_matrices output.",
+  code = {
+    m <- "
+    A =~ 0.8 * A1 + 0.8 * A2 + 0.8 * A3
+    "
+  fit <- sim_standardized_matrices(m)
+  expect_equal(get_model_implied_correlations(m), get_model_implied_correlations(fit))
+  }
+)

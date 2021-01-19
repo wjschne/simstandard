@@ -403,7 +403,7 @@ sim_standardized_matrices <- function(m,
     v_composite_score = v_composite_score
   )
 
-  list(
+  l <- list(
     RAM_matrices = list(
       A = A[v_order, v_order],
       S = S[v_order, v_order],
@@ -429,6 +429,9 @@ sim_standardized_matrices <- function(m,
     v_names = l_names,
     iterations = iterations
   )
+
+  class(l) <- c("simstandard", class(l))
+  l
 }
 
 
@@ -592,13 +595,16 @@ model_complete <- function(m){
   sim_standardized_matrices(m)$lavaan_models$model_with_variances
 }
 
-#' Add factor scores to observed data
+#' For each latent variable in a structural model, add an estimated factor score to observed data.
 #'
 #' @export
 #' @param d A data.frame with observed data in standardized form (i.e, z-scores)
 #' @param m A character string with lavaan model
+#' @param mu Population mean of the observed scores. Factor scores will also have this mean. Defaults to 0.
+#' @param sigma Population standard deviation of the observed scores. Factor scores will also have this standard deviation. Defaults to 1.
 #' @param CI Add confidence intervals? Defaults to `FALSE`. If `TRUE`, For each factor score, a lower and upper bound of the confidence interval is created. For example, the lower bound of factor score `X` is `X_LB`, and the upper bound is `X_UB`.
 #' @param p confidence interval proportion. Defaults to 0.95
+#' @param names_suffix A character string added to each factor score name
 #' @param ... parameters passed to simstandardized_matrices
 #' @return data.frame with observed data and estimated factor scores
 #' @examples
@@ -616,25 +622,27 @@ model_complete <- function(m){
 #'
 #' # Compute factor scores for two cases
 #' add_factor_scores(d, m)
-add_factor_scores <- function(d, m, CI = FALSE, p = 0.95, ...) {
+add_factor_scores <- function(d, m, mu = 0, sigma = 1, CI = FALSE, p = 0.95, names_suffix = "_FS", ...) {
   sm <- sim_standardized_matrices(m, ...)
 
   # Coefficients for estimated factor scores
   v_FS <- paste0(sm$v_names$v_latent, "_FS")
   latent_factor_score <- sm$Coefficients$factor_score[, v_FS, drop = FALSE]
 
-  # Remove _FS from factor score names
-  colnames(latent_factor_score) <- stringr::str_remove_all(
-    colnames(latent_factor_score), "_FS")
-
   # Get observed score names
   v_observed <- rownames(sm$Coefficients$factor_score)
 
+  if (!all(v_observed %in% colnames(d))) stop("Some observed variables specified in the model are missing from the data.")
+
   # Get observed data
-  d_observed <- as.matrix(d[, v_observed, drop = FALSE])
+  d_observed <- (as.matrix(d[, v_observed, drop = FALSE]) - mu) / sigma
+
 
   # Make factor scores
-  d_factor_score <- d_observed %*% latent_factor_score
+  d_factor_score <- (d_observed %*% latent_factor_score) * sigma + mu
+  colnames(d_factor_score) <- sub(pattern = "_FS$",
+                            replacement = names_suffix,
+                            x = colnames(d_factor_score))
 
   # Bind factor scores to observed data
   d_all <- cbind(as.data.frame(d), as.data.frame(d_factor_score))
@@ -643,20 +651,23 @@ add_factor_scores <- function(d, m, CI = FALSE, p = 0.95, ...) {
     # Make CI
     z <- -1 * stats::qnorm((1 - p) / 2)
     FS_se <- sm$Coefficients$factor_score_se[v_FS]
-    d_lower_bound <- d_factor_score - z * FS_se
+    d_lower_bound <- d_factor_score - z * FS_se * sigma
     colnames(d_lower_bound) <- paste0(colnames(d_factor_score), "_LB")
-    d_upper_bound <- d_factor_score + z * FS_se
+    d_upper_bound <- d_factor_score + z * FS_se * sigma
     colnames(d_upper_bound) <- paste0(colnames(d_factor_score), "_UB")
     d_all <- cbind(d_all, d_lower_bound, d_upper_bound)
   }
   d_all
 }
 
-#' Add composite scores to observed data
+#' For each latent variable in a structural model, add a composite score to observed data.
 #'
 #' @export
 #' @param d A data.frame with observed data in standardized form (i.e, z-scores)
 #' @param m A character string with lavaan model
+#' @param mu Score means. Composite scores will also have this mean. Defaults to 0.
+#' @param sigma Score standard deviations. Composite scores will also have this standard deviation. Defaults to 1.
+#' @param names_suffix A character string added to each composite score name
 #' @param ... parameters passed to simstandardized_matrices
 #' @return data.frame with observed data and estimated factor scores
 #' @examples
@@ -672,11 +683,10 @@ add_factor_scores <- function(d, m, CI = FALSE, p = 0.95, ...) {
 #'   X2 = c(1.5, -1.8),
 #'   X3 = c(1.8, -1.1))
 #'
-#' # Compute factor scores for two cases
+#' # Compute composite scores for two cases
 #' add_composite_scores(d, m)
-add_composite_scores <- function(d, m, ...) {
+add_composite_scores <- function(d, m, mu = 0, sigma = 1, names_suffix = "_Composite", ...) {
   sm <- sim_standardized_matrices(m, ...)
-
 
   # Get composite score names
   v_composite <- sm$v_names$v_composite_score
@@ -687,13 +697,21 @@ add_composite_scores <- function(d, m, ...) {
   # Get observed score names
   v_observed <- rownames(sm$Coefficients$composite_score)
 
+  # Get data column names
+  d_names <- colnames(d)
+
+  if (!all(v_observed %in% d_names)) stop("Some observed variables specified in the model are missing from the data.")
+
   # Get observed data
-  d_observed <- as.matrix(d[, v_observed, drop = FALSE])
+  d_observed <- (as.matrix(d[, v_observed, drop = FALSE]) - mu) / sigma
 
-  # Make factor scores
-  d_composite_score <- d_observed %*% l_composite_score
+  # Make composite scores
+  d_composite_score <- (d_observed %*% l_composite_score) * sigma + mu
+  colnames(d_composite_score) <- sub(pattern = "_Composite$",
+                            replacement = names_suffix,
+                            x = colnames(d_composite_score))
 
-  # Bind factor scores to observed data
+  # Bind composite scores to observed data
   d_all <- cbind(as.data.frame(d), as.data.frame(d_composite_score))
   d_all
 }
@@ -955,7 +973,7 @@ check_matrix2lavaan <- function(m, mname) {
 #'
 #' Function that takes a lavaan model with standardized parameters and returns a model-implied correlation matrix
 #' @export
-#' @param m Structural model represented by lavaan syntax
+#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
 #' @param observed Include observed variables
 #' @param latent Include latent variables
 #' @param errors Include observed error and latent disturbances variables
@@ -976,7 +994,10 @@ get_model_implied_correlations <- function(m,
                                            factor_scores = FALSE,
                                            composites = FALSE,
                                            ...) {
-  fit <- sim_standardized_matrices(m, ...)
+  if ("simstandard" %in% class(m)) {
+    fit <- m
+  } else {
+      fit <- sim_standardized_matrices(m, ...)}
 
   # Variable names
   v_names <- character(0)
