@@ -1,6 +1,6 @@
 Package: simstandard
 Title: Generate Standardized Data
-Version: 0.6.0
+Version: 0.6.2
 Authors@R: 
     person(given = "W. Joel",
            family = "Schneider",
