@@ -4,13 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
-)
-```
+
 
 # simstandard <img src="man/figures/logo.png" align="right" height="140/"/>
 
@@ -33,7 +27,8 @@ You can either install simstandard from CRAN or install the development version 
 
 You can install simstandard from CRAN by running this code:
 
-```{r, eval = FALSE}
+
+```r
 install.packages("simstandard")
 ```
 
@@ -41,13 +36,15 @@ install.packages("simstandard")
 
 To install the development version of simstandard, you need to check if devtools is installed. If not, run this:
 
-```{r, eval = FALSE}
+
+```r
 install.packages("devtools")
 ```
 
 Once you are sure you have devtools installed, you can install the development version of simstandard from GitHub by running this code:
 
-```{r, eval = FALSE}
+
+```r
 devtools::install_github("wjschne/simstandard")
 ```
 
@@ -55,7 +52,8 @@ devtools::install_github("wjschne/simstandard")
 
 The `simstandard` package uses [lavaan syntax](https://lavaan.ugent.be/tutorial/syntax1.html) to specify models.
 
-```{r example}
+
+```r
 library(simstandard)
 model <- "
 A =~ 0.5 * A1 + 0.8 * A2
@@ -67,5 +65,16 @@ data <- sim_standardized(m = model, n = 500)
 
 knitr::kable(head(data), digits = 2)
 ```
+
+
+
+|    A1|    A2|    B1|    B2|     C|     A|     B|  e_A1|  e_A2|  e_B1|  e_B2|   d_B|
+|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| -1.56| -1.44| -0.63|  0.00| -0.78| -1.45| -0.32| -0.84| -0.28| -0.44|  0.22|  0.84|
+|  1.56| -1.03|  0.67| -0.74|  0.17| -1.25| -0.39|  2.19| -0.02|  0.91| -0.46|  0.61|
+| -0.22| -1.48| -1.19| -0.98| -1.50| -0.83| -1.62|  0.19| -0.81| -0.22|  0.15| -0.95|
+|  2.41|  2.41|  0.58|  0.05|  1.92|  2.63|  1.53|  1.10|  0.31| -0.34| -1.03| -0.57|
+| -0.35|  0.22|  0.60|  0.59| -0.10|  0.38| -0.70| -0.54| -0.08|  1.02|  1.08| -1.01|
+|  1.48|  1.32|  1.03|  0.55|  0.97|  1.18|  0.72|  0.89|  0.38|  0.60|  0.05| -0.22|
 
 See more in the [tutorial for this package](https://wjschne.github.io/simstandard/articles/simstandard_tutorial.html).

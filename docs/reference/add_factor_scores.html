@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add factor scores to observed data — add_factor_scores • simstandard</title>
+<title>For each latent variable in a structural model, add an estimated factor score to observed data. — add_factor_scores • simstandard</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Add factor scores to observed data — add_factor_scores" />
-<meta property="og:description" content="Add factor scores to observed data" />
+<meta property="og:title" content="For each latent variable in a structural model, add an estimated factor score to observed data. — add_factor_scores" />
+<meta property="og:description" content="For each latent variable in a structural model, add an estimated factor score to observed data." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simstandard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -116,7 +116,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/wjschne/simstandard/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -133,16 +133,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add factor scores to observed data</h1>
+    <h1>For each latent variable in a structural model, add an estimated factor score to observed data.</h1>
     <small class="dont-index">Source: <a href='https://github.com/wjschne/simstandard/blob/master/R/main.R'><code>R/main.R</code></a></small>
     <div class="hidden name"><code>add_factor_scores.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Add factor scores to observed data</p>
+    <p>For each latent variable in a structural model, add an estimated factor score to observed data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_factor_scores</span><span class='op'>(</span><span class='va'>d</span>, <span class='va'>m</span>, CI <span class='op'>=</span> <span class='cn'>FALSE</span>, p <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>add_factor_scores</span><span class='op'>(</span>
+  <span class='va'>d</span>,
+  <span class='va'>m</span>,
+  mu <span class='op'>=</span> <span class='fl'>0</span>,
+  sigma <span class='op'>=</span> <span class='fl'>1</span>,
+  CI <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  p <span class='op'>=</span> <span class='fl'>0.95</span>,
+  names_suffix <span class='op'>=</span> <span class='st'>"_FS"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,12 +165,24 @@
       <td><p>A character string with lavaan model</p></td>
     </tr>
     <tr>
+      <th>mu</th>
+      <td><p>Population mean of the observed scores. Factor scores will also have this mean. Defaults to 0.</p></td>
+    </tr>
+    <tr>
+      <th>sigma</th>
+      <td><p>Population standard deviation of the observed scores. Factor scores will also have this standard deviation. Defaults to 1.</p></td>
+    </tr>
+    <tr>
       <th>CI</th>
       <td><p>Add confidence intervals? Defaults to `FALSE`. If `TRUE`, For each factor score, a lower and upper bound of the confidence interval is created. For example, the lower bound of factor score `X` is `X_LB`, and the upper bound is `X_UB`.</p></td>
     </tr>
     <tr>
       <th>p</th>
       <td><p>confidence interval proportion. Defaults to 0.95</p></td>
+    </tr>
+    <tr>
+      <th>names_suffix</th>
+      <td><p>A character string added to each factor score name</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -188,7 +209,7 @@ X =~ 0.9 * X1 + 0.8 * X2 + 0.7 * X3
 
 <span class='co'># Compute factor scores for two cases</span>
 <span class='fu'>add_factor_scores</span><span class='op'>(</span><span class='va'>d</span>, <span class='va'>m</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     X1   X2   X3         X
+</div><div class='output co'>#&gt;     X1   X2   X3      X_FS
 #&gt; 1  1.2  1.5  1.8  1.435708
 #&gt; 2 -1.2 -1.8 -1.1 -1.398951</div></pre>
   </div>

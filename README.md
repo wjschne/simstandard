@@ -7,14 +7,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/simstandard)](https://cran.r-project.org/package=simstandard)
-[![Rdoc](https://www.rdocumentation.org/badges/version/simstandard)](https://www.rdocumentation.org/packages/simstandard)
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
-[![Travis build
-status](https://travis-ci.org/wjschne/simstandard.svg?branch=master)](https://travis-ci.org/wjschne/simstandard)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/wjschne/simstandard?branch=master&svg=true)](https://ci.appveyor.com/project/wjschne/simstandard)
-[![Coverage
-status](https://codecov.io/gh/wjschne/simstandard/branch/master/graph/badge.svg)](https://codecov.io/github/wjschne/simstandard?branch=master)
+[![Rdoc](https://www.rdocumentation.org/badges/version/simstandard)](https://www.rdocumentation.org/packages/simstandard)  
 [![R-CMD-check](https://github.com/wjschne/simstandard/workflows/R-CMD-check/badge.svg)](https://github.com/wjschne/simstandard/actions)
 <!-- badges: end -->
 
@@ -74,12 +67,12 @@ knitr::kable(head(data), digits = 2)
 
 |     A1 |     A2 |     B1 |     B2 |      C |      A |      B |  e\_A1 |  e\_A2 |  e\_B1 |  e\_B2 |   d\_B |
 | -----: | -----: | -----: | -----: | -----: | -----: | -----: | -----: | -----: | -----: | -----: | -----: |
-|   1.18 | \-0.56 | \-0.65 | \-0.22 |   0.35 | \-0.22 | \-0.08 |   1.29 | \-0.38 | \-0.60 | \-0.16 |   0.09 |
-|   0.36 | \-0.42 | \-1.73 | \-0.38 | \-0.43 |   0.51 |   0.00 |   0.10 | \-0.83 | \-1.74 | \-0.38 | \-0.41 |
-| \-0.19 |   0.24 | \-0.59 | \-0.59 | \-0.12 |   0.51 | \-0.76 | \-0.44 | \-0.17 | \-0.13 | \-0.06 | \-1.17 |
-|   1.93 |   0.09 |   0.73 |   1.51 | \-0.33 |   1.42 |   1.98 |   1.22 | \-1.04 | \-0.45 |   0.13 |   0.84 |
-|   0.76 | \-0.24 |   0.05 |   0.22 | \-1.04 |   0.44 |   0.48 |   0.54 | \-0.59 | \-0.24 | \-0.12 |   0.13 |
-|   0.54 | \-0.69 | \-0.19 | \-1.04 | \-0.90 | \-0.60 | \-1.32 |   0.84 | \-0.21 |   0.60 | \-0.12 | \-0.84 |
+| \-1.56 | \-1.44 | \-0.63 |   0.00 | \-0.78 | \-1.45 | \-0.32 | \-0.84 | \-0.28 | \-0.44 |   0.22 |   0.84 |
+|   1.56 | \-1.03 |   0.67 | \-0.74 |   0.17 | \-1.25 | \-0.39 |   2.19 | \-0.02 |   0.91 | \-0.46 |   0.61 |
+| \-0.22 | \-1.48 | \-1.19 | \-0.98 | \-1.50 | \-0.83 | \-1.62 |   0.19 | \-0.81 | \-0.22 |   0.15 | \-0.95 |
+|   2.41 |   2.41 |   0.58 |   0.05 |   1.92 |   2.63 |   1.53 |   1.10 |   0.31 | \-0.34 | \-1.03 | \-0.57 |
+| \-0.35 |   0.22 |   0.60 |   0.59 | \-0.10 |   0.38 | \-0.70 | \-0.54 | \-0.08 |   1.02 |   1.08 | \-1.01 |
+|   1.48 |   1.32 |   1.03 |   0.55 |   0.97 |   1.18 |   0.72 |   0.89 |   0.38 |   0.60 |   0.05 | \-0.22 |
 
 See more in the [tutorial for this
 package](https://wjschne.github.io/simstandard/articles/simstandard_tutorial.html).
