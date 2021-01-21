@@ -39,16 +39,16 @@ install.packages("simstandard")
 
 ### Option 2: Install the development version from GitHub
 
-To install the development version of simstandard, you need to check if devtools is installed. If not, run this:
+To install the development version of simstandard, you need to check if the remotes packages is installed. If not, run this:
 
 ```{r, eval = FALSE}
-install.packages("devtools")
+install.packages("remotes")
 ```
 
-Once you are sure you have devtools installed, you can install the development version of simstandard from GitHub by running this code:
+Once you are sure you have the remotes package installed, you can install the development version of simstandard from GitHub by running this code:
 
 ```{r, eval = FALSE}
-devtools::install_github("wjschne/simstandard")
+remotes::install_github("wjschne/simstandard")
 ```
 
 ## Example

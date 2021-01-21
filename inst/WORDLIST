@@ -1,4 +1,4 @@
-AppVeyor
+CMD
 FS
 Loadings
 Rdoc
@@ -10,7 +10,6 @@ github
 iteratively
 lavaan
 lavaan's
-lifecycle
 loadings
 semPlot
 simstandardized
