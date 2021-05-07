@@ -47,8 +47,7 @@ test_that(
   code = {
     m <- "A =~ A1 + 0.8 * A2 + 0.8 * A3"
     expect_warning(sim_standardized_matrices(m), "Because the following relationship was not set, it is assumed to be 0:
-A =~ A1")
-  }
+A =~ A1")}
 )
 
 
@@ -288,3 +287,20 @@ test_that(
   expect_equal(get_model_implied_correlations(m), get_model_implied_correlations(fit))
   }
 )
+
+
+test_that(
+  "get model-implied matrix from sim_standardized_matrices output.",
+  code = {
+    m <- "
+    A =~ 0.5 * A1 + 0.8 * A2 + 0.8 * A3
+    B =~ 0.5 * B1 + 0.8 * B2 + 0.8 * B3
+    B ~ 0.5 * A
+    "
+    fit <- sim_standardized_matrices(m)
+    get_factor_score_coefficients(m, latent = F, errors = T)
+    expect_equal(get_model_implied_correlations(m), get_model_implied_correlations(fit))
+  }
+)
+
+

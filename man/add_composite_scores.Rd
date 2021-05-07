@@ -4,7 +4,15 @@
 \alias{add_composite_scores}
 \title{For each latent variable in a structural model, add a composite score to observed data.}
 \usage{
-add_composite_scores(d, m, mu = 0, sigma = 1, names_suffix = "_Composite", ...)
+add_composite_scores(
+  d,
+  m,
+  mu = 0,
+  sigma = 1,
+  names_suffix = "_Composite",
+  keep_observed_scores = TRUE,
+  ...
+)
 }
 \arguments{
 \item{d}{A data.frame with observed data in standardized form (i.e, z-scores)}
@@ -16,6 +24,8 @@ add_composite_scores(d, m, mu = 0, sigma = 1, names_suffix = "_Composite", ...)
 \item{sigma}{Score standard deviations. Composite scores will also have this standard deviation. Defaults to 1.}
 
 \item{names_suffix}{A character string added to each composite score name}
+
+\item{keep_observed_scores}{The observed scores are returned along with the composite scores.}
 
 \item{...}{parameters passed to simstandardized_matrices}
 }

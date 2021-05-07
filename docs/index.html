@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">simstandard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
       </span>
     </div>
 
@@ -110,12 +110,12 @@
 <div id="option-2-install-the-development-version-from-github" class="section level3">
 <h3 class="hasAnchor">
 <a href="#option-2-install-the-development-version-from-github" class="anchor"></a>Option 2: Install the development version from GitHub</h3>
-<p>To install the development version of simstandard, you need to check if devtools is installed. If not, run this:</p>
+<p>To install the development version of simstandard, you need to check if the remotes packages is installed. If not, run this:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></code></pre></div>
-<p>Once you are sure you have devtools installed, you can install the development version of simstandard from GitHub by running this code:</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></code></pre></div>
+<p>Once you are sure you have the remotes package installed, you can install the development version of simstandard from GitHub by running this code:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"wjschne/simstandard"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"wjschne/simstandard"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="example" class="section level2">
@@ -150,88 +150,88 @@ C ~~ 0.5 * A
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">-0.99</td>
-<td align="right">-1.14</td>
-<td align="right">0.94</td>
-<td align="right">1.15</td>
-<td align="right">0.29</td>
-<td align="right">-0.23</td>
-<td align="right">0.24</td>
-<td align="right">-0.87</td>
-<td align="right">-0.95</td>
-<td align="right">0.79</td>
-<td align="right">0.98</td>
-<td align="right">0.43</td>
-</tr>
-<tr class="even">
-<td align="right">-0.42</td>
-<td align="right">-0.25</td>
-<td align="right">0.22</td>
-<td align="right">0.09</td>
-<td align="right">0.25</td>
-<td align="right">-0.78</td>
-<td align="right">-0.55</td>
-<td align="right">-0.03</td>
-<td align="right">0.38</td>
+<td align="right">-1.31</td>
+<td align="right">-1.03</td>
+<td align="right">-0.80</td>
+<td align="right">-0.97</td>
+<td align="right">1.08</td>
+<td align="right">-0.11</td>
 <td align="right">0.55</td>
-<td align="right">0.48</td>
-<td align="right">0.08</td>
-</tr>
-<tr class="odd">
-<td align="right">0.64</td>
-<td align="right">0.97</td>
-<td align="right">-1.15</td>
-<td align="right">-0.90</td>
-<td align="right">0.07</td>
-<td align="right">0.49</td>
-<td align="right">0.64</td>
-<td align="right">0.40</td>
-<td align="right">0.58</td>
-<td align="right">-1.54</td>
+<td align="right">-1.26</td>
+<td align="right">-0.94</td>
+<td align="right">-1.13</td>
 <td align="right">-1.35</td>
-<td align="right">0.25</td>
+<td align="right">0.63</td>
 </tr>
 <tr class="even">
-<td align="right">0.15</td>
-<td align="right">0.97</td>
-<td align="right">0.29</td>
-<td align="right">0.13</td>
-<td align="right">-0.11</td>
+<td align="right">0.38</td>
+<td align="right">1.24</td>
+<td align="right">0.64</td>
+<td align="right">0.75</td>
+<td align="right">-0.73</td>
+<td align="right">0.00</td>
 <td align="right">1.20</td>
-<td align="right">0.44</td>
-<td align="right">-0.45</td>
-<td align="right">0.01</td>
-<td align="right">0.02</td>
-<td align="right">-0.18</td>
-<td align="right">-0.52</td>
+<td align="right">0.38</td>
+<td align="right">1.24</td>
+<td align="right">-0.08</td>
+<td align="right">-0.08</td>
+<td align="right">1.20</td>
 </tr>
 <tr class="odd">
-<td align="right">-1.28</td>
-<td align="right">-0.11</td>
-<td align="right">-1.89</td>
 <td align="right">-0.83</td>
-<td align="right">-0.44</td>
-<td align="right">-0.38</td>
-<td align="right">-0.49</td>
-<td align="right">-1.09</td>
-<td align="right">0.20</td>
-<td align="right">-1.59</td>
-<td align="right">-0.49</td>
-<td align="right">-0.18</td>
+<td align="right">-0.55</td>
+<td align="right">2.12</td>
+<td align="right">1.21</td>
+<td align="right">-0.25</td>
+<td align="right">0.12</td>
+<td align="right">1.02</td>
+<td align="right">-0.88</td>
+<td align="right">-0.65</td>
+<td align="right">1.51</td>
+<td align="right">0.50</td>
+<td align="right">0.93</td>
 </tr>
 <tr class="even">
-<td align="right">0.22</td>
-<td align="right">1.05</td>
-<td align="right">0.46</td>
-<td align="right">1.74</td>
-<td align="right">-0.62</td>
-<td align="right">0.52</td>
-<td align="right">-0.04</td>
-<td align="right">-0.04</td>
-<td align="right">0.64</td>
+<td align="right">1.13</td>
+<td align="right">-0.23</td>
+<td align="right">1.51</td>
+<td align="right">1.40</td>
+<td align="right">0.92</td>
+<td align="right">0.40</td>
+<td align="right">1.31</td>
+<td align="right">0.93</td>
+<td align="right">-0.55</td>
+<td align="right">0.73</td>
 <td align="right">0.48</td>
-<td align="right">1.77</td>
-<td align="right">-0.45</td>
+<td align="right">0.99</td>
+</tr>
+<tr class="odd">
+<td align="right">0.90</td>
+<td align="right">-0.62</td>
+<td align="right">-0.85</td>
+<td align="right">-0.28</td>
+<td align="right">-0.30</td>
+<td align="right">-0.19</td>
+<td align="right">-0.43</td>
+<td align="right">0.99</td>
+<td align="right">-0.47</td>
+<td align="right">-0.60</td>
+<td align="right">0.02</td>
+<td align="right">-0.28</td>
+</tr>
+<tr class="even">
+<td align="right">0.05</td>
+<td align="right">0.63</td>
+<td align="right">0.90</td>
+<td align="right">1.14</td>
+<td align="right">1.03</td>
+<td align="right">0.46</td>
+<td align="right">0.76</td>
+<td align="right">-0.18</td>
+<td align="right">0.26</td>
+<td align="right">0.45</td>
+<td align="right">0.61</td>
+<td align="right">0.39</td>
 </tr>
 </tbody>
 </table>

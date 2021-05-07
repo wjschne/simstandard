@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • simstandard</title>
+<title>Return factor score validity coefficients — get_factor_score_validity • simstandard</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
+<meta property="og:title" content="Return factor score validity coefficients — get_factor_score_validity" />
+<meta property="og:description" content="Return factor score validity coefficients" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -133,19 +133,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/wjschne/simstandard/blob/master/R/utils-pipe.R'><code>R/utils-pipe.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Return factor score validity coefficients</h1>
+    <small class="dont-index">Source: <a href='https://github.com/wjschne/simstandard/blob/master/R/main.R'><code>R/main.R</code></a></small>
+    <div class="hidden name"><code>get_factor_score_validity.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code>magrittr::%&gt;%</code> for details.</p>
+    <p>Return factor score validity coefficients</p>
     </div>
 
-    <pre class="usage"><span class='va'>lhs</span> <span class='op'>%&gt;%</span> <span class='va'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>get_factor_score_validity</span><span class='op'>(</span><span class='va'>m</span>, latent <span class='op'>=</span> <span class='cn'>TRUE</span>, errors <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>m</th>
+      <td><p>Structural model represented by lavaan syntax or output of sim_standardized_matrices function.</p></td>
+    </tr>
+    <tr>
+      <th>latent</th>
+      <td><p>Include latent variables.</p></td>
+    </tr>
+    <tr>
+      <th>errors</th>
+      <td><p>Include observed error and latent disturbances variables.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>parameters passed to the `sim_standardized_matrices` function</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A matrix of validity coefficients</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='st'>"
+A =~ 0.5 * A1 + 0.8 * A2 + 0.8 * A3
+B =~ 0.5 * B1 + 0.8 * B2 + 0.8 * B3
+B ~ 0.5 * A
+"</span>
+<span class='fu'>get_factor_score_validity</span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      A_FS      B_FS 
+#&gt; 0.8974064 0.8974064 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -399,7 +399,9 @@ sim_standardized_matrices <- function(m,
     v_disturbance = v_disturbance,
     v_error = v_error,
     v_residual = v_residual,
-    v_factor_score = v_FS,
+    v_factor_score = paste0(v_latent, "_FS"),
+    v_factor_score_disturbance = paste0(v_disturbance, "_FS"),
+    v_factor_score_error = paste0(v_error, "_FS"),
     v_composite_score = v_composite_score
   )
 
@@ -605,6 +607,7 @@ model_complete <- function(m){
 #' @param CI Add confidence intervals? Defaults to `FALSE`. If `TRUE`, For each factor score, a lower and upper bound of the confidence interval is created. For example, the lower bound of factor score `X` is `X_LB`, and the upper bound is `X_UB`.
 #' @param p confidence interval proportion. Defaults to 0.95
 #' @param names_suffix A character string added to each factor score name
+#' @param keep_observed_scores The observed scores are returned along with the factor scores.
 #' @param ... parameters passed to simstandardized_matrices
 #' @return data.frame with observed data and estimated factor scores
 #' @examples
@@ -622,7 +625,15 @@ model_complete <- function(m){
 #'
 #' # Compute factor scores for two cases
 #' add_factor_scores(d, m)
-add_factor_scores <- function(d, m, mu = 0, sigma = 1, CI = FALSE, p = 0.95, names_suffix = "_FS", ...) {
+add_factor_scores <- function(d,
+                              m,
+                              mu = 0,
+                              sigma = 1,
+                              CI = FALSE,
+                              p = 0.95,
+                              names_suffix = "_FS",
+                              keep_observed_scores = TRUE,
+                              ...) {
   sm <- sim_standardized_matrices(m, ...)
 
   # Coefficients for estimated factor scores
@@ -645,7 +656,12 @@ add_factor_scores <- function(d, m, mu = 0, sigma = 1, CI = FALSE, p = 0.95, nam
                             x = colnames(d_factor_score))
 
   # Bind factor scores to observed data
-  d_all <- cbind(as.data.frame(d), as.data.frame(d_factor_score))
+  if (keep_observed_scores) {
+    d_all <- cbind(as.data.frame(d), as.data.frame(d_factor_score))
+  } else {
+    d_all <- as.data.frame(d_factor_score)
+  }
+
 
   if (CI) {
     # Make CI
@@ -668,6 +684,7 @@ add_factor_scores <- function(d, m, mu = 0, sigma = 1, CI = FALSE, p = 0.95, nam
 #' @param mu Score means. Composite scores will also have this mean. Defaults to 0.
 #' @param sigma Score standard deviations. Composite scores will also have this standard deviation. Defaults to 1.
 #' @param names_suffix A character string added to each composite score name
+#' @param keep_observed_scores The observed scores are returned along with the composite scores.
 #' @param ... parameters passed to simstandardized_matrices
 #' @return data.frame with observed data and estimated factor scores
 #' @examples
@@ -685,7 +702,13 @@ add_factor_scores <- function(d, m, mu = 0, sigma = 1, CI = FALSE, p = 0.95, nam
 #'
 #' # Compute composite scores for two cases
 #' add_composite_scores(d, m)
-add_composite_scores <- function(d, m, mu = 0, sigma = 1, names_suffix = "_Composite", ...) {
+add_composite_scores <- function(d,
+                                 m,
+                                 mu = 0,
+                                 sigma = 1,
+                                 names_suffix = "_Composite",
+                                 keep_observed_scores = TRUE,
+                                 ...) {
   sm <- sim_standardized_matrices(m, ...)
 
   # Get composite score names
@@ -712,7 +735,12 @@ add_composite_scores <- function(d, m, mu = 0, sigma = 1, names_suffix = "_Compo
                             x = colnames(d_composite_score))
 
   # Bind composite scores to observed data
-  d_all <- cbind(as.data.frame(d), as.data.frame(d_composite_score))
+  if (keep_observed_scores) {
+    d_all <- cbind(as.data.frame(d), as.data.frame(d_composite_score))
+  } else {
+    d_all <- as.data.frame(d_composite_score)
+  }
+
   d_all
 }
 
@@ -980,7 +1008,7 @@ check_matrix2lavaan <- function(m, mname) {
 #' @param factor_scores Include factor score variables
 #' @param composites Include composite variables
 #' @param ... parameters passed to the `sim_standardized_matrices` function
-#' @return correlation matrix
+#' @return A correlation matrix
 #' @examples
 #' library(simstandard)
 #' # lavaan model
@@ -1019,4 +1047,149 @@ get_model_implied_correlations <- function(m,
 
   # Return correlation matrix
   fit$Correlations$R_all[v_names, v_names]
+}
+
+#' Return factor score coefficients
+#'
+#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
+#' @param latent Include latent variables.
+#' @param errors Include observed error and latent disturbances variables.
+#' @param ... parameters passed to the `sim_standardized_matrices` function
+#'
+#' @return A matrix of factor score coefficients
+#' @export
+#'
+#' @examples
+#' m <- "
+#' A =~ 0.5 * A1 + 0.8 * A2 + 0.8 * A3
+#' B =~ 0.5 * B1 + 0.8 * B2 + 0.8 * B3
+#' B ~ 0.5 * A
+#' "
+#' get_factor_score_coefficients(m)
+get_factor_score_coefficients <- function(m, latent = TRUE, errors = FALSE, ...) {
+  if ("simstandard" %in% class(m)) {
+    fit <- m
+  } else {
+    fit <- sim_standardized_matrices(m, ...)}
+
+  # Variable names
+  v_names <- character(0)
+
+  # Latent Variable Names
+  if (latent) v_names <- c(v_names, fit$v_names$v_latent)
+
+  # Error Variable Names
+  if (errors) v_names <- c(v_names, fit$v_names$v_residual)
+
+  v_names <- paste0(v_names, "_FS")
+
+  fit$Coefficients$factor_score[,v_names, drop = FALSE]
+
+}
+
+
+#' Return factor score validity coefficients
+#'
+#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
+#' @param latent Include latent variables.
+#' @param errors Include observed error and latent disturbances variables.
+#' @param ... parameters passed to the `sim_standardized_matrices` function
+#'
+#' @return A matrix of validity coefficients
+#' @export
+#'
+#' @examples
+#' m <- "
+#' A =~ 0.5 * A1 + 0.8 * A2 + 0.8 * A3
+#' B =~ 0.5 * B1 + 0.8 * B2 + 0.8 * B3
+#' B ~ 0.5 * A
+#' "
+#' get_factor_score_validity(m)
+get_factor_score_validity <- function(m,
+                                      latent = TRUE,
+                                      errors = FALSE,
+                                      ...) {
+  if ("simstandard" %in% class(m)) {
+    fit <- m
+  } else {
+    fit <- sim_standardized_matrices(m, ...)}
+
+  # Variable names
+  v_names <- character(0)
+
+  # Latent Variable Names
+  if (latent) v_names <- c(v_names, fit$v_names$v_latent)
+
+  # Error Variable Names
+  if (errors) v_names <- c(v_names, fit$v_names$v_residual)
+
+  v_names <- paste0(v_names, "_FS")
+
+  fit$Coefficients$factor_score_validity[v_names]
+}
+
+#' Return factor score validity coefficient standard errors
+#'
+#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
+#' @param latent Include latent variables.
+#' @param errors Include observed error and latent disturbances variables.
+#' @param ... parameters passed to the `sim_standardized_matrices` function
+#'
+#' @return A matrix of factor score standard errors
+#' @export
+#'
+#' @examples
+#' m <- "
+#' A =~ 0.5 * A1 + 0.8 * A2 + 0.8 * A3
+#' B =~ 0.5 * B1 + 0.8 * B2 + 0.8 * B3
+#' B ~ 0.5 * A
+#' "
+#' get_factor_score_validity_se(m)
+get_factor_score_validity_se <- function(m,
+                                      latent = TRUE,
+                                      errors = FALSE,
+                                      ...) {
+  if ("simstandard" %in% class(m)) {
+    fit <- m
+  } else {
+    fit <- sim_standardized_matrices(m, ...)}
+
+  # Variable names
+  v_names <- character(0)
+
+  # Latent Variable Names
+  if (latent) v_names <- c(v_names, fit$v_names$v_latent)
+
+  # Error Variable Names
+  if (errors) v_names <- c(v_names, fit$v_names$v_residual)
+
+  v_names <- paste0(v_names, "_FS")
+
+  fit$Coefficients$factor_score_se[v_names]
+}
+
+
+#' Return model names
+#'
+#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
+#' @param ... parameters passed to the `sim_standardized_matrices` function
+#'
+#' @return A list of variable names
+#' @export
+#'
+#' @examples
+#' m <- "
+#' A =~ 0.5 * A1 + 0.8 * A2 + 0.8 * A3
+#' B =~ 0.5 * B1 + 0.8 * B2 + 0.8 * B3
+#' B ~ 0.5 * A
+#' "
+#' get_model_names(m)
+get_model_names <- function(m,
+                            ...) {
+  if ("simstandard" %in% class(m)) {
+    fit <- m
+  } else {
+    fit <- sim_standardized_matrices(m, ...)}
+
+  fit$v_names
 }

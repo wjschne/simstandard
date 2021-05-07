@@ -12,6 +12,7 @@ add_factor_scores(
   CI = FALSE,
   p = 0.95,
   names_suffix = "_FS",
+  keep_observed_scores = TRUE,
   ...
 )
 }
@@ -29,6 +30,8 @@ add_factor_scores(
 \item{p}{confidence interval proportion. Defaults to 0.95}
 
 \item{names_suffix}{A character string added to each factor score name}
+
+\item{keep_observed_scores}{The observed scores are returned along with the factor scores.}
 
 \item{...}{parameters passed to simstandardized_matrices}
 }

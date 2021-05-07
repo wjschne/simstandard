@@ -17,4 +17,4 @@ R CMD check succeeded
 
 ## Addressing previous concernts
 
-I removed instances of the .svg format as instructed in email from Brian Ripley on 16/01/2021. 
+None 

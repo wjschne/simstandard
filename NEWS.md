@@ -1,3 +1,14 @@
+# simstandard 0.6.3
+- Added `get_factor_score_validity_se` function to return factor score standard errors.
+- Added `get_model_names` function to return a list of model variable names.
+
+
+# simstandard 0.6.2
+- Added `get_factor_score_coefficients` function to return factor score coefficients
+- Added `get_factor_score_validity` function to return factor score validity coefficients
+- Added `v_factor_score_disturbance` and `v_factor_score_residual` to `v_names` list returned by `sim_standardized_matrices`. 
+- The `v_factor_score` list now only returns factor score names associated with the latent variables.
+
 # simstandard 0.6.1
 -   Can specify a mean and standard deviation in the `add_composite_scores` and `add_factor_scores` functions.
 -   The `add_factor_scores` function now appends `_FS` to the factor score names.

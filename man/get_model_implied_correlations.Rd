@@ -30,7 +30,7 @@ get_model_implied_correlations(
 \item{...}{parameters passed to the `sim_standardized_matrices` function}
 }
 \value{
-correlation matrix
+A correlation matrix
 }
 \description{
 Function that takes a lavaan model with standardized parameters and returns a model-implied correlation matrix
