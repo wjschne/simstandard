@@ -13,7 +13,6 @@ Depends: R (>= 3.4.0)
 License: CC0
 Encoding: UTF-8
 Language: en-US
-LazyData: true
 RoxygenNote: 7.1.1
 Imports:
     lavaan,
