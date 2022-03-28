@@ -1,12 +1,17 @@
 #' Return model characteristics
 #'
-#' Function that takes a lavaan model with standardized parameters and returns a list with model characteristics
+#' Function that takes a lavaan model with standardized parameters
+#' and returns a list with model characteristics
 #'
-#' This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
+#' This function supports the `~` operator for regressions,
+#' the `~~` for covariances (but not variances), and the `=~` latent
+#' variable loadings. It does not support intercepts (e.g,. `y ~ 1`),
+#' thresholds, scaling factors, formative factors, or equality constraints.
 #' @export
 #' @param m Structural model represented by lavaan syntax
 #' @param max_iterations Maximum number of iterations before the algorithm fails
-#' @param composite_threshold Loadings with absolute values less than this threshold will not be counted as composite indicators
+#' @param composite_threshold Loadings with absolute values less
+#' than this threshold will not be counted as composite indicators
 #' @return list of path and covariance coefficients
 #' @examples
 #' library(simstandard)
@@ -19,7 +24,7 @@ sim_standardized_matrices <- function(m,
                                       composite_threshold = NULL) {
 
   # Parameter Table
-  pt <- lavaan::lavParTable(m, fixed.x = F)
+  pt <- lavaan::lavParTable(m, fixed.x = FALSE)
 
   # Checks----
 
@@ -52,8 +57,7 @@ sim_standardized_matrices <- function(m,
 
 
   # Check for unset paths and covariances
-  # if (any(((pt$op == "~") | (pt$op == "=~")) & (pt$free == 1),na.rm = T)) {
-  if (any(pt$free == 1, na.rm = T)) {
+  if (any(pt$free == 1, na.rm = TRUE)) {
     pt_unset <- pt[pt$free == 1, ]
     pt_unset_rows <- paste0(pt_unset$lhs,
       " ", pt_unset$op,
@@ -62,15 +66,17 @@ sim_standardized_matrices <- function(m,
     )
     warning(paste0(
       ifelse(nrow(pt_unset) > 1,
-        "Because the following relations were not set, they are assumed to be 0:\n",
-        "Because the following relationship was not set, it is assumed to be 0:\n"
+        paste0("Because the following relations were not set, ",
+               "they are assumed to be 0:\n"),
+        paste0("Because the following relationship was not set, ",
+               "it is assumed to be 0:\n")
       ),
       pt_unset_rows
     ))
   }
 
   # Check for paths greater than 1
-  if (any(abs(pt$ustart) > 1, na.rm = T)) {
+  if (any(abs(pt$ustart) > 1, na.rm = TRUE)) {
     pt_greater <- pt[abs(pt$ustart) > 1, ]
     pt_greater_rows <- paste0(pt_greater$lhs,
       " ", pt_greater$op,
@@ -79,10 +85,14 @@ sim_standardized_matrices <- function(m,
       collapse = "\n"
     )
     warningmessage <- paste0(
-      "Although it is sometimes possible to set standardized parameters greater than 1 or less than -1, it is rare to do so. More often than not, it causes model convergence problems. Check to make sure you set such a value on purpose. ",
-      ifelse(nrow(pt_greater) > 1,
-        "The following paths were set to values outside the range of -1 to 1:\n",
-        "The following path was set to a value outside the range of -1 to 1:\n"
+      "Although it is sometimes possible to set standardized parameters ",
+      "greater than 1 or less than -1, it is rare to do so. More often ",
+      "than not, it causes model convergence problems. Check to make sure ",
+      "you set such a value on purpose. ",
+      ifelse(
+       nrow(pt_greater) > 1,
+       "The following paths were set to values outside the range of -1 to 1:\n",
+       "The following path was set to a value outside the range of -1 to 1:\n"
       ),
       pt_greater_rows
     )
@@ -106,33 +116,19 @@ sim_standardized_matrices <- function(m,
   v_observed_exogenous <- v_observed[!v_observed %in% v_observed_endogenous]
   v_observed_indicator <- v_observed[v_observed %in% v_indicator]
   v_latent_indicator <- v_latent[v_latent %in% v_indicator]
-  v_observed_y <- v_observed_endogenous[!(v_observed_endogenous %in% v_observed_indicator)]
+  v_observed_y <- v_observed_endogenous[!(v_observed_endogenous %in%
+                                            v_observed_indicator)]
   v_order <- c(v_observed, v_latent)
-
-  if (length(v_observed_y) == 0) {
-    v_error_y <- character(0)
-  } else {
-    v_error_y <- paste0("e_", v_observed_y)
-  }
-
-  if (length(v_latent_endogenous) > 0) {
-    v_disturbance <- paste0("d_", v_latent_endogenous)
-  } else {
-    v_disturbance <- character(0)
-  }
-
-  if (length(v_observed_endogenous) > 0) {
-    v_error <- paste0("e_", v_observed_endogenous)
-  } else {
-    v_error <- character(0)
-  }
-
+  v_error_y <- str_affix(v_observed_y, prefix = "e_")
+  v_disturbance <- str_affix(v_latent_endogenous, prefix = "d_")
+  v_error <- str_affix(v_observed_endogenous, prefix = "e_")
   v_exogenous <- c(v_latent_exogenous, v_observed_exogenous)
   v_endogenous <- c(v_latent_endogenous, v_observed_endogenous)
   v_residual <- c(v_disturbance, v_error)
   v_ellipse <- c(v_latent, v_residual)
   v_source <- c(v_exogenous, v_residual)
   v_factor_score <- v_ellipse[!(v_ellipse %in% v_error_y)]
+  v_FS <- str_affix(v_factor_score, suffix = "_FS")
 
   # Set unspecified parameters to 0
   pt[is.na(pt[, "ustart"]), "ustart"] <- 0
@@ -209,7 +205,7 @@ sim_standardized_matrices <- function(m,
 
   # Big Matrices----
 
-  A_residual_diag <- sqrt(diag(S[v_endogenous, v_endogenous, drop = F]))
+  A_residual_diag <- sqrt(diag(S[v_endogenous, v_endogenous, drop = FALSE]))
   if (length(A_residual_diag) > 1) {
     A_residual <- diag(A_residual_diag)
   } else {
@@ -221,7 +217,7 @@ sim_standardized_matrices <- function(m,
   }
 
   A_big <- rbind(
-    cbind(A[v_endogenous, , drop = F], A_residual),
+    cbind(A[v_endogenous, , drop = FALSE], A_residual),
     matrix(0, nrow = nrow(A), ncol = nrow(A) + length(v_residual))
   )
   v_big <- c(vA, v_residual)
@@ -240,7 +236,7 @@ sim_standardized_matrices <- function(m,
     v_source
   ] <- exo_cor[c(v_exogenous, v_endogenous),
     c(v_exogenous, v_endogenous),
-    drop = F
+    drop = FALSE
   ]
   # Insert diagonal values of S_big
   diag(S_big) <- c(
@@ -253,8 +249,8 @@ sim_standardized_matrices <- function(m,
   iA_big <- solve(diag(nrow(A_big)) - A_big)
   R_big <- iA_big %*% S_big %*% t(iA_big)
 
-  R_xx <- R_big[v_observed_indicator, v_observed_indicator, drop = F]
-  R_xy <- R_big[v_observed_indicator, v_factor_score, drop = F]
+  R_xx <- R_big[v_observed_indicator, v_observed_indicator, drop = FALSE]
+  R_xy <- R_big[v_observed_indicator, v_factor_score, drop = FALSE]
 
 
   # Factor and composite scores ----
@@ -263,12 +259,6 @@ sim_standardized_matrices <- function(m,
     i_Rxx <- solve(R_xx)
 
     A_factor_score <- i_Rxx %*% R_xy
-
-    if (length(v_factor_score) > 0) {
-      v_FS <- paste0(v_factor_score, "_FS")
-    } else {
-      v_FS <- character(0)
-    }
 
     colnames(A_factor_score) <- v_factor_score
 
@@ -279,11 +269,12 @@ sim_standardized_matrices <- function(m,
     }
 
 
-    A_composite_direct <- sign(A_big[v_observed_indicator, v_latent, drop = F])
+    A_composite_direct <- sign(
+      A_big[v_observed_indicator, v_latent, drop = FALSE])
 
     if (!is.null(composite_threshold)) {
       A_composite_direct <- A_composite_direct *
-        (abs(A_big[v_observed_indicator, v_latent, drop = F]) >
+        (abs(A_big[v_observed_indicator, v_latent, drop = FALSE]) >
            composite_threshold)
     }
 
@@ -293,7 +284,7 @@ sim_standardized_matrices <- function(m,
     # Second-order factors
     A_composite_second_order <- sign(
       A_composite_direct %*%
-        A[v_latent, v_latent, drop = F] %*%
+        A[v_latent, v_latent, drop = FALSE] %*%
         diag(1 - Has_direct,
              nrow = length(Has_direct)))
 
@@ -301,7 +292,7 @@ sim_standardized_matrices <- function(m,
     Has_direct_second <- (colSums(abs(A_composite_second_order)) > 0) * 1
     A_composite_third_order <- sign(
       A_composite_second_order %*%
-        A[v_latent, v_latent, drop = F] %*%
+        A[v_latent, v_latent, drop = FALSE] %*%
         diag(1 - Has_direct_second,
              nrow = length(Has_direct_second)))
 
@@ -309,16 +300,12 @@ sim_standardized_matrices <- function(m,
     Has_direct_third <- (colSums(abs(A_composite_third_order)) > 0) * 1
     A_composite_fourth_order <- sign(
       A_composite_third_order %*%
-        A[v_latent, v_latent, drop = F] %*%
+        A[v_latent, v_latent, drop = FALSE] %*%
         diag(1 - Has_direct_third,
              nrow = length(Has_direct_third)))
 
-
-
-
-    A_composite <- A_composite_direct + A_composite_second_order + A_composite_third_order + A_composite_fourth_order
-
-
+    A_composite <- A_composite_direct + A_composite_second_order +
+      A_composite_third_order + A_composite_fourth_order
 
     CM_composite <- t(A_composite) %*%
       R[v_observed_indicator,
@@ -399,9 +386,9 @@ sim_standardized_matrices <- function(m,
     v_disturbance = v_disturbance,
     v_error = v_error,
     v_residual = v_residual,
-    v_factor_score = paste0(v_latent, "_FS"),
-    v_factor_score_disturbance = paste0(v_disturbance, "_FS"),
-    v_factor_score_error = paste0(v_error, "_FS"),
+    v_factor_score = str_affix(v_latent, suffix = "_FS"),
+    v_factor_score_disturbance = str_affix(v_disturbance, suffix = "_FS"),
+    v_factor_score_error = str_affix(v_error, suffix = "_FS"),
     v_composite_score = v_composite_score
   )
 
@@ -439,9 +426,13 @@ sim_standardized_matrices <- function(m,
 
 #' Generates simulated data with standardized parameters.
 #'
-#' This function takes a lavaan model with standardized parameters and simulates latent scores, errors, disturbances, and observed scores.
+#' This function takes a lavaan model with standardized parameters
+#' and simulates latent scores, errors, disturbances, and observed scores.
 #'
-#' This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
+#' This function supports the `~` operator for regressions, the `~~` for
+#' covariances (but not variances), and the `=~` latent variable loadings.
+#' It does not support intercepts (e.g,. `y ~ 1`), thresholds,
+#' scaling factors, formative factors, or equality constraints.
 #'
 #' @export
 #' @param m Structural model represented by lavaan syntax
@@ -473,7 +464,7 @@ sim_standardized <- function(
   ...) {
 
   # Get main object from sim_standardized_matrices
-  o <- sim_standardized_matrices(m,...)
+  o <- sim_standardized_matrices(m, ...)
 
   # Names of variables in S (Symmetric) matrix
 
@@ -485,7 +476,9 @@ sim_standardized <- function(
   )
 
   # Simulate exogenous variables in S matricx
-  u <- mvtnorm::rmvnorm(n = n, sigma = o$RAM_matrices$S[S_names, S_names, drop = F])
+  u <- mvtnorm::rmvnorm(
+    n = n,
+    sigma = o$RAM_matrices$S[S_names, S_names, drop = FALSE])
   colnames(u) <- c(
     o$v_names$v_observed_exogenous,
     o$v_names$v_error,
@@ -494,13 +487,13 @@ sim_standardized <- function(
   )
 
   # Create all variables from exogenous variables
-  v <- u %*% t(o$RAM_matrices$iA[S_names, S_names, drop = F])
+  v <- u %*% t(o$RAM_matrices$iA[S_names, S_names, drop = FALSE])
 
   # Make blank matrix with n rows
   d_blank <- matrix(nrow = n, ncol = 0)
 
   # Extract observed indicators of latent varibles
-  d_observed_indicators <- v[, o$v_names$v_observed_indicator, drop = F]
+  d_observed_indicators <- v[, o$v_names$v_observed_indicator, drop = FALSE]
 
   # Calculate estimated factor scores
   if (length(o$v_names$v_observed_indicator) > 0) {
@@ -520,8 +513,8 @@ sim_standardized <- function(
   # Make data to be returned
   d <- tibble::as_tibble(
     cbind(
-      v[, c(o$v_names$v_observed, o$v_names$v_latent), drop = F],
-      u[, c(o$v_names$v_disturbance, o$v_names$v_error), drop = F],
+      v[, c(o$v_names$v_observed, o$v_names$v_latent), drop = FALSE],
+      u[, c(o$v_names$v_disturbance, o$v_names$v_error), drop = FALSE],
       d_factor_scores,
       d_composite_scores
     )
@@ -563,7 +556,7 @@ sim_standardized <- function(
 #' # Same model, but with fixed parameters removed.
 #' m_free <- fixed2free(m)
 #' cat(m_free)
-fixed2free <- function(m){
+fixed2free <- function(m) {
   m %>%
     lavaan::lavaanify(fixed.x = FALSE) %>%
     dplyr::filter(.data$lhs != .data$rhs) %>%
@@ -577,7 +570,9 @@ fixed2free <- function(m){
 }
 
 
-#' Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances
+#' Function that takes a lavaan model with standardized paths and
+#' loadings and returns a complete lavaan model syntax with
+#' standardized variances
 #'
 #' @export
 #' @param m Structural model represented by lavaan syntax
@@ -593,21 +588,28 @@ fixed2free <- function(m){
 #' # Same lavaan syntax, but with standardized variances
 #' m_complete <- model_complete(m)
 #' cat(m_complete)
-model_complete <- function(m){
+model_complete <- function(m) {
   sim_standardized_matrices(m)$lavaan_models$model_with_variances
 }
 
-#' For each latent variable in a structural model, add an estimated factor score to observed data.
+#' For each latent variable in a structural model, add an estimated
+#' factor score to observed data.
 #'
 #' @export
 #' @param d A data.frame with observed data in standardized form (i.e, z-scores)
 #' @param m A character string with lavaan model
-#' @param mu Population mean of the observed scores. Factor scores will also have this mean. Defaults to 0.
-#' @param sigma Population standard deviation of the observed scores. Factor scores will also have this standard deviation. Defaults to 1.
-#' @param CI Add confidence intervals? Defaults to `FALSE`. If `TRUE`, For each factor score, a lower and upper bound of the confidence interval is created. For example, the lower bound of factor score `X` is `X_LB`, and the upper bound is `X_UB`.
+#' @param mu Population mean of the observed scores. Factor scores
+#' will also have this mean. Defaults to 0.
+#' @param sigma Population standard deviation of the observed scores.
+#' Factor scores will also have this standard deviation. Defaults to 1.
+#' @param CI Add confidence intervals? Defaults to `FALSE`. If `TRUE`,
+#' for each factor score, a lower and upper bound of the confidence
+#' interval is created. For example, the lower bound of factor
+#' score `X` is `X_LB`, and the upper bound is `X_UB`.
 #' @param p confidence interval proportion. Defaults to 0.95
 #' @param names_suffix A character string added to each factor score name
-#' @param keep_observed_scores The observed scores are returned along with the factor scores.
+#' @param keep_observed_scores The observed scores are returned along
+#' with the factor scores.
 #' @param ... parameters passed to simstandardized_matrices
 #' @return data.frame with observed data and estimated factor scores
 #' @examples
@@ -643,7 +645,9 @@ add_factor_scores <- function(d,
   # Get observed score names
   v_observed <- rownames(sm$Coefficients$factor_score)
 
-  if (!all(v_observed %in% colnames(d))) stop("Some observed variables specified in the model are missing from the data.")
+  if (!all(v_observed %in% colnames(d))) stop(
+    "Some observed variables specified in the model are missing from the data."
+    )
 
   # Get observed data
   d_observed <- (as.matrix(d[, v_observed, drop = FALSE]) - mu) / sigma
@@ -676,15 +680,19 @@ add_factor_scores <- function(d,
   d_all
 }
 
-#' For each latent variable in a structural model, add a composite score to observed data.
+#' For each latent variable in a structural model, add a
+#' composite score to observed data.
 #'
 #' @export
 #' @param d A data.frame with observed data in standardized form (i.e, z-scores)
 #' @param m A character string with lavaan model
-#' @param mu Score means. Composite scores will also have this mean. Defaults to 0.
-#' @param sigma Score standard deviations. Composite scores will also have this standard deviation. Defaults to 1.
+#' @param mu Score means. Composite scores will also have this mean.
+#' Defaults to 0.
+#' @param sigma Score standard deviations. Composite scores will also have
+#' this standard deviation. Defaults to 1.
 #' @param names_suffix A character string added to each composite score name
-#' @param keep_observed_scores The observed scores are returned along with the composite scores.
+#' @param keep_observed_scores The observed scores are returned along
+#' with the composite scores.
 #' @param ... parameters passed to simstandardized_matrices
 #' @return data.frame with observed data and estimated factor scores
 #' @examples
@@ -711,9 +719,6 @@ add_composite_scores <- function(d,
                                  ...) {
   sm <- sim_standardized_matrices(m, ...)
 
-  # Get composite score names
-  v_composite <- sm$v_names$v_composite_score
-
   # Coefficients for composite scores
   l_composite_score <- sm$Coefficients$composite_score
 
@@ -723,7 +728,9 @@ add_composite_scores <- function(d,
   # Get data column names
   d_names <- colnames(d)
 
-  if (!all(v_observed %in% d_names)) stop("Some observed variables specified in the model are missing from the data.")
+  if (!all(v_observed %in% d_names)) stop(
+    "Some observed variables specified in the model are missing from the data."
+    )
 
   # Get observed data
   d_observed <- (as.matrix(d[, v_observed, drop = FALSE]) - mu) / sigma
@@ -747,9 +754,15 @@ add_composite_scores <- function(d,
 #' Create lavaan model syntax from matrix coefficients
 #'
 #' @export
-#' @param measurement_model A matrix or data.frame with measurement model loadings. Column names are latent variables. Row names or the first column of a data.frame are indicator variables.
-#' @param structural_model A matrix or data.frame with structural model coefficients (i.e., regressions). Column names are "causal" variables. Row names or the first column of a data.frame are "effect" variables.
-#' @param covariances A matrix or data.frame with model covariances. Column names must match the row names. If a data.frame, row variable names can be specified in the first column.
+#' @param measurement_model A matrix or data.frame with measurement model
+#' loadings. Column names are latent variables. Row names or the first
+#' column of a data.frame are indicator variables.
+#' @param structural_model A matrix or data.frame with structural model
+#' coefficients (i.e., regressions). Column names are "causal" variables.
+#' Row names or the first column of a data.frame are "effect" variables.
+#' @param covariances A matrix or data.frame with model covariances.
+#' Column names must match the row names. If a data.frame, row variable
+#' names can be specified in the first column.
 #' @return a character string with lavaan syntax
 #' @examples
 #' library(simstandard)
@@ -812,7 +825,7 @@ matrix2lavaan <- function(
       tidyr::gather(key = "Construct",
                     value = "Loading",
                     -1,
-                    factor_key = T) %>%
+                    factor_key = TRUE) %>%
       dplyr::filter(.data$Loading != 0) %>%
       dplyr::mutate(
         model = paste0(.data$Loading, " * ", .data$Test)) %>%
@@ -824,7 +837,7 @@ matrix2lavaan <- function(
       dplyr::summarise(
         model = paste0(
           .data$Construct,
-          " =~ " ,
+          " =~ ",
           .data$model,
           collapse = "\n")) %>%
       dplyr::pull(.data$model)
@@ -844,7 +857,7 @@ matrix2lavaan <- function(
       tidyr::gather(key = "Predictor",
                     value = "Coefficient",
                     -1,
-                    factor_key = T) %>%
+                    factor_key = TRUE) %>%
       dplyr::filter(.data$Coefficient != 0) %>%
       dplyr::mutate(
         model = paste0(.data$Coefficient, " * ", .data$Predictor)) %>%
@@ -856,7 +869,7 @@ matrix2lavaan <- function(
       dplyr::summarise(
         model = paste0(
           .data$Criterion,
-          " ~ " ,
+          " ~ ",
           .data$model,
           collapse = "\n")) %>%
       dplyr::pull(.data$model)
@@ -871,14 +884,14 @@ matrix2lavaan <- function(
       m = covariances,
       mname = "Covariances")
 
-    mcovariances <- as.matrix(covariances[,-1, drop = FALSE])
+    mcovariances <- as.matrix(covariances[, -1, drop = FALSE])
     rownames(mcovariances) <- colnames(mcovariances)
     if (!isSymmetric(mcovariances)) stop("covariances must be symmetric.")
 
-    for (j in 2:ncol(covariances)) {
-      for (i in 1:nrow(covariances)) {
-        if (i + 1 < j) covariances[i,j] <- NA
-        if (i + 1 == j & covariances[i,j] == 1) covariances[i,j] <- NA
+    for (j in seq(2, ncol(covariances))) {
+      for (i in seq_len(nrow(covariances))) {
+        if (i + 1 < j) covariances[i, j] <- NA
+        if (i + 1 == j & covariances[i, j] == 1) covariances[i, j] <- NA
       }
     }
 
@@ -888,7 +901,7 @@ matrix2lavaan <- function(
       tidyr::gather(key = "Construct",
                     value = "Coefficient",
                     -1,
-                    factor_key = T) %>%
+                    factor_key = TRUE) %>%
       dplyr::filter(!is.na(.data$Coefficient)) %>%
       dplyr::filter(.data$Coefficient != 0) %>%
       dplyr::mutate(
@@ -901,13 +914,10 @@ matrix2lavaan <- function(
       dplyr::summarise(
         model = paste0(
           .data$Construct,
-          " ~~ " ,
+          " ~~ ",
           .data$model,
           collapse = "\n")) %>%
       dplyr::pull(.data$model)
-
-
-
   }
 
   paste(lav_m, lav_s, lav_c, sep = "\n")
@@ -918,10 +928,11 @@ matrix2lavaan <- function(
 #'
 #' @export
 #' @param fit An object of class lavaan
-#' @return list of RAM matrices A (asymmetric paths), S (symmetric paths), and F (filter matrix)
+#' @return list of RAM matrices A (asymmetric paths),
+#' S (symmetric paths), and F (filter matrix)
 lav2ram <- function(fit) {
   pt <- lavaan::standardizedSolution(fit)
-  pt$id <- 1:nrow(pt)
+  pt$id <- seq_len(nrow(pt))
   v_all <- unique(c(pt$lhs, pt$rhs))
   v_latent <- unique(pt$lhs[pt$op == "=~"])
   v_observed <- v_all[!(v_all %in% v_latent)]
@@ -929,9 +940,9 @@ lav2ram <- function(fit) {
   k <- length(v_all)
   A <- matrix(0, nrow = k, ncol = k, dimnames = list(v_all, v_all))
   S <- matrix(0, nrow = k, ncol = k, dimnames = list(v_all, v_all))
-  F <- A
-  diag(F) <- 1
-  F <- F[v_observed,]
+  F_matrix <- A
+  diag(F_matrix) <- 1
+  F_matrix <- F_matrix[v_observed, ]
 
   # Assign loadings to A
   for (i in pt[pt[, "op"] == "=~", "id"]) {
@@ -950,7 +961,7 @@ lav2ram <- function(fit) {
     S[pt$rhs[i], pt$lhs[i]] <- pt$est.std[i]
   }
 
-  list(A = A, S = S, F = F)
+  list(A = A, S = S, F = F_matrix)
 
 }
 
@@ -974,12 +985,15 @@ check_matrix2lavaan <- function(m, mname) {
       paste(mname, "must be a data.frame, tibble, or matrix."))
   }
 
-  if (!(purrr::map_chr(m[, 1, drop = FALSE],class) %in% c("character", "factor"))) {
-    if (any(rownames(m) == as.character(seq(1, length(
+  if (!(purrr::map_chr(m[, 1, drop = FALSE],
+                       class) %in% c("character", "factor"))) {
+    if (any(rownames(m) == as.character(seq_len(length(
       rownames(m)
     ))))) {
       stop(
-        paste(mname, "must either have indicator variable names in the first column or as rownames of the data.frame.")
+        paste(mname,
+              paste0("must either have indicator variable names ",
+                     "in the first column or as rownames of the data.frame."))
       )
     } else
       m <-
@@ -987,21 +1001,17 @@ check_matrix2lavaan <- function(m, mname) {
 
   }
 
-  # allnumeric_s <- purrr::map_lgl(m[, -1, drop = FALSE],is.numeric) %>%
-  #   all
-  #
-  # if (!allnumeric_s) stop(paste("All columns of", tolower(mname), "must be numeric except for the first column."))
-
   m
-
 }
 
 
 #' Return model-implied correlation matrix
 #'
-#' Function that takes a lavaan model with standardized parameters and returns a model-implied correlation matrix
+#' Function that takes a lavaan model with standardized parameters and
+#' returns a model-implied correlation matrix
 #' @export
-#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
+#' @param m Structural model represented by lavaan syntax or output
+#' of sim_standardized_matrices function.
 #' @param observed Include observed variables
 #' @param latent Include latent variables
 #' @param errors Include observed error and latent disturbances variables
@@ -1025,7 +1035,8 @@ get_model_implied_correlations <- function(m,
   if ("simstandard" %in% class(m)) {
     fit <- m
   } else {
-      fit <- sim_standardized_matrices(m, ...)}
+      fit <- sim_standardized_matrices(m, ...)
+      }
 
   # Variable names
   v_names <- character(0)
@@ -1040,7 +1051,7 @@ get_model_implied_correlations <- function(m,
   if (errors) v_names <- c(v_names, fit$v_names$v_residual)
 
   # Factor-Score Variable Names
-  if (factor_scores) v_names <- c(v_names, paste0(fit$v_names$v_latent,"_FS"))
+  if (factor_scores) v_names <- c(v_names, paste0(fit$v_names$v_latent, "_FS"))
 
   # Composite Variable Names
   if (composites) v_names <- c(v_names, fit$v_names$v_composite_score)
@@ -1051,7 +1062,8 @@ get_model_implied_correlations <- function(m,
 
 #' Return factor score coefficients
 #'
-#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
+#' @param m Structural model represented by lavaan syntax or output
+#' of sim_standardized_matrices function.
 #' @param latent Include latent variables.
 #' @param errors Include observed error and latent disturbances variables.
 #' @param ... parameters passed to the `sim_standardized_matrices` function
@@ -1066,11 +1078,15 @@ get_model_implied_correlations <- function(m,
 #' B ~ 0.5 * A
 #' "
 #' get_factor_score_coefficients(m)
-get_factor_score_coefficients <- function(m, latent = TRUE, errors = FALSE, ...) {
+get_factor_score_coefficients <- function(m,
+                                          latent = TRUE,
+                                          errors = FALSE,
+                                          ...) {
   if ("simstandard" %in% class(m)) {
     fit <- m
   } else {
-    fit <- sim_standardized_matrices(m, ...)}
+    fit <- sim_standardized_matrices(m, ...)
+    }
 
   # Variable names
   v_names <- character(0)
@@ -1079,18 +1095,20 @@ get_factor_score_coefficients <- function(m, latent = TRUE, errors = FALSE, ...)
   if (latent) v_names <- c(v_names, fit$v_names$v_latent)
 
   # Error Variable Names
-  if (errors) v_names <- c(v_names, fit$v_names$v_residual)
+  if (errors)
+    v_names <- c(v_names, fit$v_names$v_residual)
 
   v_names <- paste0(v_names, "_FS")
 
-  fit$Coefficients$factor_score[,v_names, drop = FALSE]
+  fit$Coefficients$factor_score[, v_names, drop = FALSE]
 
 }
 
 
 #' Return factor score validity coefficients
 #'
-#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
+#' @param m Structural model represented by lavaan syntax or output
+#' of sim_standardized_matrices function.
 #' @param latent Include latent variables.
 #' @param errors Include observed error and latent disturbances variables.
 #' @param ... parameters passed to the `sim_standardized_matrices` function
@@ -1112,7 +1130,8 @@ get_factor_score_validity <- function(m,
   if ("simstandard" %in% class(m)) {
     fit <- m
   } else {
-    fit <- sim_standardized_matrices(m, ...)}
+    fit <- sim_standardized_matrices(m, ...)
+    }
 
   # Variable names
   v_names <- character(0)
@@ -1130,7 +1149,8 @@ get_factor_score_validity <- function(m,
 
 #' Return factor score validity coefficient standard errors
 #'
-#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
+#' @param m Structural model represented by lavaan syntax or output
+#' of sim_standardized_matrices function.
 #' @param latent Include latent variables.
 #' @param errors Include observed error and latent disturbances variables.
 #' @param ... parameters passed to the `sim_standardized_matrices` function
@@ -1152,7 +1172,8 @@ get_factor_score_validity_se <- function(m,
   if ("simstandard" %in% class(m)) {
     fit <- m
   } else {
-    fit <- sim_standardized_matrices(m, ...)}
+    fit <- sim_standardized_matrices(m, ...)
+    }
 
   # Variable names
   v_names <- character(0)
@@ -1171,7 +1192,8 @@ get_factor_score_validity_se <- function(m,
 
 #' Return model names
 #'
-#' @param m Structural model represented by lavaan syntax or output of sim_standardized_matrices function.
+#' @param m Structural model represented by lavaan syntax or
+#' output of sim_standardized_matrices function.
 #' @param ... parameters passed to the `sim_standardized_matrices` function
 #'
 #' @return A list of variable names
@@ -1189,7 +1211,21 @@ get_model_names <- function(m,
   if ("simstandard" %in% class(m)) {
     fit <- m
   } else {
-    fit <- sim_standardized_matrices(m, ...)}
+    fit <- sim_standardized_matrices(m, ...)
+    }
 
   fit$v_names
 }
+
+#' Affix a prefix and/or suffix to a vector, but not if the vector is empty
+#'
+#' @param prefix a vector
+#' @param suffix a vector
+#' @param ... arguments passed on to paste0
+#' @noRd
+str_affix <- function(x, prefix = "", suffix = "", ...) {
+  # when ready to use R >= 4.0.1, use paste0 with recycle0 = TRUE
+  if (length(x) == 0) return(character(0))
+  paste0(prefix, x, suffix, ...)
+}
+

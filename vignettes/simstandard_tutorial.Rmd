@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
   out.width = "100%",
   fig.width = 7,
   fig.height = 7
-  )
+)
 library(lavaan)
 library(simstandard)
 library(knitr)
@@ -29,23 +29,17 @@ library(tibble)
 library(tidyr)
 library(dplyr)
 
-
-options(digits = 2)
 set.seed(123456)
-
-
 ```
 
-<img src="logo.png" align="right" height="140/"/>
+<img src="logo.png" align="right" height="140"/>
 
 # Purpose of simstandard
 
 In the figure below, you can see a hypothetical structural model with its standardized loadings and path coefficients.
 
 ```{r, out.width=700, fig.align='center', echo = FALSE}
-
 knitr::include_graphics("ModelFigure.png")
-
 ```
 
 Suppose you need to simulate multivariate normal data based on this model, but you do not know the error variances and the latent disturbance variances needed to make your model produce standardized data. It is often difficult to find such values algebraically, and instead they must be found iteratively.
@@ -81,30 +75,36 @@ Let's make a function to display correlations and covariance matrices:
 
 ```{r corfunction}
 ggcor <- function(d) {
-  require(ggplot2)
   as.data.frame(d) %>%
     tibble::rownames_to_column("rowname") %>%
     tidyr::pivot_longer(-rowname, names_to = "colname", values_to = "r") %>%
-    dplyr::mutate(rowname = forcats::fct_inorder(rowname) %>% forcats::fct_rev()) %>% 
-    dplyr::mutate(colname = factor(colname, 
-                                   levels = rev(levels(rowname)))) %>% 
+    dplyr::mutate(rowname = forcats::fct_inorder(rowname) %>%
+                    forcats::fct_rev()) %>%
+    dplyr::mutate(colname = factor(colname,
+                                   levels = rev(levels(rowname)))) %>%
     ggplot(aes(colname, rowname, fill = r)) +
     geom_tile(color = "gray90") +
-    geom_text(aes(label = formatC(r, digits = 2, format = "f") %>% 
-                    stringr::str_replace_all("0\\.",".") %>% 
-                    stringr::str_replace_all("1.00","1")), 
-    color = "white", 
-    fontface = "bold",
-    family = "serif") +
-    scale_fill_gradient2(NULL,
-                         na.value = "gray20",
-                         limits = c(-1.01, 1.01),
-                         high = "#924552",
-                         low = "#293999") +
+    geom_text(
+      aes(
+        label = formatC(r, digits = 2, format = "f") %>%
+          stringr::str_replace_all("0\\.", ".") %>%
+          stringr::str_replace_all("1.00", "1")
+      ),
+      color = "white",
+      fontface = "bold",
+      family = "serif"
+    ) +
+    scale_fill_gradient2(
+      NULL,
+      na.value = "gray20",
+      limits = c(-1.01, 1.01),
+      high = "#924552",
+      low = "#293999"
+    ) +
     coord_equal() +
-    scale_x_discrete(NULL,position = "top") +
+    scale_x_discrete(NULL, position = "top") +
     scale_y_discrete(NULL) +
-    theme_light(base_family = "serif", base_size = 14) 
+    theme_light(base_family = "serif", base_size = 14)
 }
 
 ```
@@ -112,8 +112,8 @@ ggcor <- function(d) {
 Because the data are standardized, the covariance matrix of the observed and latent variables should be nearly identical to a correlation matrix. The error and disturbance terms are not standardized.
 
 ```{r modelcov}
-cov(d) %>% 
-  ggcor
+cov(d) %>%
+  ggcor()
 ```
 
 To return only the observed variables
@@ -124,7 +124,7 @@ d <- sim_standardized(m,
                       latent = FALSE,
                       errors = FALSE)
 # Display First 6 rows
-head(d) 
+head(d)
 ```
 
 # Comparison with `lavaan::simulateData`
@@ -138,21 +138,20 @@ X =~ .75 * X_1 + .75 * X_2
 "
 
 library(lavaan)
-d_lavaan <- simulateData(
-  model = test_model, 
-  sample.nobs = 100000, 
-  standardized = TRUE)
-cov(d_lavaan) %>% 
-  ggcor
+d_lavaan <- simulateData(model = test_model,
+                         sample.nobs = 100000,
+                         standardized = TRUE)
+cov(d_lavaan) %>%
+  ggcor()
 ```
 
 With the same test model, simstandard will calculate variables with variances of 1.
 
 ```{r simstandard_comparison}
-sim_standardized(test_model, 
-                 n = 100000, 
-                 errors = FALSE) %>% 
-  cov %>% 
+sim_standardized(test_model,
+                 n = 100000,
+                 errors = FALSE) %>%
+  cov %>%
   ggcor()
 ```
 
@@ -167,14 +166,14 @@ matrices <- sim_standardized_matrices(m)
 The A matrix contains all the asymmetric path coefficients (i.e., the loadings and the structural coefficients). These coefficients are specified in the lavaan model syntax.
 
 ```{r Amatrix}
-matrices$RAM_matrices$A %>% 
+matrices$RAM_matrices$A %>%
   ggcor()
 ```
 
 The S matrix contains all the symmetric path coefficients (i.e., the variances and correlations of the observed and latent variables). For endogenous variables, the variances and correlations refer to the variance and correlations of the variable's associated error or disturbance term. In this case, A is the only endogenous variable, and thus its variance on the diagonal of the S matrix is 1.
 
 ```{r Smatrix}
-matrices$RAM_matrices$S %>% 
+matrices$RAM_matrices$S %>%
   ggcor()
 ```
 
@@ -192,12 +191,10 @@ If you want to estimate factor scores using the regression method (i.e., Thursto
 m <- "
 A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3
 "
-sim_standardized(
-  m, 
-  n = 100000, 
-  factor_scores = TRUE
-  ) %>% 
-  head() 
+sim_standardized(m,
+                 n = 100000,
+                 factor_scores = TRUE) %>%
+  head()
 ```
 
 ## Adding factor scores to new data
@@ -211,7 +208,7 @@ d <- tibble::tribble(
   -1L, -1.5, -2.1
   )
 
-add_factor_scores(d, m ) 
+add_factor_scores(d, m)
 
 ```
 
@@ -224,10 +221,10 @@ m <- "
 A =~ 0.9 * A1 + 0.8 * A2 + 0.7 * A3
 "
 sim_standardized(
-  m, 
-  n = 100000, 
+  m,
+  n = 100000,
   composites = TRUE
-  ) %>% 
+  ) %>%
   head()
   
 ```
@@ -235,7 +232,7 @@ sim_standardized(
 Composite scores with equal weights can also be added to new data:
 
 ```{r add_composite_scores}
-add_composite_scores(d, m ) 
+add_composite_scores(d, m)
 ```
 
 # Return lavaan syntax with all parameters set free
@@ -270,26 +267,26 @@ d <- sim_standardized(
 # Evaluate the fit of model m_free on data d
 library(lavaan)
 lav_results <- sem(
-  model = m_free, 
+  model = m_free,
   data = d)
 
 # Display summary of model
 summary(
-  lav_results, 
-  standardized = TRUE, 
+  lav_results,
+  standardized = TRUE,
   fit.measures = TRUE)
 
 # Extract RAM paths
-RAM <- lav2ram(lav_results)
+ram <- lav2ram(lav_results)
 
-# Display asymmetric paths (i.e., single-headed arrows for 
+# Display asymmetric paths (i.e., single-headed arrows for
 # loadings and structure coefficients)
-RAM$A %>% ggcor()
+ram$A %>% ggcor()
 
 # Display symmetric paths (i.e., curved double-headed arrows
-# exogenous variances, error variances, disturbance variances, 
+# exogenous variances, error variances, disturbance variances,
 # and any covariances among these)
-RAM$S %>% ggcor()
+ram$S %>% ggcor()
 
 ```
 
@@ -323,22 +320,23 @@ Here we have three latent variables, Vocabulary, Working Memory Capacity, and Re
 
 ```{r}
 m_meas <- matrix(c(
-	0.8,0,0,  # VC1
-	0.9,0,0,  # VC2
-	0.7,0,0,  # VC3
-	0,0.6,0,  # WM1
-	0,0.7,0,  # WM2
-	0,0.8,0,  # WM3
-	0,0,0.9,  # RD1
-	0,0,0.7,  # RD2
-	0,0,0.8), # RD3
-	nrow = 9, 
-	byrow = TRUE,
-	dimnames = list(
-	  c("VC1", "VC2", "VC3", 
-	    "WM1", "WM2", "WM3", 
-	    "RD1", "RD2", "RD3"),
-	  c("Vocabulary", "WorkingMemory", "Reading")))
+  .8, 0, 0,  # VC1
+  .9, 0, 0,  # VC2
+  .7, 0, 0,  # VC3
+  0, .6, 0,  # WM1
+  0, .7, 0,  # WM2
+  0, .8, 0,  # WM3
+  0, 0, .9,  # RD1
+  0, 0, .7,  # RD2
+  0, 0, .8), # RD3
+  nrow = 9,
+  byrow = TRUE,
+  dimnames = list(
+    c("VC1", "VC2", "VC3",
+      "WM1", "WM2", "WM3",
+      "RD1", "RD2", "RD3"),
+    c("Vocabulary", "WorkingMemory", "Reading")
+  ))
 
 ```
 
@@ -349,24 +347,21 @@ The structural model can be specified with a matrix in which the predictors are 
 Here we have Vocabulary and Working Memory Capacity predicting Reading Scores.
 
 ```{r}
-m_struct <- matrix(
-  c(0.4,0.3), 
-	ncol = 2,
-	dimnames = list(
-	  "Reading",
-	  c("Vocabulary", "WorkingMemory"))) 
+m_struct <- matrix(c(0.4, 0.3),
+                   ncol = 2,
+                   dimnames = list("Reading",
+                                   c("Vocabulary", "WorkingMemory")))
 
 ```
 
 This could have been a 3 by 3 matrix with zeroes (which are ignored).
 
 ```{r}
-m_struct <- matrix(c(
-	0,   0,   0,  # Vocabulary
-	0,   0,   0,  # WorkingMemory
-	0.4, 0.3, 0), # Reading
-	nrow = 3, 
-	byrow = TRUE) 
+m_struct <- matrix(c(0,   0,   0,  # Vocabulary
+                     0,   0,   0,  # WorkingMemory
+                     0.4, 0.3, 0), # Reading
+                   nrow = 3,
+                   byrow = TRUE)
 rownames(m_struct) <- c("Vocabulary", "WorkingMemory", "Reading")
 colnames(m_struct) <- c("Vocabulary", "WorkingMemory", "Reading")
 ```
@@ -378,14 +373,13 @@ The variances and covariances must be specified as a symmetric matrix, though va
 Here we specify that the latent variables Vocabulary and Working Memory Capacity are correlated.
 
 ```{r}
-m_cov <- matrix(c(
-	1,   0.5, 
-	0.5, 1), 
-	nrow = 2,
-	dimnames = list(
-	  c("Vocabulary", "WorkingMemory"),
-	  c("Vocabulary", "WorkingMemory"))) 
-
+m_cov <- matrix(c(1,   0.5,
+                  0.5, 1),
+                nrow = 2,
+                dimnames = list(
+                  c("Vocabulary", "WorkingMemory"),
+                  c("Vocabulary", "WorkingMemory")
+                ))
 ```
 
 ## Using the `matrix2lavaan` function
@@ -393,8 +387,8 @@ m_cov <- matrix(c(
 The `matrix2lavaan` function takes arguments for the measurement model, structural model, and covariances. Any of the three matrices can be omitted.
 
 ```{r}
-model <- matrix2lavaan(measurement_model = m_meas, 
-                       structural_model = m_struct, 
+model <- matrix2lavaan(measurement_model = m_meas,
+                       structural_model = m_struct,
                        covariances = m_cov)
 cat(model)
 ```
@@ -418,18 +412,18 @@ m_meas <- tibble::tribble(
      "RD3",           0,              0,      0.8)
 
 # A data.frame with criterion variable specified as a row name
-m_struct <- data.frame(Vocabulary = 0.4, 
-                       WorkingMemory = 0.3, 
+m_struct <- data.frame(Vocabulary = 0.4,
+                       WorkingMemory = 0.3,
                        row.names = "Reading")
 
 # A data.frame with variable names specified as row names
-m_cov <- data.frame(Vocabulary =    c(1, 0.5),
+m_cov <- data.frame(Vocabulary = c(1, 0.5),
                     WorkingMemory = c(0.5, 1))
 rownames(m_cov) <- c("Vocabulary", "WorkingMemory")
 
 
-model <- matrix2lavaan(measurement_model = m_meas, 
-                       structural_model = m_struct, 
+model <- matrix2lavaan(measurement_model = m_meas,
+                       structural_model = m_struct,
                        covariances = m_cov)
 ```
 
@@ -439,15 +433,15 @@ model <- matrix2lavaan(measurement_model = m_meas,
 After specifying a standardized model with lavaan syntax, we can extract a model-implied correlation matrix. By default, we extract just the correlations among the observed variables.
 
 ```{r}
-get_model_implied_correlations(m) %>% 
+get_model_implied_correlations(m) %>%
   ggcor()
 ```
 
 It is possible to extract the model-implied correlations among the observed variables, latent variables, error terms, factor scores, and composite variables. For example, here we extract correlations among the observed and latent variables:
 
 ```{r}
-get_model_implied_correlations(m, 
-                               latent = TRUE) %>% 
+get_model_implied_correlations(m,
+                               latent = TRUE) %>%
   ggcor()
 ```
 

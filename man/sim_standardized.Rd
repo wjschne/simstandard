@@ -39,10 +39,14 @@ sim_standardized(
 tibble with standardized data
 }
 \description{
-This function takes a lavaan model with standardized parameters and simulates latent scores, errors, disturbances, and observed scores.
+This function takes a lavaan model with standardized parameters
+and simulates latent scores, errors, disturbances, and observed scores.
 }
 \details{
-This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
+This function supports the `~` operator for regressions, the `~~` for
+covariances (but not variances), and the `=~` latent variable loadings.
+It does not support intercepts (e.g,. `y ~ 1`), thresholds,
+scaling factors, formative factors, or equality constraints.
 }
 \examples{
 library(simstandard)

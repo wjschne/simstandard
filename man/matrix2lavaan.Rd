@@ -11,11 +11,17 @@ matrix2lavaan(
 )
 }
 \arguments{
-\item{measurement_model}{A matrix or data.frame with measurement model loadings. Column names are latent variables. Row names or the first column of a data.frame are indicator variables.}
+\item{measurement_model}{A matrix or data.frame with measurement model
+loadings. Column names are latent variables. Row names or the first
+column of a data.frame are indicator variables.}
 
-\item{structural_model}{A matrix or data.frame with structural model coefficients (i.e., regressions). Column names are "causal" variables. Row names or the first column of a data.frame are "effect" variables.}
+\item{structural_model}{A matrix or data.frame with structural model
+coefficients (i.e., regressions). Column names are "causal" variables.
+Row names or the first column of a data.frame are "effect" variables.}
 
-\item{covariances}{A matrix or data.frame with model covariances. Column names must match the row names. If a data.frame, row variable names can be specified in the first column.}
+\item{covariances}{A matrix or data.frame with model covariances.
+Column names must match the row names. If a data.frame, row variable
+names can be specified in the first column.}
 }
 \value{
 a character string with lavaan syntax

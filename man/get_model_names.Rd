@@ -7,7 +7,8 @@
 get_model_names(m, ...)
 }
 \arguments{
-\item{m}{Structural model represented by lavaan syntax or output of sim_standardized_matrices function.}
+\item{m}{Structural model represented by lavaan syntax or
+output of sim_standardized_matrices function.}
 
 \item{...}{parameters passed to the `sim_standardized_matrices` function}
 }

@@ -7,7 +7,8 @@
 get_factor_score_validity(m, latent = TRUE, errors = FALSE, ...)
 }
 \arguments{
-\item{m}{Structural model represented by lavaan syntax or output of sim_standardized_matrices function.}
+\item{m}{Structural model represented by lavaan syntax or output
+of sim_standardized_matrices function.}
 
 \item{latent}{Include latent variables.}
 

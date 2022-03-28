@@ -2,7 +2,8 @@
 % Please edit documentation in R/main.R
 \name{add_factor_scores}
 \alias{add_factor_scores}
-\title{For each latent variable in a structural model, add an estimated factor score to observed data.}
+\title{For each latent variable in a structural model, add an estimated
+factor score to observed data.}
 \usage{
 add_factor_scores(
   d,
@@ -21,17 +22,23 @@ add_factor_scores(
 
 \item{m}{A character string with lavaan model}
 
-\item{mu}{Population mean of the observed scores. Factor scores will also have this mean. Defaults to 0.}
+\item{mu}{Population mean of the observed scores. Factor scores
+will also have this mean. Defaults to 0.}
 
-\item{sigma}{Population standard deviation of the observed scores. Factor scores will also have this standard deviation. Defaults to 1.}
+\item{sigma}{Population standard deviation of the observed scores.
+Factor scores will also have this standard deviation. Defaults to 1.}
 
-\item{CI}{Add confidence intervals? Defaults to `FALSE`. If `TRUE`, For each factor score, a lower and upper bound of the confidence interval is created. For example, the lower bound of factor score `X` is `X_LB`, and the upper bound is `X_UB`.}
+\item{CI}{Add confidence intervals? Defaults to `FALSE`. If `TRUE`,
+for each factor score, a lower and upper bound of the confidence
+interval is created. For example, the lower bound of factor
+score `X` is `X_LB`, and the upper bound is `X_UB`.}
 
 \item{p}{confidence interval proportion. Defaults to 0.95}
 
 \item{names_suffix}{A character string added to each factor score name}
 
-\item{keep_observed_scores}{The observed scores are returned along with the factor scores.}
+\item{keep_observed_scores}{The observed scores are returned along
+with the factor scores.}
 
 \item{...}{parameters passed to simstandardized_matrices}
 }
@@ -39,7 +46,8 @@ add_factor_scores(
 data.frame with observed data and estimated factor scores
 }
 \description{
-For each latent variable in a structural model, add an estimated factor score to observed data.
+For each latent variable in a structural model, add an estimated
+factor score to observed data.
 }
 \examples{
 library(simstandard)

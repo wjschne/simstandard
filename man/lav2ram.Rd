@@ -10,7 +10,8 @@ lav2ram(fit)
 \item{fit}{An object of class lavaan}
 }
 \value{
-list of RAM matrices A (asymmetric paths), S (symmetric paths), and F (filter matrix)
+list of RAM matrices A (asymmetric paths),
+S (symmetric paths), and F (filter matrix)
 }
 \description{
 Extract standardized RAM matrices from a lavaan object

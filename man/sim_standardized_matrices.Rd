@@ -11,16 +11,21 @@ sim_standardized_matrices(m, max_iterations = 100, composite_threshold = NULL)
 
 \item{max_iterations}{Maximum number of iterations before the algorithm fails}
 
-\item{composite_threshold}{Loadings with absolute values less than this threshold will not be counted as composite indicators}
+\item{composite_threshold}{Loadings with absolute values less
+than this threshold will not be counted as composite indicators}
 }
 \value{
 list of path and covariance coefficients
 }
 \description{
-Function that takes a lavaan model with standardized parameters and returns a list with model characteristics
+Function that takes a lavaan model with standardized parameters
+and returns a list with model characteristics
 }
 \details{
-This function supports the `~` operator for regressions, the `~~` for covariances (but not variances), and the `=~` latent variable loadings. It does not support intercepts (e.g,. `y ~ 1`), thresholds, scaling factors, formative factors, or equality constraints.
+This function supports the `~` operator for regressions,
+the `~~` for covariances (but not variances), and the `=~` latent
+variable loadings. It does not support intercepts (e.g,. `y ~ 1`),
+thresholds, scaling factors, formative factors, or equality constraints.
 }
 \examples{
 library(simstandard)

@@ -2,7 +2,8 @@
 % Please edit documentation in R/main.R
 \name{add_composite_scores}
 \alias{add_composite_scores}
-\title{For each latent variable in a structural model, add a composite score to observed data.}
+\title{For each latent variable in a structural model, add a
+composite score to observed data.}
 \usage{
 add_composite_scores(
   d,
@@ -19,13 +20,16 @@ add_composite_scores(
 
 \item{m}{A character string with lavaan model}
 
-\item{mu}{Score means. Composite scores will also have this mean. Defaults to 0.}
+\item{mu}{Score means. Composite scores will also have this mean.
+Defaults to 0.}
 
-\item{sigma}{Score standard deviations. Composite scores will also have this standard deviation. Defaults to 1.}
+\item{sigma}{Score standard deviations. Composite scores will also have
+this standard deviation. Defaults to 1.}
 
 \item{names_suffix}{A character string added to each composite score name}
 
-\item{keep_observed_scores}{The observed scores are returned along with the composite scores.}
+\item{keep_observed_scores}{The observed scores are returned along
+with the composite scores.}
 
 \item{...}{parameters passed to simstandardized_matrices}
 }
@@ -33,7 +37,8 @@ add_composite_scores(
 data.frame with observed data and estimated factor scores
 }
 \description{
-For each latent variable in a structural model, add a composite score to observed data.
+For each latent variable in a structural model, add a
+composite score to observed data.
 }
 \examples{
 library(simstandard)

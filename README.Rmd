@@ -2,6 +2,7 @@
 output: github_document
 ---
 
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, echo = FALSE}
@@ -12,13 +13,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-# simstandard <img src="man/figures/logo.png" align="right" height="140/"/>
-
-
+# simstandard [<img src="man/figures/logo.png" style="float: right;" width="140" alt="logo" />](https://wjschne.github.io/simstandard/)
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/simstandard)](https://cran.r-project.org/package=simstandard) [![Rdoc](https://www.rdocumentation.org/badges/version/simstandard)](https://www.rdocumentation.org/packages/simstandard)  
 [![R-CMD-check](https://github.com/wjschne/simstandard/workflows/R-CMD-check/badge.svg)](https://github.com/wjschne/simstandard/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version/simstandard)](https://CRAN.R-project.org/package=simstandard)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 

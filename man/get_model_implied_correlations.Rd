@@ -15,7 +15,8 @@ get_model_implied_correlations(
 )
 }
 \arguments{
-\item{m}{Structural model represented by lavaan syntax or output of sim_standardized_matrices function.}
+\item{m}{Structural model represented by lavaan syntax or output
+of sim_standardized_matrices function.}
 
 \item{observed}{Include observed variables}
 
@@ -33,7 +34,8 @@ get_model_implied_correlations(
 A correlation matrix
 }
 \description{
-Function that takes a lavaan model with standardized parameters and returns a model-implied correlation matrix
+Function that takes a lavaan model with standardized parameters and
+returns a model-implied correlation matrix
 }
 \examples{
 library(simstandard)

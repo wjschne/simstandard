@@ -2,7 +2,9 @@
 % Please edit documentation in R/main.R
 \name{model_complete}
 \alias{model_complete}
-\title{Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances}
+\title{Function that takes a lavaan model with standardized paths and
+loadings and returns a complete lavaan model syntax with
+standardized variances}
 \usage{
 model_complete(m)
 }
@@ -13,7 +15,9 @@ model_complete(m)
 character string representing lavaan model
 }
 \description{
-Function that takes a lavaan model with standardized paths and loadings and returns a complete lavaan model syntax with standardized variances
+Function that takes a lavaan model with standardized paths and
+loadings and returns a complete lavaan model syntax with
+standardized variances
 }
 \examples{
 library(simstandard)
