@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://wjschne.github.io/simstandard/404.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://wjschne.github.io/simstandard/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/simstandard_tutorial.html</loc>
+    <loc>https://wjschne.github.io/simstandard/articles/simstandard_tutorial.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://wjschne.github.io/simstandard/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://wjschne.github.io/simstandard/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://wjschne.github.io/simstandard/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://wjschne.github.io/simstandard/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/add_composite_scores.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/add_composite_scores.html</loc>
   </url>
   <url>
-    <loc>/reference/add_factor_scores.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/add_factor_scores.html</loc>
   </url>
   <url>
-    <loc>/reference/check_matrix2lavaan.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/check_matrix2lavaan.html</loc>
   </url>
   <url>
-    <loc>/reference/fixed2free.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/fixed2free.html</loc>
   </url>
   <url>
-    <loc>/reference/get_factor_score_coefficients.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/get_factor_score_coefficients.html</loc>
   </url>
   <url>
-    <loc>/reference/get_factor_score_validity.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/get_factor_score_validity.html</loc>
   </url>
   <url>
-    <loc>/reference/get_factor_score_validity_se.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/get_factor_score_validity_se.html</loc>
   </url>
   <url>
-    <loc>/reference/get_model_implied_correlations.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/get_model_implied_correlations.html</loc>
   </url>
   <url>
-    <loc>/reference/get_model_names.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/get_model_names.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/lav2ram.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/lav2ram.html</loc>
   </url>
   <url>
-    <loc>/reference/matrix2lavaan.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/matrix2lavaan.html</loc>
   </url>
   <url>
-    <loc>/reference/model_complete.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/model_complete.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/sim_standardized.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/sim_standardized.html</loc>
   </url>
   <url>
-    <loc>/reference/sim_standardized_matrices.html</loc>
+    <loc>https://wjschne.github.io/simstandard/reference/sim_standardized_matrices.html</loc>
   </url>
 </urlset>

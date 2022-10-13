@@ -181,14 +181,13 @@ sim_standardized_matrices <- function(m,
 
   # Find values for S matrix
   while ((round(sum(diag(R)), 10) != k) * (iterations < max_iterations)) {
-    iA <- solve(diag(k) - A)
     R <- iA %*% S %*% t(iA)
     sdS <- diag(diag(S) ^ 0.5)
     S <- diag(diag(diag(k) - R)) + (sdS %*% exo_cor %*% sdS)
     diag(S)[diag(S) < 0] <- 0.00000001
     iterations <- iterations + 1
   }
-  if (iterations == max_iterations) {
+  if (iterations >= max_iterations) {
     stop(paste0(
       "Model did not converge after ",
       max_iterations,
@@ -269,43 +268,33 @@ sim_standardized_matrices <- function(m,
     }
 
 
-    A_composite_direct <- sign(
-      A_big[v_observed_indicator, v_latent, drop = FALSE])
+    # Matrix of which observed variables are summed to create composite scores for each latent variable
+    A_composite <- matrix(0,
+                          nrow =  length(v_observed_indicator),
+                          ncol = length(v_latent),
+                          dimnames = list(v_observed_indicator, v_latent))
 
-    if (!is.null(composite_threshold)) {
-      A_composite_direct <- A_composite_direct *
-        (abs(A_big[v_observed_indicator, v_latent, drop = FALSE]) >
-           composite_threshold)
+
+
+
+
+    find_observed_indicators <- function(v) {
+      indicators <- pt[pt[,"op"] == "=~" & pt[,"lhs"] == v, "rhs"]
+      observed_indicators <- indicators[indicators %in% v_observed_indicator]
+      latent_indicators <- indicators[indicators %in% v_latent]
+      if (length(latent_indicators > 0)) {
+        for (li in latent_indicators) {
+          observed_indicators <- c(observed_indicators,find_observed_indicators(li))
+        }
+      }
+      unique(observed_indicators)
     }
 
-    # Has Direct Indicators
-    Has_direct <- (colSums(abs(A_composite_direct)) > 0) * 1
+    for (v in v_latent) {
+      which_indicators <- find_observed_indicators(v)
+      A_composite[which_indicators, v] <- sign(R_big[which_indicators, v])
+    }
 
-    # Second-order factors
-    A_composite_second_order <- sign(
-      A_composite_direct %*%
-        A[v_latent, v_latent, drop = FALSE] %*%
-        diag(1 - Has_direct,
-             nrow = length(Has_direct)))
-
-    # Third-order factors
-    Has_direct_second <- (colSums(abs(A_composite_second_order)) > 0) * 1
-    A_composite_third_order <- sign(
-      A_composite_second_order %*%
-        A[v_latent, v_latent, drop = FALSE] %*%
-        diag(1 - Has_direct_second,
-             nrow = length(Has_direct_second)))
-
-    # Fourth-order factors
-    Has_direct_third <- (colSums(abs(A_composite_third_order)) > 0) * 1
-    A_composite_fourth_order <- sign(
-      A_composite_third_order %*%
-        A[v_latent, v_latent, drop = FALSE] %*%
-        diag(1 - Has_direct_third,
-             nrow = length(Has_direct_third)))
-
-    A_composite <- A_composite_direct + A_composite_second_order +
-      A_composite_third_order + A_composite_fourth_order
 
     CM_composite <- t(A_composite) %*%
       R[v_observed_indicator,

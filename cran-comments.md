@@ -6,7 +6,7 @@
 
 ## R CMD check results
 
-simstandard 0.6.0
+simstandard 0.6.4
 
 Duration: 41.4s
 
@@ -15,6 +15,6 @@ Duration: 41.4s
 R CMD check succeeded
 
 
-## Addressing previous concernts
+## Addressing previous concerns
 
 None 

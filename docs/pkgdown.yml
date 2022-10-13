@@ -1,7 +1,10 @@
-pandoc: 2.14.0.3
-pkgdown: 2.0.2
+pandoc: '2.18'
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   simstandard_tutorial: simstandard_tutorial.html
-last_built: 2022-03-28T07:35Z
+last_built: 2022-10-13T12:05Z
+urls:
+  reference: https://wjschne.github.io/simstandard/reference
+  article: https://wjschne.github.io/simstandard/articles
 
