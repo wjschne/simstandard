@@ -2,7 +2,7 @@
 # CITATION file created with {cffr} R package, v0.3.0
 # See also: https://docs.ropensci.org/cffr/
 # -----------------------------------------------------------
- 
+
 cff-version: 1.2.0
 message: 'To cite package "simstandard" in publications use:'
 type: software
@@ -139,17 +139,6 @@ references:
     email: hadley@rstudio.com
   year: '2022'
   url: https://CRAN.R-project.org/package=tibble
-- type: software
-  title: badger
-  abstract: 'badger: Badge for R Package'
-  notes: Suggests
-  authors:
-  - family-names: Yu
-    given-names: Guangchuang
-    email: guangchuangyu@gmail.com
-    orcid: https://orcid.org/0000-0002-6485-8781
-  year: '2022'
-  url: https://CRAN.R-project.org/package=badger
 - type: software
   title: covr
   abstract: 'covr: Test Coverage for Packages'

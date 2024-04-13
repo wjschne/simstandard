@@ -25,7 +25,6 @@ Imports:
     stats,
     tibble
 Suggests: 
-    badger,
     covr,
     dplyr,
     forcats,
@@ -39,4 +38,4 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
