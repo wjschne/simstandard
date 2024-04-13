@@ -1,8 +1,4 @@
 url: https://wjschne.github.io/simstandard/
-figures:
-  dev.args:
-     pointsize: 12
-  fig.width: 7.2916667
-  fig.height: ~
-  fig.retina: 2
-  fig.asp: 1.618
+template:
+  bootstrap: 5
+
