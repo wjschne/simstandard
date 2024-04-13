@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/simstandard)](https://CRAN.R-project.org/package=simstandard)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Codecov test coverage](https://codecov.io/gh/wjschne/simstandard/branch/main/graph/badge.svg)](https://app.codecov.io/gh/wjschne/simstandard?branch=main)
+[![R-CMD-check](https://github.com/wjschne/simstandard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/wjschne/simstandard/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 
