@@ -32,7 +32,7 @@ library(dplyr)
 set.seed(123456)
 ```
 
-<a href="https://wjschne.github.io/simstandard/"><img src="logo.png" align="right" height="120" /></a>
+[![](logo.png){width=120 align="right"}](https://wjschne.github.io/simstandard/)
 
 # Purpose of simstandard
 
@@ -179,7 +179,7 @@ matrices$RAM_matrices$S %>%
 
 Thus, we can use these results to insert the missing values from the path diagram at the beginning of this tutorial
 
-```{r, out.width=700, fig.align='center', echo = FALSE}
+```{r modelcomplete, out.width=700, fig.align='center', echo = FALSE}
 knitr::include_graphics("ModelFigureComplete.png")
 ```
 
@@ -296,7 +296,7 @@ As can be seen, all the fit measures indicate a near-perfect fit, and the parame
 
 Although the `simstandardized` function will generate data for you, you might want to use a function from a different package instead, such as `lavaan::simulateData` or `simsem::sim`. In this case, you can use the `model_complete` function to output the lavaan syntax for a standardized model with all standardized variances specified.
 
-```{r modelcomplete}
+```{r mcomplete}
 # Specify model
 m <- "
 A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1
@@ -318,7 +318,7 @@ The measurement model can be specified with a matrix in which the column names a
 
 Here we have three latent variables, Vocabulary, Working Memory Capacity, and Reading, each defined by three indicator variables.
 
-```{r}
+```{r measurementmatrix}
 m_meas <- matrix(c(
   .8, 0, 0,  # VC1
   .9, 0, 0,  # VC2
@@ -346,7 +346,7 @@ The structural model can be specified with a matrix in which the predictors are 
 
 Here we have Vocabulary and Working Memory Capacity predicting Reading Scores.
 
-```{r}
+```{r structmatrix}
 m_struct <- matrix(c(0.4, 0.3),
                    ncol = 2,
                    dimnames = list("Reading",
@@ -356,7 +356,7 @@ m_struct <- matrix(c(0.4, 0.3),
 
 This could have been a 3 by 3 matrix with zeroes (which are ignored).
 
-```{r}
+```{r mstruct}
 m_struct <- matrix(c(0,   0,   0,  # Vocabulary
                      0,   0,   0,  # WorkingMemory
                      0.4, 0.3, 0), # Reading
@@ -372,7 +372,7 @@ The variances and covariances must be specified as a symmetric matrix, though va
 
 Here we specify that the latent variables Vocabulary and Working Memory Capacity are correlated.
 
-```{r}
+```{r mcov}
 m_cov <- matrix(c(1,   0.5,
                   0.5, 1),
                 nrow = 2,
@@ -386,7 +386,7 @@ m_cov <- matrix(c(1,   0.5,
 
 The `matrix2lavaan` function takes arguments for the measurement model, structural model, and covariances. Any of the three matrices can be omitted.
 
-```{r}
+```{r showmodel}
 model <- matrix2lavaan(measurement_model = m_meas,
                        structural_model = m_struct,
                        covariances = m_cov)
@@ -397,7 +397,7 @@ cat(model)
 
 As an alternative, the `matrix2lavaan` function can take data.frames (or tibbles) with either rownames or the first column as a character vector.
 
-```{r}
+```{r matrix2lavaan}
 # A tibble with indicator variables listed in the first column
 m_meas <- tibble::tribble(
      ~Test, ~Vocabulary, ~WorkingMemory, ~Reading,
@@ -432,16 +432,158 @@ model <- matrix2lavaan(measurement_model = m_meas,
 
 After specifying a standardized model with lavaan syntax, we can extract a model-implied correlation matrix. By default, we extract just the correlations among the observed variables.
 
-```{r}
+```{r modelimpliedcor}
 get_model_implied_correlations(m) %>%
   ggcor()
 ```
 
 It is possible to extract the model-implied correlations among the observed variables, latent variables, error terms, factor scores, and composite variables. For example, here we extract correlations among the observed and latent variables:
 
-```{r}
-get_model_implied_correlations(m,
-                               latent = TRUE) %>%
+```{r corplot}
+get_model_implied_correlations(
+  m,
+  latent = TRUE) %>%
   ggcor()
+```
+
+
+
+```{r msyntax}
+# lavaan syntax for model
+m <- "
+A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1
+B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3
+B ~ 0.6 * A
+
+# Variances
+A1 ~~ 0.51 * A1
+A2 ~~ 0.36 * A2
+A3 ~~ 0.19 * A3
+B1 ~~ 0.168 * B1
+B2 ~~ 0.36 * B2
+B3 ~~ 0.19 * B3
+A ~~ 1 * A
+B ~~ 0.64 * B
+"
+
+m_fit <- lavaanify(m) 
+  
+
+# mRAM <- lavMatrixRepresentation(m_fit, 
+                                # representation = "RAM")
+
+v <- list(
+    v_latent_exogenous = lavNames(m_fit, "lv.x"),
+    v_latent_endogenous = lavNames(m_fit, "lv.nox"),
+    v_observed_exogenous = lavNames(m_fit, "ov.x"),
+    v_observed_endogenous = lavNames(m_fit, "ov.nox"),
+    v_observed_indicator = lavNames(m_fit, "ov.ind"),
+    v_disturbance = paste0("d_", lavNames(m_fit, "lv.nox")),
+    v_error = paste0("e_", lavNames(m_fit, "ov.nox"))
+  )
+
+v$v_residual <- c(v$v_error,
+                        v$v_disturbance)
+v$v_exogenous <- c(v$v_residual,
+                         v$v_observed_exogenous,
+                         v$v_latent_exogenous)
+v$v_endogenous <- c(v$v_observed_endogenous,
+                          v$v_latent_endogenous)
+v$v_modeled <- c(v$v_endogenous,
+                       v$v_latent_exogenous,
+                       v$v_observed_exogenous)
+v$v_observed <- c(v$v_observed_exogenous, 
+                        v$v_observed_endogenous)
+v$v_latent <- c(v$v_latent_exogenous, 
+                      v$v_latent_endogenous)
+
+# Reduced ram
+rram <- list()
+rram$A <- matrix(0, 
+                 nrow = length(v$v_modeled), 
+                 ncol = length(v$v_modeled), 
+                 dimnames = list(v$v_modeled, v$v_modeled))
+rram$S <- rram$A 
+rram$F <- matrix(
+  0,
+  nrow = length(v$v_observed),
+  ncol = length(v$v_modeled),
+  dimnames = list(v$v_observed, v$v_modeled)
+)
+
+
+
+m_fit |> 
+  filter(op == "=~") |> 
+  
+  select(rhs, lhs, ustart)
+
+m_fit |> 
+  filter(op == "~") |> 
+  select(lhs, rhs, ustart)
+
+d_A <- m_fit |> 
+  filter(op %in% c("=~", "~")) |> 
+  mutate(cause = if_else(op == "~", rhs, lhs),
+         effect = if_else(op == "~", lhs, rhs))
+
+d_S <- m_fit |> 
+  filter(op %in% c("~~")) 
+
+rram$A[cbind(d_A$effect, d_A$cause)] <- d_A$ustart
+rram$S[cbind(d_S$lhs, d_S$rhs)] <- d_S$ustart
+rram$S[cbind(d_S$rhs, d_S$lhs)] <- d_S$ustart
+rram$F[cbind(v$v_observed, v$v_observed)] <- 1
+
+dimnames(rram$S) <- list(v$v_exogenous, v$v_exogenous)
+
+
+
+
+
+
+extended_diag <- matrix(0, nrow = nrow(rram$A), ncol = length(v$v_residual)) |> 
+  `dimnames<-`(list(rownames(rram$A), v$v_residual)) |> 
+  `diag<-`(sqrt(diag(rram$S[v$v_residual, v$v_residual])))
+extended_A <- cbind(rram$A, extended_diag) |> 
+  rbind(matrix(0, nrow = length(v$v_residual),
+               ncol = length(v$v_residual) + nrow(rram$A))) %>%
+  `rownames<-`(colnames(.))
+
+# Identity matrix the same size as A and S
+I <- diag(nrow(extended_A)) 
+
+# Inverted I - A for total effects (direct + indirect)
+iA <- solve(I - extended_A) 
+
+# Exogenous covariance matrix
+extended_S <- matrix(0, 
+                     nrow = nrow(extended_A), 
+                     ncol = ncol(extended_A)) |> 
+  `dimnames<-`(dimnames(extended_A))
+# diag(extended_S) <- 1
+extended_S[cbind(rownames(rram$S), colnames(rram$S))] <- 1
+
+extended_cov <- iA %*% extended_S %*% t(iA)
+
+extended_mu <- rep(0, nrow(extended_A)) |> `names<-`(rownames(extended_A))
+extended_mu[v$v_residual] <- 0
+
+eigen(rram$S, symmetric = T)
+
+
+((iA %*% extended_S %*% t(iA))[,v$v_exogenous] ^ 2) |> 
+  as.data.frame() |> 
+  rownames_to_column("variable") |> 
+  pivot_longer(-variable, names_to = "exogenous") |> 
+  filter(value != 0) |> 
+  arrange(exogenous) |> 
+  ggplot(aes(variable, value)) + 
+  geom_col(aes(fill = exogenous))
+
+
+
+(iA %*% extended_S %*% t(iA))[v$v_endogenous,v$v_exogenous]
+
 ```
 

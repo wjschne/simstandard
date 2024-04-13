@@ -10,6 +10,8 @@
 status](https://www.r-pkg.org/badges/version/simstandard)](https://CRAN.R-project.org/package=simstandard)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Codecov test
+coverage](https://codecov.io/gh/wjschne/simstandard/branch/main/graph/badge.svg)](https://app.codecov.io/gh/wjschne/simstandard?branch=main)
 <!-- badges: end -->
 
 Sometimes you have a structural model with standardized path
@@ -67,14 +69,14 @@ data <- sim_standardized(m = model, n = 500)
 knitr::kable(head(data), digits = 2)
 ```
 
-|    A1 |    A2 |    B1 |    B2 |     C |     A |     B |  e_A1 |  e_A2 |  e_B1 |  e_B2 |   d_B |
-|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|
-| -0.04 |  1.33 | -0.71 |  1.41 |  1.92 |  1.02 |  1.52 | -0.55 |  0.51 | -1.62 |  0.35 |  0.70 |
-|  0.84 | -0.06 | -0.70 | -0.79 | -1.33 | -0.79 | -0.83 |  1.23 |  0.57 | -0.20 | -0.21 | -0.19 |
-|  1.84 |  0.45 | -0.14 |  0.19 |  0.59 |  1.38 |  0.93 |  1.16 | -0.65 | -0.70 | -0.46 | -0.17 |
-| -1.88 | -0.73 | -1.73 | -0.54 | -1.00 | -1.15 | -0.62 | -1.31 |  0.19 | -1.36 | -0.11 |  0.30 |
-|  0.24 |  0.01 |  1.10 | -0.01 |  1.07 |  0.51 | -0.03 | -0.01 | -0.40 |  1.11 |  0.01 | -0.44 |
-|  0.51 |  0.75 |  1.65 |  1.48 |  2.45 |  1.62 |  1.50 | -0.29 | -0.54 |  0.75 |  0.44 |  0.20 |
+|    A1 |   A2 |    B1 |    B2 |     C |     A |     B |  e_A1 |  e_A2 |  e_B1 |  e_B2 |   d_B |
+|------:|-----:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|
+| -0.72 | 0.70 |  0.53 | -0.81 | -1.05 |  0.65 | -0.22 | -1.04 |  0.18 |  0.66 | -0.66 | -0.74 |
+| -0.13 | 0.26 |  0.48 |  0.66 |  1.51 |  1.51 |  1.89 | -0.89 | -0.95 | -0.65 | -0.66 |  0.68 |
+|  0.67 | 0.39 | -0.53 |  0.28 |  0.56 |  0.21 | -0.37 |  0.56 |  0.22 | -0.31 |  0.54 | -0.53 |
+| -0.55 | 0.15 |  0.82 | -1.60 |  0.71 | -0.27 | -0.46 | -0.42 |  0.36 |  1.10 | -1.28 | -0.25 |
+|  0.62 | 0.10 | -1.36 | -0.78 | -0.87 | -0.46 |  0.11 |  0.86 |  0.47 | -1.43 | -0.86 |  0.48 |
+|  1.56 | 1.85 |  1.01 | -0.03 |  0.43 |  1.35 |  1.29 |  0.89 |  0.77 |  0.24 | -0.93 |  0.21 |
 
 See more in the [tutorial for this
 package](https://wjschne.github.io/simstandard//articles/simstandard_tutorial.html).

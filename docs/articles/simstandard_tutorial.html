@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -90,7 +90,7 @@
                         <h4 data-toc-skip class="author">W. Joel
 Schneider</h4>
             
-            <h4 data-toc-skip class="date">2022-10-13</h4>
+            <h4 data-toc-skip class="date">2024-04-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/wjschne/simstandard/blob/HEAD/vignettes/simstandard_tutorial.Rmd" class="external-link"><code>vignettes/simstandard_tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>simstandard_tutorial.Rmd</code></div>
@@ -99,7 +99,7 @@ Schneider</h4>
 
     
     
-<p><a href="https://wjschne.github.io/simstandard/"><img src="logo.png" align="right" height="120"></a></p>
+<p><a href="https://wjschne.github.io/simstandard/"><img src="logo.png" align="right" width="120"></a></p>
 <div class="section level2">
 <h2 id="purpose-of-simstandard">Purpose of simstandard<a class="anchor" aria-label="anchor" href="#purpose-of-simstandard"></a>
 </h2>
@@ -150,8 +150,7 @@ for each latent variable.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> -<span style="color: #BB0000;">0.269</span>  -<span style="color: #BB0000;">0.941</span> -<span style="color: #BB0000;">0.763</span> -<span style="color: #BB0000;">0.288</span>  0.217 -<span style="color: #BB0000;">0.683</span> -<span style="color: #BB0000;">0.856</span>  -<span style="color: #BB0000;">0.458</span>  0.330 -<span style="color: #BB0000;">0.256</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> -<span style="color: #BB0000;">0.016</span><span style="color: #BB0000; text-decoration: underline;">3</span> -<span style="color: #BB0000;">0.814</span>  0.447 -<span style="color: #BB0000;">0.226</span>  0.723  0.203  1.04   -<span style="color: #BB0000;">0.266</span> -<span style="color: #BB0000;">0.747</span> -<span style="color: #BB0000;">1.65</span> </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> -<span style="color: #BB0000;">1.44</span>   -<span style="color: #BB0000;">0.192</span> -<span style="color: #BB0000;">0.795</span> -<span style="color: #BB0000;">1.13</span>  -<span style="color: #BB0000;">0.441</span> -<span style="color: #BB0000;">0.822</span> -<span style="color: #BB0000;">0.966</span>  -<span style="color: #BB0000;">0.671</span> -<span style="color: #BB0000;">0.765</span>  0.581</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: e_A3 &lt;dbl&gt;, e_B1 &lt;dbl&gt;, e_B2 &lt;dbl&gt;, e_B3 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   d_B &lt;dbl&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5 more variables: e_A3 &lt;dbl&gt;, e_B1 &lt;dbl&gt;, e_B2 &lt;dbl&gt;, e_B3 &lt;dbl&gt;, d_B &lt;dbl&gt;</span></span></span></code></pre></div>
 <p>Let’s make a function to display correlations and covariance
 matrices:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -369,9 +368,9 @@ values from the model.</p>
 <span><span class="va">m_free</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fixed2free.html">fixed2free</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
 <span><span class="co"># Display model m_free</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">m_free</span><span class="op">)</span></span>
+<span><span class="co">#&gt; B ~ A</span></span>
 <span><span class="co">#&gt; A =~ A1 + A2 + A3 + B1</span></span>
-<span><span class="co">#&gt; B =~ B1 + B2 + B3</span></span>
-<span><span class="co">#&gt; B ~ A</span></span></code></pre></div>
+<span><span class="co">#&gt; B =~ B1 + B2 + B3</span></span></code></pre></div>
 <p>Now let’s use lavaan to see if the observed data in <code>d</code>
 conform to the model in <code>m_free</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -395,7 +394,7 @@ conform to the model in <code>m_free</code>.</p>
 <span>  <span class="va">lav_results</span>,</span>
 <span>  standardized <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  fit.measures <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; lavaan 0.6-12 ended normally after 27 iterations</span></span>
+<span><span class="co">#&gt; lavaan 0.6.17 ended normally after 27 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Estimator                                         ML</span></span>
 <span><span class="co">#&gt;   Optimization method                           NLMINB</span></span>
@@ -427,14 +426,15 @@ conform to the model in <code>m_free</code>.</p>
 <span><span class="co">#&gt;                                                       </span></span>
 <span><span class="co">#&gt;   Akaike (AIC)                             1333249.965</span></span>
 <span><span class="co">#&gt;   Bayesian (BIC)                           1333383.146</span></span>
-<span><span class="co">#&gt;   Sample-size adjusted Bayesian (BIC)      1333338.653</span></span>
+<span><span class="co">#&gt;   Sample-size adjusted Bayesian (SABIC)    1333338.653</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Root Mean Square Error of Approximation:</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   RMSEA                                          0.001</span></span>
 <span><span class="co">#&gt;   90 Percent confidence interval - lower         0.000</span></span>
 <span><span class="co">#&gt;   90 Percent confidence interval - upper         0.004</span></span>
-<span><span class="co">#&gt;   P-value RMSEA &lt;= 0.05                          1.000</span></span>
+<span><span class="co">#&gt;   P-value H_0: RMSEA &lt;= 0.050                    1.000</span></span>
+<span><span class="co">#&gt;   P-value H_0: RMSEA &gt;= 0.080                    0.000</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Standardized Root Mean Square Residual:</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -664,16 +664,187 @@ the correlations among the observed variables.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_model_implied_correlations.html">get_model_implied_correlations</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggcor</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simstandard_tutorial_files/figure-html/unnamed-chunk-9-1.png" width="100%" height="100%"></p>
+<p><img src="simstandard_tutorial_files/figure-html/modelimpliedcor-1.png" width="100%" height="100%"></p>
 <p>It is possible to extract the model-implied correlations among the
 observed variables, latent variables, error terms, factor scores, and
 composite variables. For example, here we extract correlations among the
 observed and latent variables:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_model_implied_correlations.html">get_model_implied_correlations</a></span><span class="op">(</span><span class="va">m</span>,</span>
-<span>                               latent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_model_implied_correlations.html">get_model_implied_correlations</a></span><span class="op">(</span></span>
+<span>  <span class="va">m</span>,</span>
+<span>  latent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggcor</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simstandard_tutorial_files/figure-html/unnamed-chunk-10-1.png" width="100%" height="100%"></p>
+<p><img src="simstandard_tutorial_files/figure-html/corplot-1.png" width="100%" height="100%"></p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># lavaan syntax for model</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st">A =~ 0.7 * A1 + 0.8 * A2 + 0.9 * A3 + 0.3 * B1</span></span>
+<span><span class="st">B =~ 0.7 * B1 + 0.8 * B2 + 0.9 * B3</span></span>
+<span><span class="st">B ~ 0.6 * A</span></span>
+<span><span class="st"></span></span>
+<span><span class="st"># Variances</span></span>
+<span><span class="st">A1 ~~ 0.51 * A1</span></span>
+<span><span class="st">A2 ~~ 0.36 * A2</span></span>
+<span><span class="st">A3 ~~ 0.19 * A3</span></span>
+<span><span class="st">B1 ~~ 0.168 * B1</span></span>
+<span><span class="st">B2 ~~ 0.36 * B2</span></span>
+<span><span class="st">B3 ~~ 0.19 * B3</span></span>
+<span><span class="st">A ~~ 1 * A</span></span>
+<span><span class="st">B ~~ 0.64 * B</span></span>
+<span><span class="st">"</span></span>
+<span></span>
+<span><span class="va">m_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/model.syntax.html" class="external-link">lavaanify</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </span>
+<span>  </span>
+<span></span>
+<span><span class="co"># mRAM &lt;- lavMatrixRepresentation(m_fit, </span></span>
+<span>                                <span class="co"># representation = "RAM")</span></span>
+<span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    v_latent_exogenous <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavNames.html" class="external-link">lavNames</a></span><span class="op">(</span><span class="va">m_fit</span>, <span class="st">"lv.x"</span><span class="op">)</span>,</span>
+<span>    v_latent_endogenous <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavNames.html" class="external-link">lavNames</a></span><span class="op">(</span><span class="va">m_fit</span>, <span class="st">"lv.nox"</span><span class="op">)</span>,</span>
+<span>    v_observed_exogenous <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavNames.html" class="external-link">lavNames</a></span><span class="op">(</span><span class="va">m_fit</span>, <span class="st">"ov.x"</span><span class="op">)</span>,</span>
+<span>    v_observed_endogenous <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavNames.html" class="external-link">lavNames</a></span><span class="op">(</span><span class="va">m_fit</span>, <span class="st">"ov.nox"</span><span class="op">)</span>,</span>
+<span>    v_observed_indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavNames.html" class="external-link">lavNames</a></span><span class="op">(</span><span class="va">m_fit</span>, <span class="st">"ov.ind"</span><span class="op">)</span>,</span>
+<span>    v_disturbance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"d_"</span>, <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavNames.html" class="external-link">lavNames</a></span><span class="op">(</span><span class="va">m_fit</span>, <span class="st">"lv.nox"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    v_error <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"e_"</span>, <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavNames.html" class="external-link">lavNames</a></span><span class="op">(</span><span class="va">m_fit</span>, <span class="st">"ov.nox"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">v</span><span class="op">$</span><span class="va">v_residual</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_error</span>,</span>
+<span>                        <span class="va">v</span><span class="op">$</span><span class="va">v_disturbance</span><span class="op">)</span></span>
+<span><span class="va">v</span><span class="op">$</span><span class="va">v_exogenous</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_residual</span>,</span>
+<span>                         <span class="va">v</span><span class="op">$</span><span class="va">v_observed_exogenous</span>,</span>
+<span>                         <span class="va">v</span><span class="op">$</span><span class="va">v_latent_exogenous</span><span class="op">)</span></span>
+<span><span class="va">v</span><span class="op">$</span><span class="va">v_endogenous</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_observed_endogenous</span>,</span>
+<span>                          <span class="va">v</span><span class="op">$</span><span class="va">v_latent_endogenous</span><span class="op">)</span></span>
+<span><span class="va">v</span><span class="op">$</span><span class="va">v_modeled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_endogenous</span>,</span>
+<span>                       <span class="va">v</span><span class="op">$</span><span class="va">v_latent_exogenous</span>,</span>
+<span>                       <span class="va">v</span><span class="op">$</span><span class="va">v_observed_exogenous</span><span class="op">)</span></span>
+<span><span class="va">v</span><span class="op">$</span><span class="va">v_observed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_observed_exogenous</span>, </span>
+<span>                        <span class="va">v</span><span class="op">$</span><span class="va">v_observed_endogenous</span><span class="op">)</span></span>
+<span><span class="va">v</span><span class="op">$</span><span class="va">v_latent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_latent_exogenous</span>, </span>
+<span>                      <span class="va">v</span><span class="op">$</span><span class="va">v_latent_endogenous</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Reduced ram</span></span>
+<span><span class="va">rram</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">rram</span><span class="op">$</span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, </span>
+<span>                 nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_modeled</span><span class="op">)</span>, </span>
+<span>                 ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_modeled</span><span class="op">)</span>, </span>
+<span>                 dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_modeled</span>, <span class="va">v</span><span class="op">$</span><span class="va">v_modeled</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">rram</span><span class="op">$</span><span class="va">S</span> <span class="op">&lt;-</span> <span class="va">rram</span><span class="op">$</span><span class="va">A</span> </span>
+<span><span class="va">rram</span><span class="op">$</span><span class="cn">F</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>  <span class="fl">0</span>,</span>
+<span>  nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_observed</span><span class="op">)</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_modeled</span><span class="op">)</span>,</span>
+<span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_observed</span>, <span class="va">v</span><span class="op">$</span><span class="va">v_modeled</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="va">m_fit</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">op</span> <span class="op">==</span> <span class="st">"=~"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">rhs</span>, <span class="va">lhs</span>, <span class="va">ustart</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   rhs lhs ustart</span></span>
+<span><span class="co">#&gt; 1  A1   A    0.7</span></span>
+<span><span class="co">#&gt; 2  A2   A    0.8</span></span>
+<span><span class="co">#&gt; 3  A3   A    0.9</span></span>
+<span><span class="co">#&gt; 4  B1   A    0.3</span></span>
+<span><span class="co">#&gt; 5  B1   B    0.7</span></span>
+<span><span class="co">#&gt; 6  B2   B    0.8</span></span>
+<span><span class="co">#&gt; 7  B3   B    0.9</span></span>
+<span></span>
+<span><span class="va">m_fit</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">op</span> <span class="op">==</span> <span class="st">"~"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">lhs</span>, <span class="va">rhs</span>, <span class="va">ustart</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   lhs rhs ustart</span></span>
+<span><span class="co">#&gt; 1   B   A    0.6</span></span>
+<span></span>
+<span><span class="va">d_A</span> <span class="op">&lt;-</span> <span class="va">m_fit</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">op</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"=~"</span>, <span class="st">"~"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cause <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">op</span> <span class="op">==</span> <span class="st">"~"</span>, <span class="va">rhs</span>, <span class="va">lhs</span><span class="op">)</span>,</span>
+<span>         effect <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">op</span> <span class="op">==</span> <span class="st">"~"</span>, <span class="va">lhs</span>, <span class="va">rhs</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">d_S</span> <span class="op">&lt;-</span> <span class="va">m_fit</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">op</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"~~"</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">rram</span><span class="op">$</span><span class="va">A</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">d_A</span><span class="op">$</span><span class="va">effect</span>, <span class="va">d_A</span><span class="op">$</span><span class="va">cause</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">d_A</span><span class="op">$</span><span class="va">ustart</span></span>
+<span><span class="va">rram</span><span class="op">$</span><span class="va">S</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">d_S</span><span class="op">$</span><span class="va">lhs</span>, <span class="va">d_S</span><span class="op">$</span><span class="va">rhs</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">d_S</span><span class="op">$</span><span class="va">ustart</span></span>
+<span><span class="va">rram</span><span class="op">$</span><span class="va">S</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">d_S</span><span class="op">$</span><span class="va">rhs</span>, <span class="va">d_S</span><span class="op">$</span><span class="va">lhs</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">d_S</span><span class="op">$</span><span class="va">ustart</span></span>
+<span><span class="va">rram</span><span class="op">$</span><span class="cn">F</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_observed</span>, <span class="va">v</span><span class="op">$</span><span class="va">v_observed</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">rram</span><span class="op">$</span><span class="va">S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_exogenous</span>, <span class="va">v</span><span class="op">$</span><span class="va">v_exogenous</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="va">extended_diag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">rram</span><span class="op">$</span><span class="va">A</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_residual</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">`dimnames&lt;-`</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">rram</span><span class="op">$</span><span class="va">A</span><span class="op">)</span>, <span class="va">v</span><span class="op">$</span><span class="va">v_residual</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">`diag&lt;-`</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">rram</span><span class="op">$</span><span class="va">S</span><span class="op">[</span><span class="va">v</span><span class="op">$</span><span class="va">v_residual</span>, <span class="va">v</span><span class="op">$</span><span class="va">v_residual</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">extended_A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">rram</span><span class="op">$</span><span class="va">A</span>, <span class="va">extended_diag</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_residual</span><span class="op">)</span>,</span>
+<span>               ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">v</span><span class="op">$</span><span class="va">v_residual</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">rram</span><span class="op">$</span><span class="va">A</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">`rownames&lt;-`</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Identity matrix the same size as A and S</span></span>
+<span><span class="va">I</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">extended_A</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Inverted I - A for total effects (direct + indirect)</span></span>
+<span><span class="va">iA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="va">I</span> <span class="op">-</span> <span class="va">extended_A</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Exogenous covariance matrix</span></span>
+<span><span class="va">extended_S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, </span>
+<span>                     nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">extended_A</span><span class="op">)</span>, </span>
+<span>                     ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">extended_A</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">`dimnames&lt;-`</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">extended_A</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># diag(extended_S) &lt;- 1</span></span>
+<span><span class="va">extended_S</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">rram</span><span class="op">$</span><span class="va">S</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">rram</span><span class="op">$</span><span class="va">S</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="va">extended_cov</span> <span class="op">&lt;-</span> <span class="va">iA</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">extended_S</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">iA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">extended_mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">extended_A</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">`names&lt;-`</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">extended_A</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">extended_mu</span><span class="op">[</span><span class="va">v</span><span class="op">$</span><span class="va">v_residual</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">rram</span><span class="op">$</span><span class="va">S</span>, symmetric <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">#&gt; eigen() decomposition</span></span>
+<span><span class="co">#&gt; $values</span></span>
+<span><span class="co">#&gt; [1] 1.000 0.640 0.510 0.360 0.360 0.190 0.190 0.168</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $vectors</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
+<span><span class="co">#&gt; [1,]    0    0    1    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; [2,]    0    0    0    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; [3,]    0    0    0    0    0    0    1    0</span></span>
+<span><span class="co">#&gt; [4,]    0    0    0    0    0    0    0    1</span></span>
+<span><span class="co">#&gt; [5,]    0    0    0    0    1    0    0    0</span></span>
+<span><span class="co">#&gt; [6,]    0    0    0    0    0    1    0    0</span></span>
+<span><span class="co">#&gt; [7,]    0    1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; [8,]    1    0    0    0    0    0    0    0</span></span>
+<span></span>
+<span></span>
+<span><span class="op">(</span><span class="op">(</span><span class="va">iA</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">extended_S</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">iA</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>,<span class="va">v</span><span class="op">$</span><span class="va">v_exogenous</span><span class="op">]</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"variable"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">variable</span>, names_to <span class="op">=</span> <span class="st">"exogenous"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">value</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">exogenous</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">exogenous</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="simstandard_tutorial_files/figure-html/msyntax-1.png" width="100%" height="100%"></p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span></span>
+<span><span class="op">(</span><span class="va">iA</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">extended_S</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">iA</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="va">v</span><span class="op">$</span><span class="va">v_endogenous</span>,<span class="va">v</span><span class="op">$</span><span class="va">v_exogenous</span><span class="op">]</span></span>
+<span><span class="co">#&gt;         e_A1 e_A2      e_A3     e_B1 e_B2      e_B3  d_B    A</span></span>
+<span><span class="co">#&gt; A1 0.7141428  0.0 0.0000000 0.000000  0.0 0.0000000 0.00 0.70</span></span>
+<span><span class="co">#&gt; A2 0.0000000  0.6 0.0000000 0.000000  0.0 0.0000000 0.00 0.80</span></span>
+<span><span class="co">#&gt; A3 0.0000000  0.0 0.4358899 0.000000  0.0 0.0000000 0.00 0.90</span></span>
+<span><span class="co">#&gt; B1 0.0000000  0.0 0.0000000 0.409878  0.0 0.0000000 0.56 0.72</span></span>
+<span><span class="co">#&gt; B2 0.0000000  0.0 0.0000000 0.000000  0.6 0.0000000 0.64 0.48</span></span>
+<span><span class="co">#&gt; B3 0.0000000  0.0 0.0000000 0.000000  0.0 0.4358899 0.72 0.54</span></span>
+<span><span class="co">#&gt; B  0.0000000  0.0 0.0000000 0.000000  0.0 0.0000000 0.80 0.60</span></span></code></pre></div>
 </div>
   </div>
 
@@ -694,7 +865,7 @@ observed and latent variables:</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
       </footer>

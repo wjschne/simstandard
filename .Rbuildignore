@@ -17,3 +17,4 @@
 ^pkgdown$
 ^fixdocs.R$
 ^\.github$
+^CITATION\.cff$

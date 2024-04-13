@@ -334,3 +334,57 @@ test_that("Number of factor scores",
                          )
           })
 
+test_that("parameters greater than 1",
+          code = {
+            m <- "x ~~ 1.1 * y"
+            expect_warning(sim_standardized_matrices(m))
+          }
+            )
+
+test_that("not keeping observed scores",
+          code = {
+            # lavaan model
+            m = "
+            X =~ 0.9 * X1 + 0.8 * X2 + 0.7 * X3
+            "
+
+            # Make data.frame for two cases
+            d <- data.frame(
+              X1 = c(1.2, -1.2),
+              X2 = c(1.5, -1.8),
+              X3 = c(1.8, -1.1))
+
+            # Compute composite scores for two cases
+            d_composite <- add_composite_scores(d, m, keep_observed_scores = FALSE, names_suffix = "")
+
+            expect_equal(colnames(d_composite), "X")
+          }
+)
+
+
+test_that("non-symmetric covariance",
+          code = {
+
+            m <- data.frame(Indicators = c("A", "B", "C", "D"),
+                                            X = c(0.7,0.8,0,0),
+                                            Y = c(0,0,0.8,0.9))
+
+            s <- matrix(0.5, nrow = 1, ncol = 1, dimnames = list("Y", "X"))
+            Sigma <- matrix(
+              c(1, 0.31,
+                0.3, 1),
+              nrow = 2,
+              ncol = 2,
+              dimnames = list(c("B", "C"),
+                              c("B", "C"))
+            )
+
+
+            expect_error(matrix2lavaan(
+              measurement_model = m,
+              structural_model = s,
+              covariances = Sigma
+            ), regexp = "covariances must be symmetric.")
+          }
+)
+
