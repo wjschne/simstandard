@@ -32,8 +32,6 @@ library(dplyr)
 set.seed(123456)
 ```
 
-[![](logo.png){width=120 align="right"}](https://wjschne.github.io/simstandard/)
-
 # Purpose of simstandard
 
 In the figure below, you can see a hypothetical structural model with its standardized loadings and path coefficients.
